@@ -8,14 +8,14 @@ Lightweight tween library for Unity
 Some Important Definitions
 -----
 
-**Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration and the object to perform the animations on. Hang on to a reference if
+* **Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration and the object to perform the animations on. Hang on to a reference if
 you need to control the Tween after it starts (play, pause, reverse, etc). These auto-destruct by default. If you set them not to auto-destruct they will
 be left in the tween engine and you can restart/reverse them at a later time. Tweens can be set to update in the standard Update, FixedUpdate or LateUpdate methods
 or via a time scale independent update (handy when animating something while time scale is set to 0).
-**TweenConfig**: passed to the Tween constructor and contains a list of the TweenProperties, ease type, completion handler, etc. These can be created
+* **TweenConfig**: passed to the Tween constructor and contains a list of the TweenProperties, ease type, completion handler, etc. These can be created
 using method chaining for a JQuery like flow or via standard instantiation and property setting. Fully reuseable so save these if you intend
 to create multiple Tweens with the same config.
-**TweenProperty**: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
+* **TweenProperty**: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
 the property will move by the end value specified rather than to it. Fully reuseable.
 
 
