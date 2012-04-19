@@ -8,7 +8,7 @@ Lightweight tween library for Unity
 Some Important Definitions
 -----
 
-* **Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration and the object to perform the animations on. Hang on to a reference if
+* **Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration, loop count/type and the object to perform the animations on. Hang on to a reference if
 you need to control the Tween after it starts (play, pause, reverse, etc). These auto-destruct by default. If you set them not to auto-destruct they will
 be left in the tween engine and you can restart/reverse them at a later time. Tweens can be set to update in the standard Update, FixedUpdate or LateUpdate methods
 or via a time scale independent update (handy when animating something while time scale is set to 0).
