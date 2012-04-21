@@ -1,5 +1,5 @@
 GoKit
-===============
+====
 
 Lightweight tween library for Unity aimed at making tweening objects dead simple and completely flexible
 
@@ -25,7 +25,7 @@ you can specify an exact start time for any Tween to get timeline-like control o
 What can I Tween?
 -----
 
-You can tween any property on any object of type Vector2, Vector3 (including along a series of Vector3s), int, float or Color.
+You can tween any property on any object of type Vector2, Vector3 (including along a series of Vector3s), Vector4, int, float or Color.
 These make up what we call generic tweens.
 Generic tweens are slightly slower than specific tweens. We did some heavy-duty benchmarking and used some .NET trickery to make them pretty darn fast though.
 That being said the library offers what we call specific tweens as well. These are confined to a specific target object type and property and use
@@ -36,5 +36,5 @@ TweenProperty systeml
 Extension Methods For Easy Use and Syntax Sugar (sorry UnityScript users)
 ----
 
-GoKit adds extension methods to the Transform, GameObject and Material classes for easy access to creating single property animations. If there is a particular
+GoKit adds extension methods to the Object, Transform, GameObject and Material classes for easy access to creating single property animations. If there is a particular
 animation combo that you use often, use the GoKitTweenExtensions class as a template to make your own Extension methods on any class or object.
