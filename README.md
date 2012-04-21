@@ -8,8 +8,9 @@ Lightweight tween library for Unity aimed at making tweening objects dead simple
 Some Important Definitions
 -----
 
-* **Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration, loop count/type and the object to perform the animations on. Hang on to a reference if you need to control the Tween after it starts (play, pause, reverse, restart, goto, etc). These auto-destruct by default.
-If you set them not to auto-destruct they will be left in the tween engine and you can restart/reverse them at a later time. Tweens can be
+* **Tween**: base class that handles a list of TweenProperties to be animated concurrently, tween duration, loop count/type and the object to perform the animations on. Hang on to a reference if you need to control the Tween after it starts (play, pause, reverse, restart, goto, etc). Tween are automatically removed from GoKit
+when they complete by default.
+If you set them not to be automatically removed, they will be left in the tween engine and you can restart/reverse/reset them at a later time. Tweens can be
 set to update in the standard Update, FixedUpdate or LateUpdate methods or via a time scale independent update (handy when animating
 something while time scale is set to 0).
 * **TweenConfig**: passed to the Tween constructor and contains a list of the TweenProperties, ease type, completion handler, etc. These can be created
@@ -18,7 +19,7 @@ to create multiple Tweens with the same config.
 * **TweenProperty**: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
 the property will move by the end value specified rather than to it. Fully reuseable.
 * **TweenFlow**: can be used to manage a series of Tweens. You can append/prepend Tweens (and delay intervals) to make a single chain of animations or
-you can specify an exact start time for any Tween to get timeline like control over your Tweens. It offers the same playback controls as a standard Tween except they operate on the entire chain instead of a single Tween.
+you can specify an exact start time for any Tween to get timeline-like control over your Tweens. It offers the same playback controls as a standard Tween except they operate on the entire chain instead of a single Tween.
 
 
 What can I Tween?
