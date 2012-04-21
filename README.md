@@ -17,22 +17,23 @@ using method chaining for a JQuery like flow or via standard instantiation and p
 to create multiple Tweens with the same config.
 * **TweenProperty**: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
 the property will move by the end value specified rather than to it. Fully reuseable.
-* **TweenFlow**: can be used to manage a series of Tweens. You can append/prepend Tweens as well as specify an exact start time for any Tween to get timeline
-like control over your Tweens. It offers the same playback controls as a standard Tween except they operatie on the entire chain instead of a single Tween.
+* **TweenFlow**: can be used to manage a series of Tweens. You can append/prepend Tweens (and delay intervals) to make a single chain of animations or
+you can specify an exact start time for any Tween to get timeline like control over your Tweens. It offers the same playback controls as a standard Tween except they operate on the entire chain instead of a single Tween.
 
 
 What can I Tween?
 -----
 
-You can tween any property on any object of type Vector2, Vector3, Vector3 path, int, float or Color. These make up what we call generic tweens.
-Generic tweens are slightly slower than specific tweens. We did some heavy-duty benchmarking and used some .NET trickery to make them pretty darn fast. That being
-said the library offers what we call specific tweens. These are confined to a specific target object type and property and use direct access for the tween
-making them hyper fast. The available specific tweens are eulerAngles, localEulerAngles, material colors (_Color, _SpecColor, _Emission and _ReflectColor),
-position, localPosition (along with following a path) and scale.
+You can tween any property on any object of type Vector2, Vector3 (including along a series of Vector3s), int, float or Color.
+These make up what we call generic tweens.
+Generic tweens are slightly slower than specific tweens. We did some heavy-duty benchmarking and used some .NET trickery to make them pretty darn fast though.
+That being said the library offers what we call specific tweens as well. These are confined to a specific target object type and property and use
+direct access for the tween making them hyper fast. The available specific tweens are eulerAngles, localEulerAngles, material colors (_Color, _SpecColor, _Emission and _ReflectColor), position, localPosition (along with following a path) and scale. You can also always make your own specific tween using the extensible
+TweenProperty systeml
 
 
 Extension Methods For Easy Use and Syntax Sugar (sorry UnityScript users)
 ----
 
 GoKit adds extension methods to the Transform, GameObject and Material classes for easy access to creating single property animations. If there is a particular
-animation combo that you use often use the GoKitTweenExtensions class as a template to make your own Extension methods on any class of object.
+animation combo that you use often, use the GoKitTweenExtensions class as a template to make your own Extension methods on any class or object.
