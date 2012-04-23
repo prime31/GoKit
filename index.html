@@ -31,32 +31,34 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <h1>GoKit</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Lightweight tween library for Unity aimed at making tweening objects dead simple and completely flexible</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>Meet the GoKit Players</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<ul>
+<li>
+<strong>Tween</strong>: base class that handles a list of TweenProperties to be animated concurrently, tween duration, loop count/type and the object to perform the animations on. Hang on to a reference if you need to control the Tween after it starts (play, pause, reverse, restart, goto, etc). Tweens are automatically removed from GoKit
+when they complete by default. If you set them not to be automatically removed, they will be left in the tween engine and you can restart/reverse/reset them at a later time. Tweens can be set to update in the standard Update, FixedUpdate or LateUpdate methods or via a time scale independent update (handy when animating something while time scale is set to 0).</li>
+<li>
+<strong>TweenConfig</strong>: passed to the Tween constructor and contains a list of the TweenProperties, ease type, completion handler, etc. These can be created using method chaining for a JQuery like flow or via standard instantiation and property setting. Fully reuseable so save these if you intend to create multiple Tweens with the same config.</li>
+<li>
+<strong>TweenProperty</strong>: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
+the property will move by the end value specified rather than to it. Fully reuseable.</li>
+<li>
+<strong>TweenChain</strong>: used to manage a series of Tweens (or TweenChains/TweenFlows). You can append/prepend elements (and delay intervals) to make a single chain of animations. It offers the same playback controls as a standard Tween except they operate on the entire chain instead of a single Tween.</li>
+<li>
+<strong>TweenFlow</strong>: used to manage a timeline of Tweens (or TweenChains/TweenFlows) each with specific start time. Contrary to a TweenChain where each member
+must complete before the next starts TweenFlows allow you to overlap playback of it's members. TweenFlows offer the same playback controls as a standard Tween except they operate on the entire flow instead of a single Tween.</li>
+</ul><h2>What can I Tween?</h2>
 
-<h3>Designer Templates</h3>
+<p>Short answer: anything. You can tween any property on any object of type Vector2, Vector3 (including through a series of Vector3s), Vector4, int, float or Color. These make up what we call generic tweens. Generic tweens are slightly slower than specific tweens. We did some heavy-duty benchmarking and used some .NET trickery to make them pretty darn fast though. That being said the library offers what we call specific tweens as well. These are confined to a specific target object type and property and use direct access for the tween making them hyper fast. The available specific tweens are eulerAngles, localEulerAngles, material colors (_Color, _SpecColor, _Emission and _ReflectColor), position, localPosition (along with following a path) and scale. You can also always make your own specific Tweens using the fully extensible TweenProperty system.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h2>Extension Methods For Ease of Use and Syntax Sugar (sorry UnityScript users)</h2>
 
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>GoKit adds extension methods to the Transform and Material classes for easy access to creating often-used single property animations. If there is a particular
+animation combo that you use often, use the GoKitTweenExtensions class as a template to make your own Extension methods on any class or object.</p>
       </section>
     </div>
 
