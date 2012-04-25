@@ -30,3 +30,13 @@ Extension Methods For Ease of Use and Syntax Sugar (sorry UnityScript users)
 
 GoKit adds extension methods to the Transform and Material classes for easy access to creating often-used single property animations. If there is a particular
 animation combo that you use often, use the GoKitTweenExtensions class as a template to make your own Extension methods on any class or object.
+
+
+License
+----
+For any developers just wanting to use GoKit in their games go right ahead.  You can use GoKit in any and all games either modified or unmodified.  In order to keep the spirit of this open source project it is expressly forbid to sell or distribute GoKit outside of your games. You can freely use it in as many games as you would like but you cannot distribute the source code either directly or compiled into a library outside of your game.
+
+Feel free to include a "prime31 inside" logo on your about page, web page, splash page or anywhere else your game might show up if you would like.  
+[small](http://prime31.com/assets/images/prime31InsideSmall.png) or 
+[larger](http://prime31.com/assets/images/prime31Inside.png) or
+[huge](http://prime31.com/assets/images/prime31InsideHuge.png)
