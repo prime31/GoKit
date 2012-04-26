@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="GoKit : Lightweight tween library for Unity" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>GoKit</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/prime31/GoKit">Fork Me on GitHub</a>
+
+          <h1 id="project_title">GoKit</h1>
+          <h2 id="project_tagline">Lightweight tween library for Unity</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/prime31/GoKit/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/prime31/GoKit/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>GoKit</h1>
+
+<p>Lightweight tween library for Unity aimed at making tweening objects dead simple and completely flexible. API docs are available
+<a href="http://prime31.com/unity/docs/#goKitDoc">here</a> and the <a href="https://github.com/prime31/GoKit/wiki">wiki</a> contains usage information and examples.</p>
+
+<h2>Meet the GoKit Players</h2>
+
+<ul>
+<li>
+<strong>Tween</strong>: base class that handles a list of TweenProperties to be animated concurrently, tween duration, loop count/type and the object to perform the animations on. Hang on to a reference if you need to control the Tween after it starts (play, pause, reverse, restart, goto, etc). Tweens are automatically removed from GoKit
+when they complete by default. If you set them not to be automatically removed, they will be left in the tween engine and you can restart/reverse/reset them at a later time. Tweens can be set to update in the standard Update, FixedUpdate or LateUpdate methods or via a time scale independent update (handy when animating something while time scale is set to 0).</li>
+<li>
+<strong>TweenConfig</strong>: passed to the Tween constructor and contains a list of the TweenProperties, ease type, completion handler, etc. These can be created using method chaining for a JQuery like flow or via standard instantiation and property setting. Fully reuseable so save these if you intend to create multiple Tweens with the same config.</li>
+<li>
+<strong>TweenProperty</strong>: houses the value to tween to and the ease function to use while tweening. Optionally, each TweenProperty can be set to relative, meaning
+the property will move by the end value specified rather than to it. Fully reuseable.</li>
+<li>
+<strong>TweenChain</strong>: used to manage a series of Tweens (or TweenChains/TweenFlows). You can append/prepend elements (and delay intervals) to make a single chain of animations. It offers the same playback controls as a standard Tween except they operate on the entire chain instead of a single Tween.</li>
+<li>
+<strong>TweenFlow</strong>: used to manage a timeline of Tweens (or TweenChains/TweenFlows) each with specific start time. Contrary to a TweenChain where each member
+must complete before the next starts TweenFlows allow you to overlap playback of it's members. TweenFlows offer the same playback controls as a standard Tween except they operate on the entire flow instead of a single Tween.</li>
+</ul><h2>What can I Tween?</h2>
+
+<p>Short answer: anything. You can tween any property on any object of type Vector2, Vector3 (including through a series of Vector3s), Vector4, int, float or Color. These make up what we call generic tweens. Generic tweens are slightly slower than specific tweens. We did some heavy-duty benchmarking and used some .NET trickery to make them pretty darn fast though. That being said the library offers what we call specific tweens as well. These are confined to a specific target object type and property and use direct access for the tween making them hyper fast. The available specific tweens are eulerAngles, localEulerAngles, material colors (_Color, _SpecColor, _Emission and _ReflectColor), position, localPosition (along with following a path) and scale. You can also always make your own specific Tweens using the fully extensible TweenProperty system.</p>
+
+<h2>Extension Methods For Ease of Use and Syntax Sugar (sorry UnityScript users)</h2>
+
+<p>GoKit adds extension methods to the Transform and Material classes for easy access to creating often-used single property animations. If there is a particular
+animation combo that you use often, use the GoKitTweenExtensions class as a template to make your own Extension methods on any class or object.</p>
+
+<h2>License</h2>
+
+<p>For any developers just wanting to use GoKit in their games go right ahead.  You can use GoKit in any and all games either modified or unmodified.  In order to keep the spirit of this open source project it is expressly forbid to sell or distribute GoKit outside of your games. You can freely use it in as many games as you would like but you cannot distribute the source code either directly or compiled into a library outside of your game.</p>
+
+<p>Feel free to include a "prime31 inside" logo on your about page, web page, splash page or anywhere else your game might show up if you would like.<br><a href="http://prime31.com/assets/images/prime31InsideSmall.png">small</a> or 
+<a href="http://prime31.com/assets/images/prime31Inside.png">larger</a> or
+<a href="http://prime31.com/assets/images/prime31InsideHuge.png">huge</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">GoKit maintained by <a href="https://github.com/prime31">prime31</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
