@@ -1,0 +1,72 @@
+using UnityEngine;
+using System;
+using System.Collections;
+
+
+
+public class BaseDemoGUI : MonoBehaviour
+{
+	protected AbstractTween _tween;
+
+	
+	void OnGUI()
+	{
+		if( _tween == null )
+			return;
+		
+		GUILayout.Label( "elapsed: " + string.Format( "{0:0.##}", _tween.totalElapsedTime ) );
+		
+		
+		if( GUILayout.Button( "play" ) )
+			_tween.play();
+		
+		if( GUILayout.Button( "pause" ) )
+			_tween.pause();
+		
+		if( GUILayout.Button( "reverse" ) )
+			_tween.reverse();
+		
+		if( GUILayout.Button( "restart" ) )
+			_tween.restart();
+		
+		if( GUILayout.Button( "play backwards" ) )
+			_tween.playBackwards();
+		
+		if( GUILayout.Button( "play forward" ) )
+			_tween.playForward();
+		
+		if( GUILayout.Button( "complete" ) )
+			_tween.complete();
+		
+
+		
+		// ease section. only available for Tweens
+		if( _tween is Tween )
+		{
+			GUILayout.BeginArea( new Rect( Screen.width - 200, 0, 100, Screen.height ) );
+			
+			GUILayout.Label( "Ease Types" );
+			
+			var allEaseTypes = Enum.GetValues( typeof( EaseType ) );
+			var midway = Mathf.Round( allEaseTypes.Length / 2 );
+			
+			for( var i = 0; i < allEaseTypes.Length; i++ )
+			{
+				var ease = allEaseTypes.GetValue( i );
+				
+				
+				if( i == midway )
+				{
+					GUILayout.EndArea();
+					GUILayout.BeginArea( new Rect( Screen.width - 100, 0, 100, Screen.height ) );
+				}
+				
+				if( GUILayout.Button( ease.ToString() ) )
+					((Tween)_tween).easeType = (EaseType)ease;
+			}
+			
+			GUILayout.EndArea();
+		}
+	}
+
+}
