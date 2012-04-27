@@ -22,6 +22,7 @@ public abstract class AbstractTween
 	public bool autoRemoveOnComplete { get; set; } // should we automatically remove ourself from the Go's list of tweens when done?
 	public bool isReversed { get; protected set; } // have we been reversed? this is different than a PingPong loop's backwards section
 	protected bool _didStart; // flag to ensure onStart only gets fired once and TweenProperties are initialized once
+	protected bool _didComplete; // flag to ensure onComplete only gets fired once
 	
 	// internal state for update logic
 	protected float _elapsedTime; // elapsed time for the current loop iteration
@@ -59,6 +60,18 @@ public abstract class AbstractTween
 		
 		if( _onStart != null )
 			_onStart( this );
+	}
+	
+	
+	/// <summary>
+	/// called once per tween when it completes
+	/// </summary>
+	protected virtual void onComplete()
+	{
+		_didComplete = true;
+		
+		if( _onComplete != null )
+			_onComplete( this );
 	}
 	
 	
@@ -105,7 +118,7 @@ public abstract class AbstractTween
 		
 		
 		// figure out the current elapsedTime
-		if( iterations > 0 && completedIterations >= iterations )
+		if( iterations > 0 && _completedIterations >= iterations )
 		{
 			// we finished all iterations so clamp to the end of this tick
 			_elapsedTime = duration;
@@ -120,6 +133,8 @@ public abstract class AbstractTween
 		}
 		else
 		{
+			// TODO: when we increment a completed iteration (go from 0 to 1 for example) we should probably run through once setting
+			// _elapsedTime = duration so that complete handlers in a chain or flow fire when expected
 			_elapsedTime = _totalElapsedTime % duration; // have finished at least one iteration
 		}
 		
@@ -133,8 +148,8 @@ public abstract class AbstractTween
 		if( state == TweenState.Complete )
 		{
 			// fire off the completion handler and return true
-			if( _onComplete != null )
-				_onComplete( this );
+			if( !_didComplete )
+				onComplete();
 			return true;
 		}
 		
@@ -228,10 +243,13 @@ public abstract class AbstractTween
 	
 	
 	/// <summary>
-	/// rewinds the tween to the beginning and starts playback optionally skipping delay (only relevant for Tweens)
+	/// rewinds the tween to the beginning and starts playback optionally skipping delay (only relevant for Tweens). Note that onStart and onComplete
+	/// will again fire after calling restart
 	/// </summary>
 	public void restart( bool skipDelay = true )
 	{
+		// reset state when we restart
+		_didStart = _didComplete = false;
 		rewind();
 		state = TweenState.Running;
 	}

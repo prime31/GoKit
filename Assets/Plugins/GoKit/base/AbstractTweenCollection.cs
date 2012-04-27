@@ -46,6 +46,8 @@ public class AbstractTweenCollection : AbstractTween
 	}
 	
 	
+	#region AbstractTween overrides
+	
 	/// <summary>
 	/// returns a list of all Tweens with the given target in the collection
 	/// technically, this should be marked as internal
@@ -139,8 +141,6 @@ public class AbstractTweenCollection : AbstractTween
 		return true;
 	}
 	
-	
-	#region AbstractTween overrides
 	
 	/// <summary>
 	/// tick method. if it returns true it indicates the tween is complete

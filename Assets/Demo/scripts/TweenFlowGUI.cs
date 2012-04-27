@@ -20,13 +20,13 @@ public class TweenFlowGUI : BaseDemoGUI
 			.materialColor( Color.magenta ) // tween the material color to magenta
 			.eulerAngles( new Vector3( 0, 360, 0 ) ) // do a 360 rotation
 			.position( new Vector3( 2, 8, 0 ), true ) // relative position tween so it will be start from the current location
-			.setIterations( 2, LoopType.PingPong ); // 2 iterations with a PingPong loop so we go out and back
+			.setIterations( 2, LoopType.PingPong ); // 2 iterations with a PingPong loop so we go out and back;
 		
 		// create the flow and set it to have 2 iterations
 		var flow = new TweenFlow().setIterations( 2 );
 		
 		// add a completion handler for the chain
-		flow.setOnCompleteHandler( c => Debug.Log( "chain complete" ) );
+		flow.setOnCompleteHandler( c => Debug.Log( "flow complete" ) );
 		
 		// create a Tween for each cube and it to the flow
 		var startTime = 0f;
