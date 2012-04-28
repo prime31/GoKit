@@ -10,10 +10,11 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class AbstractTween
 {
-	public int id = 0; // optional id used for identifying this Tween
-	public TweenState state { get; protected set; } // current state of the Tween
+	public int id = 0; // optional id used for identifying this tween
+	public TweenState state { get; protected set; } // current state of the tween
 	public float duration { get; protected set; } // duration for a single loop
 	public float totalDuration { get; protected set; } // duration for all loops of this tween
+	public float timeScale { get; set; } // time scale to be used by this tween
 	
 	public UpdateType updateType { get; protected set; }
 	public LoopType loopType { get; protected set; }
@@ -28,10 +29,13 @@ public abstract class AbstractTween
 	protected float _elapsedTime; // elapsed time for the current loop iteration
 	protected float _totalElapsedTime; // total elapsed time of the entire tween
 	public float totalElapsedTime { get { return _totalElapsedTime; } }
+	
 	protected bool _isLoopingBackOnPingPong;
 	public bool isLoopoingBackOnPingPong { get { return _isLoopingBackOnPingPong; } }
+	
 	protected int _completedIterations;
 	public int completedIterations { get { return _completedIterations; } }
+	
 	
 	// action event handlers
 	protected Action<AbstractTween> _onStart; // executes only once at initial startup

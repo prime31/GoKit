@@ -23,7 +23,7 @@ public class TweenChainGUI : BaseDemoGUI
 		
 		// add a completion handler for the chain
 		chain.setOnCompleteHandler( c => Debug.Log( "chain complete" ) );
-		
+
 		// create a Tween for each cube and it to the chain
 		foreach( var cube in cubes )
 		{

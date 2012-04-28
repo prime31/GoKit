@@ -64,7 +64,7 @@ public class Go : MonoBehaviour
 			var t = _tweens[i];
 			
 			// only process tweens with our update type that are running
-			if( t.updateType == updateType && t.state == TweenState.Running && t.update( deltaTime ) )
+			if( t.updateType == updateType && t.state == TweenState.Running && t.update( deltaTime * t.timeScale ) )
 			{
 				// tween is complete if we get here. if destroyed or set to auto remove kill it
 				if( t.state == TweenState.Destroyed || t.autoRemoveOnComplete )

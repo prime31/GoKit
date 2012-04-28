@@ -12,6 +12,7 @@ public class TweenConfig
 	public int id; // id for finding the Tween at a later time. multiple Tweens can have the same id
 	public float delay; // how long should we delay before starting the Tween
 	public int iterations = 1; // number of times to iterate. -1 will loop indefinitely
+	public int timeScale = 1;
 	public LoopType loopType;
 	public EaseType easeType;
 	public bool isPaused;
@@ -323,6 +324,16 @@ public class TweenConfig
 	{
 		this.iterations = iterations;
 		this.loopType = loopType;
+		return this;
+	}
+	
+	
+	/// <summary>
+	/// sets the timeScale to be used by the Tween
+	/// </summary>
+	public TweenConfig setTimeScale( int timeScale )
+	{
+		this.timeScale = timeScale;
 		return this;
 	}
 	

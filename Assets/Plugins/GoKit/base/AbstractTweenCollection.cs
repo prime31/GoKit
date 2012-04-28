@@ -40,6 +40,7 @@ public class AbstractTweenCollection : AbstractTween
 	
 	public AbstractTweenCollection()
 	{
+		timeScale = 1;
 		iterations = 1;
 		state = TweenState.Paused;
 		Go.addTween( this );

@@ -57,6 +57,7 @@ public class Tween : AbstractTween
 		_easeType = config.easeType;
 		updateType = config.propertyUpdateType;
 		isFrom = config.isFrom;
+		timeScale = config.timeScale;
 		_onComplete = config.onCompleteHandler;
 		_onStart = config.onStartHandler;
 		
@@ -96,7 +97,9 @@ public class Tween : AbstractTween
 		// handle delay and return if we are still delaying
 		if( !_delayComplete && _elapsedDelay < delay )
 		{
-			_elapsedDelay += deltaTime;
+			// if we have a timeScale set we need to remove its influence so that delays are always in seconds
+			if( timeScale != 0 )
+				_elapsedDelay += deltaTime / timeScale;
 			
 			// are we done delaying?
 			if( _elapsedDelay >= delay )
