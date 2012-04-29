@@ -154,7 +154,20 @@ public class TweenConfig
 	}
 	
 	
-	// Start generic property tweens
+	/// <summary>
+	/// shake tween
+	/// </summary>
+	public TweenConfig shake( Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1 )
+	{
+		var prop = new ShakeTweenProperty( shakeMagnitude, shakeType, frameMod );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+	
+	
+	#region generic properties
+	
 	/// <summary>
 	/// generic vector2 tween
 	/// </summary>
@@ -273,6 +286,8 @@ public class TweenConfig
 		
 		return this;
 	}
+	
+	#endregion
 	
 	#endregion
 	

@@ -43,6 +43,12 @@ public static class GoKitTweenExtensions
 	}
 	
 	
+	public static Tween shake( this Transform self, float duration, Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1 )
+	{
+		return Go.to( self, duration, new TweenConfig().shake( shakeMagnitude, shakeType, frameMod ) );
+	}
+	
+	
 	// from tweens
 	public static Tween eularAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
