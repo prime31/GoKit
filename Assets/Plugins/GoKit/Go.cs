@@ -324,9 +324,9 @@ public class Go : MonoBehaviour
 	/// returns a list of all Tweens with the given target. TweenChains and TweenFlows can optionally
 	/// be traversed and matching Tweens returned as well.
 	/// </summary>
-	public static List<AbstractTween> tweensWithTarget( object target, bool traverseCollections = false )
+	public static List<Tween> tweensWithTarget( object target, bool traverseCollections = false )
 	{
-		List<AbstractTween> list = new List<AbstractTween>();
+		List<Tween> list = new List<Tween>();
 		
 		foreach( var item in _tweens )
 		{
@@ -353,7 +353,7 @@ public class Go : MonoBehaviour
 	
 	
 	/// <summary>
-	/// kills all tweens with the given target
+	/// kills all tweens with the given target by calling the destroy method on each one
 	/// </summary>
 	public static void killAllTweensWithTarget( object target )
 	{

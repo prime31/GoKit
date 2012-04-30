@@ -7,9 +7,10 @@ using System.Collections;
 public class BaseDemoGUI : MonoBehaviour
 {
 	protected AbstractTween _tween;
+	protected float _tweenTimeScale = 1;
 
 	
-	void OnGUI()
+	protected virtual void OnGUI()
 	{
 		if( _tween == null )
 			return;
@@ -38,8 +39,20 @@ public class BaseDemoGUI : MonoBehaviour
 		if( GUILayout.Button( "complete" ) )
 			_tween.complete();
 		
-
+		GUILayout.Label( "Time Scale: " + string.Format( "{0:0.##}", _tween.timeScale ) );
+		var newTweenTimeScale = GUILayout.HorizontalSlider( _tweenTimeScale, 0, 3 );
+		if( newTweenTimeScale != _tweenTimeScale )
+		{
+			_tweenTimeScale = newTweenTimeScale;
+			_tween.timeScale = _tweenTimeScale;
+		}
 		
+		easeTypesGUI();
+	}
+	
+	
+	protected void easeTypesGUI()
+	{
 		// ease section. only available for Tweens
 		if( _tween is Tween )
 		{

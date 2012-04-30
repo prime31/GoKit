@@ -106,6 +106,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 		// we want 1 minus the eased time so that we go from 1 - 0 for a shake
 		var easedTime = 1 - _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
 		
+		
 		// shake any properties required
 		if( ( _shakeType & ShakeType.Position ) != 0 )
 		{

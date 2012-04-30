@@ -53,9 +53,9 @@ public class AbstractTweenCollection : AbstractTween
 	/// returns a list of all Tweens with the given target in the collection
 	/// technically, this should be marked as internal
 	/// </summary>
-	public List<AbstractTween> tweensWithTarget( object target )
+	public List<Tween> tweensWithTarget( object target )
 	{
-		List<AbstractTween> list = new List<AbstractTween>();
+		List<Tween> list = new List<Tween>();
 		
 		foreach( var item in _tweenFlows )
 		{
