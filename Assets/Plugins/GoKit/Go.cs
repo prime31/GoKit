@@ -351,6 +351,16 @@ public class Go : MonoBehaviour
 		return list;
 	}
 	
+	
+	/// <summary>
+	/// kills all tweens with the given target
+	/// </summary>
+	public static void killAllTweensWithTarget( object target )
+	{
+		foreach( var tween in tweensWithTarget( target, true ) )
+			tween.destroy();
+	}
+	
 	#endregion
 
 }
