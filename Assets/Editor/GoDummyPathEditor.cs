@@ -181,13 +181,13 @@ public class GoDummyPathEditor : Editor
 		
 		// instructions
 		EditorGUILayout.Space();
-		GUILayout.Box( "While dragging a node, hold down Ctrl and slowly move the cursor to snap to a nearby point\n\n" +
+		EditorGUILayout.HelpBox( "While dragging a node, hold down Ctrl and slowly move the cursor to snap to a nearby point\n\n" +
 		               "Click the 'Close Path' button to add a new node that will close out the current path.\n\n" +
 		               "Hold Command while dragging a node to snap in 5 point increments\n\n" +
 		               "Double click to add a new node at the end of the path\n\n" +
 					   "Hold down alt while adding a node to prepend the new node at the front of the route\n\n" +
 		               "Press delete or backspace to delete the selected node\n\n" +
-		               "NOTE: make sure you have the pan tool selected while editing paths" );
+		               "NOTE: make sure you have the pan tool selected while editing paths", MessageType.None );
 
 		
 		// update and redraw:
