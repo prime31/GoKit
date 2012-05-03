@@ -247,13 +247,13 @@ public abstract class AbstractTween
 	
 	
 	/// <summary>
-	/// rewinds the tween to the beginning and starts playback optionally skipping delay (only relevant for Tweens). Note that onStart and onComplete
+	/// rewinds the tween to the beginning and starts playback optionally skipping delay (only relevant for Tweens). Note that onComplete
 	/// will again fire after calling restart
 	/// </summary>
 	public void restart( bool skipDelay = true )
 	{
 		// reset state when we restart
-		_didStart = _didComplete = false;
+		_didComplete = false;
 		rewind();
 		state = TweenState.Running;
 	}

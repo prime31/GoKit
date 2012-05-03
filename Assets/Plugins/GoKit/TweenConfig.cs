@@ -52,9 +52,9 @@ public class TweenConfig
 	/// <summary>
 	/// position path tween
 	/// </summary>
-	public TweenConfig positionPath( GoVector3Path route, bool isRelative = false )
+	public TweenConfig positionPath( GoVector3Path route, bool isRelative = false, LookAtType lookAtType = LookAtType.None, Transform lookTarget = null )
 	{
-		var prop = new PositionPathTweenProperty( route, isRelative, false );
+		var prop = new PositionPathTweenProperty( route, isRelative, false, lookAtType, lookTarget );
 		_tweenProperties.Add( prop );
 		
 		return this;

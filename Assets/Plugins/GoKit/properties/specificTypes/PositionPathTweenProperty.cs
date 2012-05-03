@@ -9,12 +9,6 @@ using System.Collections;
 /// </summary>
 public class PositionPathTweenProperty : AbstractTweenProperty
 {
-	public enum LookAtType
-	{
-		None,
-		NextPathNode
-	}
-	
 	protected bool _useLocalPosition;
 	public bool useLocalPosition { get { return _useLocalPosition; } }
 	
@@ -23,13 +17,15 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 	
 	private GoVector3Path _path;
 	private LookAtType _lookAtType = LookAtType.None;
+	private Transform _lookTarget;
 	
 
-	public PositionPathTweenProperty( GoVector3Path path, bool isRelative = false, bool useLocalPosition = false, LookAtType lookAtType = LookAtType.None ) : base( isRelative )
+	public PositionPathTweenProperty( GoVector3Path path, bool isRelative = false, bool useLocalPosition = false, LookAtType lookAtType = LookAtType.None, Transform lookTarget = null ) : base( isRelative )
 	{
 		_path = path;
 		_useLocalPosition = useLocalPosition;
 		_lookAtType = lookAtType;
+		_lookTarget = lookTarget;
 	}
 	
 	
@@ -82,6 +78,13 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 			else
 				_startValue = _target.position;
 		}
+		
+		// validate the lookTarget if we are set to look at it
+		if( _lookAtType == LookAtType.TargetTransform )
+		{
+			if( _lookTarget == null )
+				_lookAtType = LookAtType.None;
+		}
 	}
 	
 
@@ -99,11 +102,20 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 		else
 			_target.position = vec;
 		
-		// look at the node we are moving towards
-		if( _lookAtType == LookAtType.NextPathNode )
+		// handle look types
+		switch( _lookAtType )
 		{
-			var lookAtNode = ( _ownerTween.isReversed || _ownerTween.isLoopoingBackOnPingPong ) ? _path.getPreviousNode() : _path.getNextNode();
-			_target.LookAt( lookAtNode, Vector3.up );
+			case LookAtType.NextPathNode:
+			{
+				var lookAtNode = ( _ownerTween.isReversed || _ownerTween.isLoopoingBackOnPingPong ) ? _path.getPreviousNode() : _path.getNextNode();
+				_target.LookAt( lookAtNode, Vector3.up );
+				break;
+			}
+			case LookAtType.TargetTransform:
+			{
+				_target.LookAt( _lookTarget, Vector3.up );
+				break;
+			}
 		}
 	}
 
