@@ -126,7 +126,7 @@ public class GoVector3Path
 			}
 			else
 			{
-				t = Mathf.Clamp( t, 0, 1 );
+				t = Mathf.Clamp01( t );
 			}
 		}
 
