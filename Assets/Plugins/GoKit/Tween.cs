@@ -87,13 +87,25 @@ public class Tween : AbstractTween
 		else
 			totalDuration = iterations * duration;
 	}
-	
+
 	
 	/// <summary>
 	/// tick method. if it returns true it indicates the tween is complete
 	/// </summary>
 	public override bool update( float deltaTime )
 	{
+		// should we validate the target?
+		if( Go.validateTargetObjectsEachTick )
+		{
+			// if the target doesnt pass validation
+			if( target == null )
+			{
+				Debug.LogWarning( "target validation failed. destroying the tween to avoid errors" );
+				autoRemoveOnComplete = true;
+				return true;
+			}
+		}
+		
 		// handle delay and return if we are still delaying
 		if( !_delayComplete && _elapsedDelay < delay )
 		{
