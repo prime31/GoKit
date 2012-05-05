@@ -191,6 +191,7 @@ public class GoSpline
 		
 		var previousPoint = _solver.getPoint( 0 );
 		
+		resolution *= _solver.nodes.Count;
 		for( var i = 1; i <= resolution; i++ )
 		{
 			var t = (float)i / resolution;

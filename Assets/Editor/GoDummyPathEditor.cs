@@ -75,7 +75,7 @@ public class GoDummyPathEditor : Editor
 		// resolution
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.PrefixLabel( "Editor Drawing Resolution" );
-		_target.pathResolution = EditorGUILayout.IntSlider( _target.pathResolution, 3, 200 );
+		_target.pathResolution = EditorGUILayout.IntSlider( _target.pathResolution, 2, 100 );
 		EditorGUILayout.EndHorizontal();
 
 		
