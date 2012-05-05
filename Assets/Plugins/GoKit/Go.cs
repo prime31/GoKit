@@ -15,9 +15,9 @@ public class Go : MonoBehaviour
 	public static DuplicatePropertyRuleType duplicatePropertyRule = DuplicatePropertyRuleType.None;
 	public static GoLogLevel logLevel = GoLogLevel.Warn;
 	
-	// validates that the target object still exists each tick of the tween. NOTE: this does a GetComponent call each tick so it is recommended
-	// that you just properly remove your tweens before destroying any objects for best performance
-	public static bool validateTargetObjectsEachTick = false;
+	// validates that the target object still exists each tick of the tween. NOTE: it is recommended
+	// that you just properly remove your tweens before destroying any objects even though this might destroy them for you
+	public static bool validateTargetObjectsEachTick = true;
 	
 	private static List<AbstractTween> _tweens = new List<AbstractTween>(); // contains Tweens, TweenChains and TweenFlows
 	private bool _timeScaleIndependentUpdateIsRunning;
