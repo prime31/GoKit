@@ -131,9 +131,24 @@ public static class GoTweenUtils
 	#region math functions
 	
 	/// <summary>
+	/// note for all lerps: normally a lerp would be something like the following:
+	/// val1 + ( val2 - val1 ) * t
+	/// or in more familiar terms:
+	/// start + ( end - start ) * t
+	/// 
+	/// when lerping relatively, the formula simplifies to:
+	/// start + end * t
+	/// 
+	/// for all the unclamped lerps in this class the diff value is precalculated and cached. that means these arent like normal
+	/// lerps where you pass in the start and end values. the "diff" paramter in each method should be either the cached
+	/// ( end - start ) for non-relative tweens or just end for relative tweens (that are not "from" tweens)
+	/// </summary>
+	
+	
+	/// <summary>
 	/// unclamped lerp from c1 to c2. diff should be c2 - c1 (or just c2 for relative lerps)
 	/// </summary>
-	public static Color unclampedColorLerp( Color c1, Color c2, Color diff, float value )
+	public static Color unclampedColorLerp( Color c1, Color diff, float value )
 	{
         return new Color
 		(
@@ -148,7 +163,7 @@ public static class GoTweenUtils
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector2 unclampedVector2Lerp( Vector2 v1, Vector2 v2, Vector2 diff, float value )
+    public static Vector2 unclampedVector2Lerp( Vector2 v1, Vector2 diff, float value )
 	{
         return new Vector2
 		(
@@ -161,7 +176,7 @@ public static class GoTweenUtils
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector3 unclampedVector3Lerp( Vector3 v1, Vector3 v2, Vector3 diff, float value )
+    public static Vector3 unclampedVector3Lerp( Vector3 v1, Vector3 diff, float value )
 	{
         return new Vector3
 		(
@@ -184,7 +199,7 @@ public static class GoTweenUtils
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector4 unclampedVector4Lerp( Vector4 v1, Vector4 v2, Vector4 diff, float value )
+    public static Vector4 unclampedVector4Lerp( Vector4 v1, Vector4 diff, float value )
 	{
         return new Vector4
 		(

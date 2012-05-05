@@ -70,7 +70,7 @@ public class RotationTweenProperty : AbstractVector3TweenProperty
 	public override void tick( float totalElapsedTime )
 	{
 		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
-		var vec = GoTweenUtils.unclampedVector3Lerp( _startValue, _endValue, _diffValue, easedTime );
+		var vec = GoTweenUtils.unclampedVector3Lerp( _startValue, _diffValue, easedTime );
 		
 		if( _useLocalRotation )
 			_target.rotation = Quaternion.Euler( vec );
