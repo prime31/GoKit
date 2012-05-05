@@ -69,8 +69,14 @@ public class GoSpline
 		// at runtime, we load from the dataPath
 		var path = Path.Combine(  Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
 #endif
+		
+#if !UNITY_WEBPLAYER
 		var bytes = File.ReadAllBytes( path );
 		return bytesToVector3List( bytes );
+#else
+		Debug.LogError( "The Web Player does not support loading files from disk." );
+		return null;
+#endif
 	}
 	
 	
