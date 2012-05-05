@@ -65,6 +65,20 @@ public class GoDummyPathEditor : Editor
 		EditorGUILayout.EndHorizontal();
 		
 		
+		// force straight lines:
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.PrefixLabel( "Force Straight Line Path" );
+		_target.forceStraightLinePath = EditorGUILayout.Toggle( _target.forceStraightLinePath );
+		EditorGUILayout.EndHorizontal();
+		
+		
+		// resolution
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.PrefixLabel( "Editor Drawing Resolution" );
+		_target.pathResolution = EditorGUILayout.IntSlider( _target.pathResolution, 3, 200 );
+		EditorGUILayout.EndHorizontal();
+
+		
 		EditorGUILayout.Separator();
 		
 		
@@ -106,7 +120,14 @@ public class GoDummyPathEditor : Editor
 		{
 			Undo.RegisterUndo( _target, "Path Vector Changed" );
 			
-			var offset = Vector3.zero - _target.nodes[0];
+			var offset = Vector3.zero;
+			
+			// see what kind of path we are. the simplest case is just a straight line
+			var path = new GoSpline( _target.nodes, _target.forceStraightLinePath );
+			if( path.splineType == SplineType.StraightLine )
+				offset = Vector3.zero - _target.nodes[0];
+			else
+				offset = Vector3.zero - _target.nodes[1];
 			
 			for( var i = 0; i < _target.nodes.Count; i++ )
 				_target.nodes[i] += offset;
@@ -151,7 +172,7 @@ public class GoDummyPathEditor : Editor
 		EditorGUILayout.PrefixLabel( "Load saved path" );
 		if( GUILayout.Button( "Load" ) )
 		{
-			var path = EditorUtility.OpenFilePanel( "Choose path to load", "StreamingAssets", "asset" );
+			var path = EditorUtility.OpenFilePanel( "Choose path to load", Path.Combine( Application.dataPath, "StreamingAssets" ), "asset" );
 			if( path != string.Empty )
 			{
 				if( !File.Exists( path ) )
@@ -160,7 +181,7 @@ public class GoDummyPathEditor : Editor
 				}
 				else
 				{
-					_target.nodes = GoVector3Path.bytesToVector3List( File.ReadAllBytes( path ) );
+					_target.nodes = GoSpline.bytesToVector3List( File.ReadAllBytes( path ) );
 					GUI.changed = true;
 				}
 			}
@@ -215,7 +236,9 @@ public class GoDummyPathEditor : Editor
 			{
 				var translatedPoint = HandleUtility.GUIPointToWorldRay( Event.current.mousePosition )
 						.GetPoint( ( _target.transform.position - Camera.current.transform.position ).magnitude );
-
+				
+				Undo.RegisterUndo( _target, "Path Node Added" );
+				
 				// if alt is down then prepend the node to the beginning
 				if( Event.current.alt )
 					insertNodeAtIndex( translatedPoint, 0 );
@@ -230,6 +253,7 @@ public class GoDummyPathEditor : Editor
 			// shall we delete the selected node?
 			if( Event.current.keyCode == KeyCode.Delete || Event.current.keyCode == KeyCode.Backspace )
 			{
+				Undo.RegisterUndo( _target, "Path Node Deleted" );
 				Event.current.Use();
 				removeNodeAtIndex( _selectedNodeIndex );
 				_selectedNodeIndex = -1;
@@ -254,14 +278,11 @@ public class GoDummyPathEditor : Editor
 			}
 			
 			// draw the handles, arrows and lines
+			drawRoute();
+			
 			for( var i = 0; i < _target.nodes.Count; i++ )
 			{
 				Handles.color = _target.pathColor;
-				if( i < _target.nodes.Count - 1 )
-				{
-					Handles.DrawLine( _target.nodes[i], _target.nodes[i + 1] );
-					drawArrowBetweenPoints( _target.nodes[i], _target.nodes[i + 1] );
-				}
 				
 				// dont label the first and last nodes
 				if( i > 0 && i < _target.nodes.Count - 1 )
@@ -430,13 +451,11 @@ public class GoDummyPathEditor : Editor
 	
 	private void closeRoute()
 	{
-		// make sure it isnt closed
-		if( Vector3.Distance( _target.nodes[0], _target.nodes[_target.nodes.Count - 1] ) == 0 )
-			return;
-
-		// offset the node a bit from the last
-		var lastNode = _target.nodes[0];
-		_target.nodes.Add( lastNode );
+		// we will use the GoSpline class to handle the dirtywork of closing the path
+		var path = new GoSpline( _target.nodes, _target.forceStraightLinePath );
+		path.closePath();
+		
+		_target.nodes = path.nodes;
 		
 		GUI.changed = true;
 	}
@@ -454,6 +473,25 @@ public class GoDummyPathEditor : Editor
 		}
 
 		File.WriteAllBytes( path, bytes.ToArray() );
+	}
+	
+	
+	private void drawRoute()
+	{
+		// if we are forcing straight lines just use this setup
+		if( _target.forceStraightLinePath )
+		{
+			// draw just the route here and optional arrows
+			for( var i = 0; i < _target.nodes.Count; i++ )
+			{
+				Handles.color = _target.pathColor;
+				if( i < _target.nodes.Count - 1 )
+				{
+					Handles.DrawLine( _target.nodes[i], _target.nodes[i + 1] );
+					drawArrowBetweenPoints( _target.nodes[i], _target.nodes[i + 1] );
+				}
+			}
+		}
 	}
 	
 	#endregion

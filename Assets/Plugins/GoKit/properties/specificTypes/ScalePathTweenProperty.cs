@@ -12,10 +12,10 @@ public class ScalePathTweenProperty : AbstractTweenProperty
 	protected Transform _target;
 	protected Vector3 _startValue;
 	
-	private GoVector3Path _path;
+	private GoSpline _path;
 	
 	
-	public ScalePathTweenProperty( GoVector3Path path, bool isRelative = false ) : base( isRelative )
+	public ScalePathTweenProperty( GoSpline path, bool isRelative = false ) : base( isRelative )
 	{
 		_path = path;
 	}
@@ -65,7 +65,7 @@ public class ScalePathTweenProperty : AbstractTweenProperty
 	public override void tick( float totalElapsedTime )
 	{
 		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
-		var vec = _path.getPointOnRoute( easedTime );
+		var vec = _path.getPointOnPath( easedTime );
 		
 		// if we are relative, add the vec to our startValue
 		if( _isRelative )

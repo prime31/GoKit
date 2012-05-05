@@ -13,4 +13,19 @@ public class GoDummyPath : MonoBehaviour
 	public Color pathColor = Color.magenta; // color of the path if visible in the editor
 	public List<Vector3> nodes = new List<Vector3>() { Vector3.zero, Vector3.zero };
 	public bool useStandardHandles = false;
+	public bool forceStraightLinePath = false;
+	public int pathResolution = 50;
+	
+	
+	public void OnDrawGizmos()
+	{
+		// the editor will draw paths when force straight line is on
+		if( !forceStraightLinePath )
+		{
+			var spline = new GoSpline( nodes );
+			Gizmos.color = pathColor;
+			spline.drawGizmos( pathResolution );
+		}
+	}
+
 }

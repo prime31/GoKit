@@ -52,9 +52,9 @@ public class TweenConfig
 	/// <summary>
 	/// position path tween
 	/// </summary>
-	public TweenConfig positionPath( GoVector3Path route, bool isRelative = false, LookAtType lookAtType = LookAtType.None, Transform lookTarget = null )
+	public TweenConfig positionPath( GoSpline path, bool isRelative = false, LookAtType lookAtType = LookAtType.None, Transform lookTarget = null )
 	{
-		var prop = new PositionPathTweenProperty( route, isRelative, false, lookAtType, lookTarget );
+		var prop = new PositionPathTweenProperty( path, isRelative, false, lookAtType, lookTarget );
 		_tweenProperties.Add( prop );
 		
 		return this;
@@ -85,9 +85,9 @@ public class TweenConfig
 	/// <summary>
 	/// scale through a series of Vector3s
 	/// </summary>
-	public TweenConfig scalePath( GoVector3Path route, bool isRelative = false )
+	public TweenConfig scalePath( GoSpline path, bool isRelative = false )
 	{
-		var prop = new ScalePathTweenProperty( route, isRelative );
+		var prop = new ScalePathTweenProperty( path, isRelative );
 		_tweenProperties.Add( prop );
 		
 		return this;
@@ -207,7 +207,7 @@ public class TweenConfig
 	/// <summary>
 	/// generic vector3 path tween
 	/// </summary>
-	public TweenConfig vector3PathProp( string propertyName, GoVector3Path path, bool isRelative = false )
+	public TweenConfig vector3PathProp( string propertyName, GoSpline path, bool isRelative = false )
 	{
 		var prop = new Vector3PathTweenProperty( propertyName, path, isRelative );
 		_tweenProperties.Add( prop );

@@ -8,11 +8,11 @@ public class Vector3PathTweenProperty : AbstractTweenProperty, IGenericProperty
 	public string propertyName { get; private set; }
 	
 	private Action<Vector3> _setter;
-	private GoVector3Path _path;
+	private GoSpline _path;
 	private Vector3 _startValue;
 	
 	
-	public Vector3PathTweenProperty( string propertyName, GoVector3Path path, bool isRelative = false ) : base( isRelative )
+	public Vector3PathTweenProperty( string propertyName, GoSpline path, bool isRelative = false ) : base( isRelative )
 	{
 		this.propertyName = propertyName;
 		_path = path;
@@ -57,7 +57,7 @@ public class Vector3PathTweenProperty : AbstractTweenProperty, IGenericProperty
 	public override void tick( float totalElapsedTime )
 	{
 		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
-		var vec = _path.getPointOnRoute( easedTime );
+		var vec = _path.getPointOnPath( easedTime );
 		
 		// if we are relative, add the vec to our startValue
 		if( _isRelative )
