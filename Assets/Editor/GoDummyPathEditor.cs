@@ -20,6 +20,7 @@ public class GoDummyPathEditor : Editor
 	private bool _fileLoadSaveDetails;
 	private int _selectedNodeIndex = -1;
 	
+	
 	#region Monobehaviour and Editor
 	
 	void OnEnable()
@@ -182,6 +183,7 @@ public class GoDummyPathEditor : Editor
 				else
 				{
 					_target.nodes = GoSpline.bytesToVector3List( File.ReadAllBytes( path ) );
+					_target.pathName = Path.GetFileName( path ).Replace( ".asset", string.Empty );
 					GUI.changed = true;
 				}
 			}

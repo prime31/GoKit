@@ -99,9 +99,7 @@ public abstract class AbstractGoSplineSolver
 	}
 	
 	
-#if UNITY_EDITOR
 	public virtual void drawGizmos()
 	{}
-#endif
 
 }

@@ -29,7 +29,6 @@ public class GoSplineCubicBezierSolver : AbstractGoSplineSolver
 	}
 
 	
-#if UNITY_EDITOR
 	public override void drawGizmos()
 	{
 		// draw the control points
@@ -41,7 +40,6 @@ public class GoSplineCubicBezierSolver : AbstractGoSplineSolver
 		
 		Gizmos.color = originalColor;
 	}
-#endif
 	
 	#endregion
 

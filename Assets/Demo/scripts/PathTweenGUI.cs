@@ -10,13 +10,16 @@ public class PathTweenGUI : BaseDemoGUI
 	
 	void Start()
 	{
-		// example showing how to create a GoVector3Path from a saved file that was made with the visual editor
-		var path = new GoSpline( "demoRoute" );
 		
-
+		// example showing how to create a GoVector3Path from a saved file that was made with the visual editor. Note: the web player cannot load files from
+		// disk so we will make a path directly for it
+#if !UNITY_WEBPLAYER
+		var path = new GoSpline( "demoRoute" );
+#else
 		// alternatively, paths can be created from an array of Vector3s
-		//var vectors = new Vector3[] { new Vector3( 0, 1, 1 ), new Vector3( 4, 5, 6 ) };
-		//var p = new GoVector3Path( vectors );
+		var vectors = new Vector3[] { new Vector3( 0, 1, 1 ), new Vector3( 4, 5, 6 ) };
+		var path = new GoSpline( vectors );
+#endif
 		
 		
 		// create the Tween and set the path to be relative (this will make the cube move BY the values stored in the

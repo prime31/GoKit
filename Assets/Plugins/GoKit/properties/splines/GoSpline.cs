@@ -59,24 +59,24 @@ public class GoSpline
 	/// </summary>
 	private static List<Vector3> nodeListFromAsset( string pathAssetName )
 	{
+#if UNITY_WEBPLAYER
+		Debug.LogError( "The Web Player does not support loading files from disk." );
+		return null;
+#else
 		if( !pathAssetName.EndsWith( ".asset" ) )
 			pathAssetName += ".asset";
 		
-#if UNITY_EDITOR
+	#if UNITY_EDITOR
 		// in the editor we default to looking in the StreamingAssets folder
 		var path = Path.Combine( Path.Combine( Application.dataPath, "StreamingAssets" ), pathAssetName );
-#else
+	#else
 		// at runtime, we load from the dataPath
 		var path = Path.Combine(  Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
-#endif
+	#endif
 		
-#if !UNITY_WEBPLAYER
 		var bytes = File.ReadAllBytes( path );
 		return bytesToVector3List( bytes );
-#else
-		Debug.LogError( "The Web Player does not support loading files from disk." );
-		return null;
-#endif
+#endif		
 	}
 	
 	
@@ -189,8 +189,6 @@ public class GoSpline
 	}
 	
 	
-#if UNITY_EDITOR
-	
 	public void drawGizmos( float resolution )
 	{
 		_solver.drawGizmos();
@@ -217,7 +215,5 @@ public class GoSpline
 		var spline = new GoSpline( path );
 		spline.drawGizmos( resolution );
 	}
-	
-#endif
 
 }
