@@ -73,7 +73,7 @@ public class Go : MonoBehaviour
 				// tween is complete if we get here. if destroyed or set to auto remove kill it
 				if( t.state == TweenState.Destroyed || t.autoRemoveOnComplete )
 				{
-					_tweens.RemoveAt( i );
+					removeTween( t );
 					t.destroy();
 				}
 			}
@@ -278,7 +278,11 @@ public class Go : MonoBehaviour
 		
 		_tweens.Add( tween );
 		
-		// if the Tween isn't paused and it is a from tween jump directly to the start position
+		// enable ourself if we are not enabled
+		if( !_instance.enabled )
+			_instance.enabled = true;
+		
+		// if the Tween isn't paused and it is a "from" tween jump directly to the start position
 		if( tween is Tween && ((Tween)tween).isFrom && tween.state != TweenState.Paused )
 			tween.update( 0 );
 		
@@ -296,6 +300,10 @@ public class Go : MonoBehaviour
 		if( _tweens.Contains( tween ) )
 		{
 			_tweens.Remove( tween );
+			
+			// disable ourself if we have no more tweens
+			_instance.enabled = false;
+			
 			return true;
 		}
 		
