@@ -301,7 +301,7 @@ public class Go : MonoBehaviour
 		{
 			_tweens.Remove( tween );
 			
-			if (_tweens.Count == 0)
+			if( _tweens.Count == 0 )
 			{
 				// disable ourself if we have no more tweens
 				_instance.enabled = false;
