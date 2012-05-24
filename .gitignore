@@ -15,3 +15,4 @@ Assembly-CSharp-*
 *.sln
 *.userprefs
 Assembly-CSharp.csproj
+*.pidb
