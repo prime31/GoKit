@@ -47,15 +47,6 @@ public class Go : MonoBehaviour
 	}
 	
 	
-	static Go()
-	{
-		// create an instance so it is always ready for use
-		#pragma warning disable 0168
-		var g = Go.instance;
-		#pragma warning restore 0168
-	}
-	
-	
 	/// <summary>
 	/// loops through all the Tweens and updates any that are of updateType. If any Tweens are complete
 	/// (the update call will return true) they are removed.
@@ -279,7 +270,7 @@ public class Go : MonoBehaviour
 		_tweens.Add( tween );
 		
 		// enable ourself if we are not enabled
-		if( !_instance.enabled )
+		if( !instance.enabled ) // purposely using the static instace property just once for initialization
 			_instance.enabled = true;
 		
 		// if the Tween isn't paused and it is a "from" tween jump directly to the start position
@@ -304,7 +295,7 @@ public class Go : MonoBehaviour
 			if( _tweens.Count == 0 )
 			{
 				// disable ourself if we have no more tweens
-				_instance.enabled = false;
+				instance.enabled = false;
 			}
 			
 			return true;
