@@ -157,9 +157,9 @@ public class TweenConfig
 	/// <summary>
 	/// shake tween
 	/// </summary>
-	public TweenConfig shake( Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1 )
+	public TweenConfig shake( Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1, bool useLocalProperties = false )
 	{
-		var prop = new ShakeTweenProperty( shakeMagnitude, shakeType, frameMod );
+		var prop = new ShakeTweenProperty( shakeMagnitude, shakeType, frameMod, useLocalProperties );
 		_tweenProperties.Add( prop );
 		
 		return this;
