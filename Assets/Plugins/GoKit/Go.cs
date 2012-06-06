@@ -30,7 +30,7 @@ public class Go : MonoBehaviour
 		{
 			if( !_instance )
 			{
-				// check if an P31TaskManager is already available in the scene graph
+				// check if there is a GO instance already available in the scene graph
 				_instance = FindObjectOfType( typeof( Go ) ) as Go;
 
 				// nope, create a new one
