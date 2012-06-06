@@ -43,9 +43,9 @@ public static class GoKitTweenExtensions
 	}
 	
 	
-	public static Tween shake( this Transform self, float duration, Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1 )
+	public static Tween shake( this Transform self, float duration, Vector3 shakeMagnitude, ShakeType shakeType = ShakeType.Position, int frameMod = 1, bool useLocalProperties = false )
 	{
-		return Go.to( self, duration, new TweenConfig().shake( shakeMagnitude, shakeType, frameMod ) );
+		return Go.to( self, duration, new TweenConfig().shake( shakeMagnitude, shakeType, frameMod, useLocalProperties ) );
 	}
 	
 	
