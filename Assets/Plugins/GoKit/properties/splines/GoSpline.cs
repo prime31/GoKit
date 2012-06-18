@@ -59,24 +59,29 @@ public class GoSpline
 	/// </summary>
 	private static List<Vector3> nodeListFromAsset( string pathAssetName )
 	{
-#if UNITY_WEBPLAYER
-		Debug.LogError( "The Web Player does not support loading files from disk." );
-		return null;
-#else
+		if( Application.isWebPlayer )
+		{
+			Debug.LogError( "The Web Player does not support loading files from disk." );
+			return null;
+		}
+		
+		var path = string.Empty;
 		if( !pathAssetName.EndsWith( ".asset" ) )
 			pathAssetName += ".asset";
 		
-	#if UNITY_EDITOR
-		// in the editor we default to looking in the StreamingAssets folder
-		var path = Path.Combine( Path.Combine( Application.dataPath, "StreamingAssets" ), pathAssetName );
-	#else
-		// at runtime, we load from the dataPath
-		var path = Path.Combine(  Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
-	#endif
+		if( Application.isEditor )
+		{
+			// in the editor we default to looking in the StreamingAssets folder
+			path = Path.Combine( Path.Combine( Application.dataPath, "StreamingAssets" ), pathAssetName );
+		}
+		else
+		{
+			// at runtime, we load from the dataPath
+			path = Path.Combine(  Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
+		}
 		
 		var bytes = File.ReadAllBytes( path );
 		return bytesToVector3List( bytes );
-#endif		
 	}
 	
 	
