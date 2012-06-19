@@ -63,7 +63,11 @@ public class TweenChain : AbstractTweenCollection
 		
 		// update the duration and total duration
 		duration += item.duration;
-		totalDuration = duration * iterations;
+		
+		if( iterations > 0 )
+			totalDuration = duration * iterations;
+		else
+			totalDuration = float.PositiveInfinity;
 	}
 	
 	

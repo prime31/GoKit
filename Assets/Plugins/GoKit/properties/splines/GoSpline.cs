@@ -77,7 +77,7 @@ public class GoSpline
 		else
 		{
 			// at runtime, we load from the dataPath
-			path = Path.Combine(  Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
+			path = Path.Combine( Path.Combine( Application.dataPath, "Raw" ), pathAssetName );
 		}
 		
 		var bytes = File.ReadAllBytes( path );
