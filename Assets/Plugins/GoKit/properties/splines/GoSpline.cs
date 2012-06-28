@@ -59,11 +59,10 @@ public class GoSpline
 	/// </summary>
 	private static List<Vector3> nodeListFromAsset( string pathAssetName )
 	{
-		if( Application.isWebPlayer )
-		{
+#if UNITY_WEBPLAYER
 			Debug.LogError( "The Web Player does not support loading files from disk." );
 			return null;
-		}
+#else
 		
 		var path = string.Empty;
 		if( !pathAssetName.EndsWith( ".asset" ) )
@@ -82,6 +81,7 @@ public class GoSpline
 		
 		var bytes = File.ReadAllBytes( path );
 		return bytesToVector3List( bytes );
+#endif
 	}
 	
 	
