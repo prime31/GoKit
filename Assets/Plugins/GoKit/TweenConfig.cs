@@ -13,10 +13,10 @@ public class TweenConfig
 	public float delay; // how long should we delay before starting the Tween
 	public int iterations = 1; // number of times to iterate. -1 will loop indefinitely
 	public int timeScale = 1;
-	public LoopType loopType;
-	public EaseType easeType;
+	public LoopType loopType = Go.defaultLoopType;
+	public EaseType easeType = Go.defaultEaseType;
 	public bool isPaused;
-	public UpdateType propertyUpdateType;
+	public UpdateType propertyUpdateType = Go.defaultUpdateType;
 	public bool isFrom;
 	public Action<AbstractTween> onCompleteHandler;
 	public Action<AbstractTween> onStartHandler;
