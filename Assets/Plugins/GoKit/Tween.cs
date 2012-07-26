@@ -131,8 +131,11 @@ public class Tween : AbstractTween
 		var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
 		
 		// update all properties
-		for( var i = 0; i < _tweenPropertyList.Count; i++ )
-			_tweenPropertyList[i].tick( convertedElapsedTime );
+		if (_tweenPropertyList != null)
+		{
+			for( var i = 0; i < _tweenPropertyList.Count; i++ )
+				_tweenPropertyList[i].tick( convertedElapsedTime );
+		}
 		
 		return baseResult;
 	}
