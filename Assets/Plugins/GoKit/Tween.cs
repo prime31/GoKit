@@ -216,7 +216,7 @@ public class Tween : AbstractTween
 	{
 		base.destroy();
 		
-		_tweenPropertyList = null;
+		_tweenPropertyList.Clear();
 		target = null;
 	}
 	
