@@ -63,7 +63,7 @@ public class Vector3XTweenProperty : AbstractVector3TweenProperty, IGenericPrope
 	public override void tick( float totalElapsedTime )
 	{
 		var currentValue = _getter();
-		currentValue.x = _easeFunction( totalElapsedTime, _startValue, _endValue, _ownerTween.duration );
+		currentValue.x = _easeFunction( totalElapsedTime, _startValue, _diffValue, _ownerTween.duration );
 		
 		_setter( currentValue );
 	}

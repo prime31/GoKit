@@ -20,21 +20,25 @@ public class Vector3ZTweenProperty : Vector3XTweenProperty
 		if( _ownerTween.isFrom )
 		{
 			_startValue = _endValue;
-			_startValue = _getter().z;
+			_endValue = _getter().z;
 		}
 		else
 		{
 			_startValue = _getter().z;
 		}
-		
-		base.prepareForUse();
+
+		// prep the diff value
+		if( _isRelative && !_ownerTween.isFrom )
+			_diffValue = _endValue;
+		else
+			_diffValue = _endValue - _startValue;
 	}
 	
 	
 	public override void tick( float totalElapsedTime )
 	{
 		var currentValue = _getter();
-		currentValue.z = _easeFunction( totalElapsedTime, _startValue, _endValue, _ownerTween.duration );
+		currentValue.z = _easeFunction( totalElapsedTime, _startValue, _diffValue, _ownerTween.duration );
 		
 		_setter( currentValue );
 	}
