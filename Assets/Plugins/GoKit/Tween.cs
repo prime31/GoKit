@@ -124,8 +124,8 @@ public class Tween : AbstractTween
 			return false;
 		}
 		
-		// base will calculate the proper elapsedTime for us and figure out if we are done
-		var baseResult = base.update( deltaTime );
+		// base will calculate the proper elapsedTime for us
+		base.update( deltaTime );
 		
 		// if we are looping back on a PingPong loop
 		var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
@@ -134,7 +134,15 @@ public class Tween : AbstractTween
 		for( var i = 0; i < _tweenPropertyList.Count; i++ )
 			_tweenPropertyList[i].tick( convertedElapsedTime );
 		
-		return baseResult;
+		if( state == TweenState.Complete )
+		{
+			if( !_didComplete )
+				onComplete();
+			
+			return true; //true if complete
+		}
+		
+		return false; //false if not complete
 	}
 	
 	

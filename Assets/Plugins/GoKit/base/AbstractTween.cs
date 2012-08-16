@@ -146,16 +146,6 @@ public abstract class AbstractTween
 		// check for completion when going in reverse
 		if( isReversed && _totalElapsedTime <= 0 )
 			state = TweenState.Complete;
-
-		
-		// return true only if we are complete
-		if( state == TweenState.Complete )
-		{
-			// fire off the completion handler and return true
-			if( !_didComplete )
-				onComplete();
-			return true;
-		}
 		
 		return false;
 	}

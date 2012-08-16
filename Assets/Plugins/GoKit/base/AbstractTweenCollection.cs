@@ -148,7 +148,7 @@ public class AbstractTweenCollection : AbstractTween
 	/// </summary>
 	public override bool update( float deltaTime )
 	{
-		var baseResult = base.update( deltaTime );
+		base.update( deltaTime );
 
 		// if we are looping back on a PingPong loop
 		var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
@@ -165,7 +165,15 @@ public class AbstractTweenCollection : AbstractTween
 			}
 		}
 		
-		return baseResult;
+		if( state == TweenState.Complete )
+		{
+			if( !_didComplete )
+				onComplete();
+			
+			return true; //true if complete
+		}
+		
+		return false; //false if not complete
 	}
 	
 	
