@@ -109,7 +109,7 @@ public class Go : MonoBehaviour
     private IEnumerator timeScaleIndependentUpdate()
     {
 		_timeScaleIndependentUpdateIsRunning = true;
-		var time = 0f;
+		var time = Time.realtimeSinceStartup;
 		
         while( _tweens.Count > 0 )
         {
