@@ -100,6 +100,13 @@ public class Go : MonoBehaviour
 		handleUpdateOfType( UpdateType.FixedUpdate, Time.deltaTime );
 	}
 	
+	
+	private void OnApplicationQuit()
+	{
+		_instance = null;
+		Destroy( gameObject );
+	}
+	
 	#endregion
 	
 	
