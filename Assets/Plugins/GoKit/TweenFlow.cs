@@ -29,7 +29,7 @@ public class TweenFlow : AbstractTweenCollection
 	}
 	
 	
-	public TweenFlow setIterations( int iterations, LoopType loopType )
+	public TweenFlow setIterations( int iterations, GoLoopType loopType )
 	{
 		this.iterations = iterations;
 		this.loopType = loopType;

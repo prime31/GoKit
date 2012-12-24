@@ -7,7 +7,7 @@ public class MaterialColorTweenProperty : AbstractColorTweenProperty
 	private string _materialColorName;
 	
 	
-	public MaterialColorTweenProperty( Color endValue, MaterialColorType colorName = MaterialColorType.Color, bool isRelative = false ) : base( endValue, isRelative )
+	public MaterialColorTweenProperty( Color endValue, GoMaterialColorType colorName = GoMaterialColorType.Color, bool isRelative = false ) : base( endValue, isRelative )
 	{
 		_materialColorName = "_" + colorName.ToString();
 	}

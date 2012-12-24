@@ -33,7 +33,7 @@ public class PathTweenGUI : BaseDemoGUI
 		// or the target can be set to look at another transform
 		_tween = Go.to( cube, 4f, new TweenConfig()
 			.positionPath( path, true, LookAtType.TargetTransform, optionalLookTarget )
-			.setIterations( -1, LoopType.PingPong ) );
+			.setIterations( -1, GoLoopType.PingPong ) );
 	}
 
 }

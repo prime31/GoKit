@@ -81,7 +81,7 @@ public abstract class AbstractTweenProperty
 	/// sets the ease type for this tween property
 	/// technically, this should be an internal method
 	/// </summary>
-	public void setEaseType( EaseType easeType )
+	public void setEaseType( GoEaseType easeType )
 	{
 		_easeFunction = GoTweenUtils.easeFunctionForType( easeType );
 	}

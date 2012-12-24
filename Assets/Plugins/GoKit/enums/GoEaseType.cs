@@ -3,7 +3,7 @@ using System.Collections;
 
 
 
-public enum EaseType
+public enum GoEaseType
 {
     Linear,
 

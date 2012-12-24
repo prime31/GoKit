@@ -19,8 +19,8 @@ public class Tween : AbstractTween
     /// <summary>
     /// sets the ease type for all Tweens. this will overwrite the ease types for each Tween!
     /// </summary>
-    private EaseType _easeType;
-    public EaseType easeType
+    private GoEaseType _easeType;
+    public GoEaseType easeType
     {
         get
         {

@@ -3,7 +3,7 @@ using System.Collections;
 
 
 
-public enum LoopType
+public enum GoLoopType
 {
 	RestartFromBeginning,
 	PingPong

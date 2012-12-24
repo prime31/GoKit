@@ -17,7 +17,7 @@ public abstract class AbstractTween
 	public float timeScale { get; set; } // time scale to be used by this tween
 	
 	public UpdateType updateType { get; protected set; }
-	public LoopType loopType { get; protected set; }
+	public GoLoopType loopType { get; protected set; }
 	public int iterations { get; protected set; } // set to -1 for infinite
 	
 	public bool autoRemoveOnComplete { get; set; } // should we automatically remove ourself from the Go's list of tweens when done?
@@ -102,7 +102,7 @@ public abstract class AbstractTween
 		
 		// we can only be loopiong back on a PingPong if our loopType is PingPong and we are on an odd numbered iteration
 		_isLoopingBackOnPingPong = false;
-		if( loopType == LoopType.PingPong )
+		if( loopType == GoLoopType.PingPong )
 		{
 			// infinite loops and we are on an odd numbered iteration
 			if( iterations < 0 && _completedIterations % 2 != 0 )
@@ -292,7 +292,7 @@ public abstract class AbstractTween
 		if( iterations > 0 || iterations < 0 )
 		{
 			_completedIterations = (int)Mathf.Floor( _totalElapsedTime / duration );
-			if( loopType == LoopType.PingPong )
+			if( loopType == GoLoopType.PingPong )
 				_isLoopingBackOnPingPong = _completedIterations % 2 != 0;
 			
 			// set elapsed time taking into account if we are set to loop.

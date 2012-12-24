@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class Go : MonoBehaviour
 {
 	// defaults used for all tweens/properties that are not explicitly set
-	public static EaseType defaultEaseType = EaseType.Linear;
-	public static LoopType defaultLoopType = LoopType.RestartFromBeginning;
+	public static GoEaseType defaultEaseType = GoEaseType.Linear;
+	public static GoLoopType defaultLoopType = GoLoopType.RestartFromBeginning;
 	public static UpdateType defaultUpdateType = UpdateType.Update;
 	
 	// defines what we should do in the event that a TweenProperty is added and an already existing tween has the same

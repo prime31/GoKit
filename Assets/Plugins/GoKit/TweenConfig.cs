@@ -13,8 +13,8 @@ public class TweenConfig
 	public float delay; // how long should we delay before starting the Tween
 	public int iterations = 1; // number of times to iterate. -1 will loop indefinitely
 	public int timeScale = 1;
-	public LoopType loopType = Go.defaultLoopType;
-	public EaseType easeType = Go.defaultEaseType;
+	public GoLoopType loopType = Go.defaultLoopType;
+	public GoEaseType easeType = Go.defaultEaseType;
 	public bool isPaused;
 	public UpdateType propertyUpdateType = Go.defaultUpdateType;
 	public bool isFrom;
@@ -145,7 +145,7 @@ public class TweenConfig
 	/// <summary>
 	/// material color tween
 	/// </summary>
-	public TweenConfig materialColor( Color endValue, MaterialColorType colorType = MaterialColorType.Color, bool isRelative = false )
+	public TweenConfig materialColor( Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color, bool isRelative = false )
 	{
 		var prop = new MaterialColorTweenProperty( endValue, colorType, isRelative );
 		_tweenProperties.Add( prop );
@@ -335,7 +335,7 @@ public class TweenConfig
 	/// <summary>
 	/// sets the number of iterations and the loop type. setting to -1 will loop infinitely
 	/// </summary>
-	public TweenConfig setIterations( int iterations, LoopType loopType )
+	public TweenConfig setIterations( int iterations, GoLoopType loopType )
 	{
 		this.iterations = iterations;
 		this.loopType = loopType;
@@ -356,7 +356,7 @@ public class TweenConfig
 	/// <summary>
 	/// sets the ease type for the Tween
 	/// </summary>
-	public TweenConfig setEaseType( EaseType easeType )
+	public TweenConfig setEaseType( GoEaseType easeType )
 	{
 		this.easeType = easeType;
 		return this;

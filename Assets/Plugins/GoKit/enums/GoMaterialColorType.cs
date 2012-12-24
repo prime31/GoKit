@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// available material color types
 /// </summary>
-public enum MaterialColorType
+public enum GoMaterialColorType
 {
     Color,
     SpecColor,

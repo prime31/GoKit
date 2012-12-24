@@ -24,7 +24,7 @@ public class TweenChain : AbstractTweenCollection
 	}
 	
 	
-	public TweenChain setIterations( int iterations, LoopType loopType )
+	public TweenChain setIterations( int iterations, GoLoopType loopType )
 	{
 		this.iterations = iterations;
 		this.loopType = loopType;

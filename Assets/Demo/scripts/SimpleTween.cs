@@ -14,7 +14,7 @@ public class SimpleTween : BaseDemoGUI
 		_tween = Go.to( cube, 4, new TweenConfig()
 			.position( new Vector3( 9, 4, 0 ) )
 			.materialColor( Color.green )
-			.setIterations( -1, LoopType.PingPong ) );
+			.setIterations( -1, GoLoopType.PingPong ) );
 	}
 
 }

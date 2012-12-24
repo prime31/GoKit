@@ -60,7 +60,7 @@ public class BaseDemoGUI : MonoBehaviour
 			
 			GUILayout.Label( "Ease Types" );
 			
-			var allEaseTypes = Enum.GetValues( typeof( EaseType ) );
+			var allEaseTypes = Enum.GetValues( typeof( GoEaseType ) );
 			var midway = Mathf.Round( allEaseTypes.Length / 2 );
 			
 			for( var i = 0; i < allEaseTypes.Length; i++ )
@@ -75,7 +75,7 @@ public class BaseDemoGUI : MonoBehaviour
 				}
 				
 				if( GUILayout.Button( ease.ToString() ) )
-					((Tween)_tween).easeType = (EaseType)ease;
+					((Tween)_tween).easeType = (GoEaseType)ease;
 			}
 			
 			GUILayout.EndArea();

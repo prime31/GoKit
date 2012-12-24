@@ -84,13 +84,13 @@ public static class GoKitTweenExtensions
 	
 	#region Material extensions
 	
-	public static Tween colorTo( this Material self, float duration, Color endValue, MaterialColorType colorType = MaterialColorType.Color )
+	public static Tween colorTo( this Material self, float duration, Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color )
 	{
 		return Go.to( self, duration, new TweenConfig().materialColor( endValue, colorType ) );
 	}
 	
 	
-	public static Tween colorFrom( this Material self, float duration, Color endValue, MaterialColorType colorType = MaterialColorType.Color )
+	public static Tween colorFrom( this Material self, float duration, Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color )
 	{
 		return Go.from( self, duration, new TweenConfig().materialColor( endValue, colorType ) );
 	}
