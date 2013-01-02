@@ -63,7 +63,11 @@ public class RotationTweenProperty : AbstractVector3TweenProperty
 				_startValue = _target.rotation.eulerAngles;
 		}
 		
-		base.prepareForUse();
+		// handle rotation carefully: when not relative, we always want to go the shortest possible distance to the new angle
+		if( _isRelative && !_ownerTween.isFrom )
+			_diffValue = _startValue + _endValue;
+		else
+			_diffValue = new Vector3( Mathf.DeltaAngle( _startValue.x, _endValue.x ), Mathf.DeltaAngle( _startValue.y, _endValue.y ), Mathf.DeltaAngle( _startValue.z, _endValue.z ) );
 	}
 	
 	
