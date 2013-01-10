@@ -125,7 +125,7 @@ public class GoDummyPathEditor : Editor
 			
 			// see what kind of path we are. the simplest case is just a straight line
 			var path = new GoSpline( _target.nodes, _target.forceStraightLinePath );
-			if( path.splineType == SplineType.StraightLine )
+			if( path.splineType == GoSplineType.StraightLine )
 				offset = Vector3.zero - _target.nodes[0];
 			else
 				offset = Vector3.zero - _target.nodes[1];

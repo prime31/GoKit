@@ -15,7 +15,7 @@ public class TweenFlowGUI : BaseDemoGUI
 	void Start()
 	{
 		// create a TweenConfig that we will use on all 4 cubes
-		var config = new TweenConfig()
+		var config = new GoTweenConfig()
 			.setEaseType( GoEaseType.QuadIn ) // set the ease type for the tweens
 			.materialColor( Color.magenta ) // tween the material color to magenta
 			.eulerAngles( new Vector3( 0, 360, 0 ) ) // do a 360 rotation
@@ -23,7 +23,7 @@ public class TweenFlowGUI : BaseDemoGUI
 			.setIterations( 2, GoLoopType.PingPong ); // 2 iterations with a PingPong loop so we go out and back;
 		
 		// create the flow and set it to have 2 iterations
-		var flow = new TweenFlow().setIterations( 2 );
+		var flow = new GoTweenFlow().setIterations( 2 );
 		
 		// add a completion handler for the chain
 		flow.setOnCompleteHandler( c => Debug.Log( "flow complete" ) );
@@ -32,7 +32,7 @@ public class TweenFlowGUI : BaseDemoGUI
 		var startTime = 0f;
 		foreach( var cube in cubes )
 		{
-			var tween = new Tween( cube, 0.5f, config );
+			var tween = new GoTween( cube, 0.5f, config );
 			flow.insert( startTime, tween );
 			
 			// increment our startTime so that the next tween starts when this one is halfway done

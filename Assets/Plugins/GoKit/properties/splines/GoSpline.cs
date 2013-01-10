@@ -10,7 +10,7 @@ public class GoSpline
 {
 	public int currentSegment { get; private set; }
 	public bool isClosed { get; private set; }
-	public SplineType splineType { get; private set; }
+	public GoSplineType splineType { get; private set; }
 	
 	// used by the visual path editor
 	public List<Vector3> nodes { get { return _solver.nodes; } }
@@ -25,22 +25,22 @@ public class GoSpline
 		// determine spline type and solver based on number of nodes
 		if( useStraightLines || nodes.Count == 2 )
 		{
-			splineType = SplineType.StraightLine;
+			splineType = GoSplineType.StraightLine;
 			_solver = new GoSplineStraightLineSolver( nodes );
 		}
 		else if( nodes.Count == 3 )
 		{
-			splineType = SplineType.QuadraticBezier;
+			splineType = GoSplineType.QuadraticBezier;
 			_solver = new GoSplineQuadraticBezierSolver( nodes );
 		}
 		else if( nodes.Count == 4 )
 		{
-			splineType = SplineType.CubicBezier;
+			splineType = GoSplineType.CubicBezier;
 			_solver = new GoSplineCubicBezierSolver( nodes );
 		}
 		else
 		{
-			splineType = SplineType.CatmullRom;
+			splineType = GoSplineType.CatmullRom;
 			_solver = new GoSplineCatmullRomSolver( nodes );
 		}
 	}

@@ -9,7 +9,7 @@ public abstract class AbstractTweenProperty
 	public bool isInitialized { get { return _isInitialized; } }
 	
 	protected bool _isRelative;
-	protected Tween _ownerTween;
+	protected GoTween _ownerTween;
 	
 	protected Func<float, float, float, float, float> _easeFunction;
 	
@@ -52,7 +52,7 @@ public abstract class AbstractTweenProperty
 	/// <summary>
 	/// called by a Tween just after this property is validated and added to the Tweens property list
 	/// </summary>
-	public virtual void init( Tween owner )
+	public virtual void init( GoTween owner )
 	{
 		_isInitialized = true;
 		_ownerTween = owner;

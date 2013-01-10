@@ -14,7 +14,7 @@ using System.Collections;
 /// </summary>
 public struct GoSmoothedQuaternion
 {
-	public SmoothingType smoothingType;
+	public GoSmoothingType smoothingType;
 	public float duration;
 	
 	private Quaternion _currentValue;
@@ -32,7 +32,7 @@ public struct GoSmoothedQuaternion
 		
 		// set sensible defaults
 		duration = 0.2f;
-		smoothingType = SmoothingType.Lerp;
+		smoothingType = GoSmoothingType.Lerp;
 	}
 	
 	
@@ -45,10 +45,10 @@ public struct GoSmoothedQuaternion
 			
 			switch( smoothingType )
 			{
-				case SmoothingType.Lerp:
+				case GoSmoothingType.Lerp:
 					_currentValue = Quaternion.Lerp( _start, _target, t );
 					break;
-				case SmoothingType.Slerp:
+				case GoSmoothingType.Slerp:
 					_currentValue = Quaternion.Slerp( _start, _target, t );
 					break;
 			}

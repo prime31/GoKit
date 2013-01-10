@@ -38,5 +38,12 @@ public abstract class AbstractVector3TweenProperty : AbstractTweenProperty
 		else
 			_diffValue = _endValue - _startValue;
 	}
-
+	
+	
+	public void resetWithNewEndValue( Vector3 endValue )
+	{
+		_originalEndValue = endValue;
+		prepareForUse();
+	}
+	
 }

@@ -16,12 +16,12 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 	protected Vector3 _startValue;
 	
 	private GoSpline _path;
-	private LookAtType _lookAtType = LookAtType.None;
+	private GoLookAtType _lookAtType = GoLookAtType.None;
 	private Transform _lookTarget;
 	private GoSmoothedQuaternion _smoothedRotation;
 	
 
-	public PositionPathTweenProperty( GoSpline path, bool isRelative = false, bool useLocalPosition = false, LookAtType lookAtType = LookAtType.None, Transform lookTarget = null ) : base( isRelative )
+	public PositionPathTweenProperty( GoSpline path, bool isRelative = false, bool useLocalPosition = false, GoLookAtType lookAtType = GoLookAtType.None, Transform lookTarget = null ) : base( isRelative )
 	{
 		_path = path;
 		_useLocalPosition = useLocalPosition;
@@ -81,10 +81,10 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 		}
 		
 		// validate the lookTarget if we are set to look at it
-		if( _lookAtType == LookAtType.TargetTransform )
+		if( _lookAtType == GoLookAtType.TargetTransform )
 		{
 			if( _lookTarget == null )
-				_lookAtType = LookAtType.None;
+				_lookAtType = GoLookAtType.None;
 		}
 		
 		// prep our smoothed rotation
@@ -105,7 +105,7 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 		// handle look types
 		switch( _lookAtType )
 		{
-			case LookAtType.NextPathNode:
+			case GoLookAtType.NextPathNode:
 			{
 				_smoothedRotation.smoothValue = vec.Equals( _target.position ) ? Quaternion.identity : Quaternion.LookRotation( vec - _target.position );
 				_target.rotation = _smoothedRotation.smoothValue;
@@ -113,7 +113,7 @@ public class PositionPathTweenProperty : AbstractTweenProperty
 				//_target.LookAt( lookAtNode, Vector3.up );
 				break;
 			}
-			case LookAtType.TargetTransform:
+			case GoLookAtType.TargetTransform:
 			{
 				_target.LookAt( _lookTarget, Vector3.up );
 				break;

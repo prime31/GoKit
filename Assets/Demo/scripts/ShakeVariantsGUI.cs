@@ -13,28 +13,28 @@ public class ShakeVariantsGUI : BaseDemoGUI
 		if( GUILayout.Button( "Shake Position" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 1, 1, 1 ), ShakeType.Position ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 1, 1, 1 ), GoShakeType.Position ) );
 		}
 		
 		
 		if( GUILayout.Button( "Shake Scale" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 2, 2, 2 ), ShakeType.Scale ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 2, 2, 2 ), GoShakeType.Scale ) );
 		}
 		
 		
 		if( GUILayout.Button( "Shake Eulers" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 150, 150, 150 ), ShakeType.Eulers ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 150, 150, 150 ), GoShakeType.Eulers ) );
 		}
 		
 		
 		if( GUILayout.Button( "Shake Position & Scale" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 1, 1, 1 ), ShakeType.Position | ShakeType.Scale ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 1, 1, 1 ), GoShakeType.Position | GoShakeType.Scale ) );
 		}
 		
 		
@@ -42,14 +42,14 @@ public class ShakeVariantsGUI : BaseDemoGUI
 		if( GUILayout.Button( "Shake Position & Eulers" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 1, 1, 1 ), ShakeType.Position ).shake( new Vector3( 150, 150, 150 ), ShakeType.Eulers ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 1, 1, 1 ), GoShakeType.Position ).shake( new Vector3( 150, 150, 150 ), GoShakeType.Eulers ) );
 		}
 		
 		
 		if( GUILayout.Button( "Shake Position, Scale & Eulers" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 1, 1, 1 ), ShakeType.Position | ShakeType.Scale ).shake( new Vector3( 150, 150, 150 ), ShakeType.Eulers ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 1, 1, 1 ), GoShakeType.Position | GoShakeType.Scale ).shake( new Vector3( 150, 150, 150 ), GoShakeType.Eulers ) );
 		}
 		
 		
@@ -58,7 +58,7 @@ public class ShakeVariantsGUI : BaseDemoGUI
 		if( GUILayout.Button( "Shake Position with Frame Mod" ) )
 		{
 			stopRunningTween();
-			_tween = Go.to( cube, 0.5f, new TweenConfig().shake( new Vector3( 1, 1, 1 ), ShakeType.Position, 2 ) );
+			_tween = Go.to( cube, 0.5f, new GoTweenConfig().shake( new Vector3( 1, 1, 1 ), GoShakeType.Position, 2 ) );
 		}
 	}
 	

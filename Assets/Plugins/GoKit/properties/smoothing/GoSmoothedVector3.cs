@@ -5,7 +5,7 @@ using System.Collections;
 
 public struct GoSmoothedVector3
 {
-	public SmoothingType smoothingType;
+	public GoSmoothingType smoothingType;
 	public float duration;
 	
 	private Vector3 _currentValue;
@@ -23,7 +23,7 @@ public struct GoSmoothedVector3
 		
 		// set sensible defaults
 		duration = 0.2f;
-		smoothingType = SmoothingType.Lerp;
+		smoothingType = GoSmoothingType.Lerp;
 	}
 	
 	
@@ -36,10 +36,10 @@ public struct GoSmoothedVector3
 			
 			switch( smoothingType )
 			{
-				case SmoothingType.Lerp:
+				case GoSmoothingType.Lerp:
 					_currentValue = Vector3.Lerp( _start, _target, t );
 					break;
-				case SmoothingType.Slerp:
+				case GoSmoothingType.Slerp:
 					_currentValue = Vector3.Slerp( _start, _target, t );
 					break;
 			}

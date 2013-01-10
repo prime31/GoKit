@@ -6,7 +6,7 @@ using System.Collections;
 
 public class BaseDemoGUI : MonoBehaviour
 {
-	protected AbstractTween _tween;
+	protected AbstractGoTween _tween;
 	protected float _tweenTimeScale = 1;
 
 	
@@ -54,7 +54,7 @@ public class BaseDemoGUI : MonoBehaviour
 	protected void easeTypesGUI()
 	{
 		// ease section. only available for Tweens
-		if( _tween is Tween )
+		if( _tween is GoTween )
 		{
 			GUILayout.BeginArea( new Rect( Screen.width - 200, 0, 100, Screen.height ) );
 			
@@ -75,7 +75,7 @@ public class BaseDemoGUI : MonoBehaviour
 				}
 				
 				if( GUILayout.Button( ease.ToString() ) )
-					((Tween)_tween).easeType = (GoEaseType)ease;
+					((GoTween)_tween).easeType = (GoEaseType)ease;
 			}
 			
 			GUILayout.EndArea();

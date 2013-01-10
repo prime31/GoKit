@@ -8,18 +8,18 @@ public class Go : MonoBehaviour
 	// defaults used for all tweens/properties that are not explicitly set
 	public static GoEaseType defaultEaseType = GoEaseType.Linear;
 	public static GoLoopType defaultLoopType = GoLoopType.RestartFromBeginning;
-	public static UpdateType defaultUpdateType = UpdateType.Update;
+	public static GoUpdateType defaultUpdateType = GoUpdateType.Update;
 	
 	// defines what we should do in the event that a TweenProperty is added and an already existing tween has the same
 	// property and target
-	public static DuplicatePropertyRuleType duplicatePropertyRule = DuplicatePropertyRuleType.None;
+	public static GoDuplicatePropertyRuleType duplicatePropertyRule = GoDuplicatePropertyRuleType.None;
 	public static GoLogLevel logLevel = GoLogLevel.Warn;
 	
 	// validates that the target object still exists each tick of the tween. NOTE: it is recommended
 	// that you just properly remove your tweens before destroying any objects even though this might destroy them for you
 	public static bool validateTargetObjectsEachTick = true;
 	
-	private static List<AbstractTween> _tweens = new List<AbstractTween>(); // contains Tweens, TweenChains and TweenFlows
+	private static List<AbstractGoTween> _tweens = new List<AbstractGoTween>(); // contains Tweens, TweenChains and TweenFlows
 	private bool _timeScaleIndependentUpdateIsRunning;
 	
 	// only one Go can exist
@@ -51,7 +51,7 @@ public class Go : MonoBehaviour
 	/// loops through all the Tweens and updates any that are of updateType. If any Tweens are complete
 	/// (the update call will return true) they are removed.
 	/// </summary>
-	private void handleUpdateOfType( UpdateType updateType, float deltaTime )
+	private void handleUpdateOfType( GoUpdateType updateType, float deltaTime )
 	{
 		// loop backwards so we can remove completed tweens
 		for( var i = _tweens.Count - 1; i >= 0; --i )
@@ -59,10 +59,10 @@ public class Go : MonoBehaviour
 			var t = _tweens[i];
 			
 			// only process tweens with our update type that are running
-			if( t.updateType == updateType && t.state == TweenState.Running && t.update( deltaTime * t.timeScale ) )
+			if( t.updateType == updateType && t.state == GoTweenState.Running && t.update( deltaTime * t.timeScale ) )
 			{
 				// tween is complete if we get here. if destroyed or set to auto remove kill it
-				if( t.state == TweenState.Destroyed || t.autoRemoveOnComplete )
+				if( t.state == GoTweenState.Destroyed || t.autoRemoveOnComplete )
 				{
 					removeTween( t );
 					t.destroy();
@@ -79,7 +79,7 @@ public class Go : MonoBehaviour
 		if( _tweens.Count == 0 )
 			return;
 		
-		handleUpdateOfType( UpdateType.Update, Time.deltaTime );
+		handleUpdateOfType( GoUpdateType.Update, Time.deltaTime );
 	}
 	
 	
@@ -88,7 +88,7 @@ public class Go : MonoBehaviour
 		if( _tweens.Count == 0 )
 			return;
 		
-		handleUpdateOfType( UpdateType.LateUpdate, Time.deltaTime );
+		handleUpdateOfType( GoUpdateType.LateUpdate, Time.deltaTime );
 	}
 
 	
@@ -97,7 +97,7 @@ public class Go : MonoBehaviour
 		if( _tweens.Count == 0 )
 			return;
 		
-		handleUpdateOfType( UpdateType.FixedUpdate, Time.deltaTime );
+		handleUpdateOfType( GoUpdateType.FixedUpdate, Time.deltaTime );
 	}
 	
 	
@@ -124,7 +124,7 @@ public class Go : MonoBehaviour
             time = Time.realtimeSinceStartup;
 
             // update tweens
-            handleUpdateOfType( UpdateType.TimeScaleIndependentUpdate, elapsed );
+            handleUpdateOfType( GoUpdateType.TimeScaleIndependentUpdate, elapsed );
 
             yield return null;
         }
@@ -138,7 +138,7 @@ public class Go : MonoBehaviour
 	/// DontAddCurrentProperty it will return true indicating that the tween should not be added.
 	/// this only checks tweens that are not part of an AbstractTweenCollection
 	/// </summary>
-	private static bool handleDuplicatePropertiesInTween( Tween tween )
+	private static bool handleDuplicatePropertiesInTween( GoTween tween )
 	{
 		// first fetch all the current tweens with the same target object as this one
 		var allTweensWithTarget = tweensWithTarget( tween.target );
@@ -160,11 +160,11 @@ public class Go : MonoBehaviour
 				if( tweenWithTarget.containsTweenProperty( tweenProp ) )
 				{
 					// handle the different duplicate property rules
-					if( duplicatePropertyRule == DuplicatePropertyRuleType.DontAddCurrentProperty )
+					if( duplicatePropertyRule == GoDuplicatePropertyRuleType.DontAddCurrentProperty )
 					{
 						return true;
 					}
-					else if( duplicatePropertyRule == DuplicatePropertyRuleType.RemoveRunningProperty )
+					else if( duplicatePropertyRule == GoDuplicatePropertyRuleType.RemoveRunningProperty )
 					{
 						// TODO: perhaps check if the Tween has any properties left and remove it if it doesnt?
 						tweenWithTarget.removeTweenProperty( tweenProp );
@@ -227,9 +227,9 @@ public class Go : MonoBehaviour
 	/// <summary>
 	/// helper function that creates a "to" Tween and adds it to the pool
 	/// </summary>
-	public static Tween to( object target, float duration, TweenConfig config )
+	public static GoTween to( object target, float duration, GoTweenConfig config )
 	{
-		var tween = new Tween( target, duration, config );
+		var tween = new GoTween( target, duration, config );
 		addTween( tween );
 
 		return tween;
@@ -239,10 +239,10 @@ public class Go : MonoBehaviour
 	/// <summary>
 	/// helper function that creates a "from" Tween and adds it to the pool
 	/// </summary>
-	public static Tween from( object target, float duration, TweenConfig config )
+	public static GoTween from( object target, float duration, GoTweenConfig config )
 	{
 		config.setIsFrom();
-		var tween = new Tween( target, duration, config );
+		var tween = new GoTween( target, duration, config );
 		addTween( tween );
 		
 		return tween;
@@ -252,7 +252,7 @@ public class Go : MonoBehaviour
 	/// <summary>
 	/// adds an AbstractTween (Tween, TweenChain or TweenFlow) to the current list of running Tweens
 	/// </summary>
-	public static void addTween( AbstractTween tween )
+	public static void addTween( AbstractGoTween tween )
 	{
 		// early out for invalid items
 		if( !tween.isValid() )
@@ -263,10 +263,10 @@ public class Go : MonoBehaviour
 			return;
 		
 		// check for dupes and handle them before adding the tween. we only need to check for Tweens
-		if( duplicatePropertyRule != DuplicatePropertyRuleType.None && tween is Tween )
+		if( duplicatePropertyRule != GoDuplicatePropertyRuleType.None && tween is GoTween )
 		{
 			// if handleDuplicatePropertiesInTween returns true it indicates we should not add this tween
-			if( handleDuplicatePropertiesInTween( tween as Tween ) )
+			if( handleDuplicatePropertiesInTween( tween as GoTween ) )
 				return;
 			
 			// if we became invalid after handling dupes dont add the tween
@@ -275,29 +275,37 @@ public class Go : MonoBehaviour
 		}
 		
 		_tweens.Add( tween );
-		
+
 		// enable ourself if we are not enabled
 		if( !instance.enabled ) // purposely using the static instace property just once for initialization
 			_instance.enabled = true;
 		
 		// if the Tween isn't paused and it is a "from" tween jump directly to the start position
-		if( tween is Tween && ((Tween)tween).isFrom && tween.state != TweenState.Paused )
+		if( tween is GoTween && ((GoTween)tween).isFrom && tween.state != GoTweenState.Paused )
 			tween.update( 0 );
 		
 		// should we start up the time scale independent update?
-		if( !_instance._timeScaleIndependentUpdateIsRunning && tween.updateType == UpdateType.TimeScaleIndependentUpdate )
+		if( !_instance._timeScaleIndependentUpdateIsRunning && tween.updateType == GoUpdateType.TimeScaleIndependentUpdate )
 			_instance.StartCoroutine( _instance.timeScaleIndependentUpdate() );
+		
+#if UNITY_EDITOR
+		_instance.gameObject.name = string.Format( "GoKit ({0} tweens)", _tweens.Count );
+#endif
 	}
 	
 	
 	/// <summary>
 	/// removes the Tween returning true if it was removed or false if it was not found
 	/// </summary>
-	public static bool removeTween( AbstractTween tween )
+	public static bool removeTween( AbstractGoTween tween )
 	{
 		if( _tweens.Contains( tween ) )
 		{
 			_tweens.Remove( tween );
+			
+#if UNITY_EDITOR
+		_instance.gameObject.name = string.Format( "GoKit ({0} tweens)", _tweens.Count );
+#endif
 			
 			if( _tweens.Count == 0 )
 			{
@@ -315,16 +323,16 @@ public class Go : MonoBehaviour
 	/// <summary>
 	/// returns a list of all Tweens, TweenChains and TweenFlows with the given id
 	/// </summary>
-	public static List<AbstractTween> tweensWithId( int id )
+	public static List<AbstractGoTween> tweensWithId( int id )
 	{
-		List<AbstractTween> list = null;
+		List<AbstractGoTween> list = null;
 		
 		foreach( var tween in _tweens )
 		{
 			if( tween.id == id )
 			{
 				if( list == null )
-					list = new List<AbstractTween>();
+					list = new List<AbstractGoTween>();
 				list.Add( tween );
 			}
 		}
@@ -337,21 +345,21 @@ public class Go : MonoBehaviour
 	/// returns a list of all Tweens with the given target. TweenChains and TweenFlows can optionally
 	/// be traversed and matching Tweens returned as well.
 	/// </summary>
-	public static List<Tween> tweensWithTarget( object target, bool traverseCollections = false )
+	public static List<GoTween> tweensWithTarget( object target, bool traverseCollections = false )
 	{
-		List<Tween> list = new List<Tween>();
+		List<GoTween> list = new List<GoTween>();
 		
 		foreach( var item in _tweens )
 		{
 			// we always check Tweens so handle them first
-			var tween = item as Tween;
+			var tween = item as GoTween;
 			if( tween != null && tween.target == target )
 				list.Add( tween );
 			
 			// optionally check TweenChains and TweenFlows. if tween is null we have a collection
 			if( traverseCollections && tween == null )
 			{
-				var tweenCollection = item as AbstractTweenCollection;
+				var tweenCollection = item as AbstractGoTweenCollection;
 				if( tweenCollection != null )
 				{
 					var tweensInCollection = tweenCollection.tweensWithTarget( target );

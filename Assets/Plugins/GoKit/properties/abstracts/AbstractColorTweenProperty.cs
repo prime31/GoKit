@@ -27,7 +27,7 @@ public abstract class AbstractColorTweenProperty : AbstractTweenProperty
 	}
 	
 	
-	public override void init( Tween owner )
+	public override void init( GoTween owner )
 	{
 		// setup our target before initting
 		if( owner.target is Material )

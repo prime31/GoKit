@@ -12,7 +12,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 	private Vector3 _startScale;
 	private Vector3 _startEulers;
 	
-	private ShakeType _shakeType;
+	private GoShakeType _shakeType;
 	private int _frameCount;
 	private int _frameMod;
 	private bool _useLocalProperties;
@@ -24,7 +24,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 	/// allows you to specify what frame count the shakes should occur on. for example, a frameMod of 3 would mean that only when
 	/// frameCount % 3 == 0 will the shake occur
 	/// </summary>
-	public ShakeTweenProperty( Vector3 shakeMagnitude, ShakeType shakeType, int frameMod = 1, bool useLocalProperties = false ) : base( true )
+	public ShakeTweenProperty( Vector3 shakeMagnitude, GoShakeType shakeType, int frameMod = 1, bool useLocalProperties = false ) : base( true )
 	{
 		_shakeMagnitude = shakeMagnitude;
 		_shakeType = shakeType;
@@ -65,7 +65,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 		_frameCount = 0;
 
 		// store off any properties we will be shaking
-		if( ( _shakeType & ShakeType.Position ) != 0 )
+		if( ( _shakeType & GoShakeType.Position ) != 0 )
 		{
 			if( _useLocalProperties )
 				_startPosition = _target.localPosition;
@@ -73,7 +73,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 				_startPosition = _target.position;
 		}
 
-		if( ( _shakeType & ShakeType.Eulers ) != 0 )
+		if( ( _shakeType & GoShakeType.Eulers ) != 0 )
 		{
 			if( _useLocalProperties )
 				_startEulers = _target.eulerAngles;
@@ -81,7 +81,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 				_startEulers = _target.eulerAngles;
 		}
 		
-		if( ( _shakeType & ShakeType.Scale ) != 0 )
+		if( ( _shakeType & GoShakeType.Scale ) != 0 )
 			_startScale = _target.localScale;
 	}
 	
@@ -108,7 +108,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 		
 		
 		// shake any properties required
-		if( ( _shakeType & ShakeType.Position ) != 0 )
+		if( ( _shakeType & GoShakeType.Position ) != 0 )
 		{
 			var val = _startPosition + randomDiminishingTarget( easedTime );
 			if( _useLocalProperties )
@@ -117,7 +117,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 				_target.position = val;
 		}
 
-		if( ( _shakeType & ShakeType.Eulers ) != 0 )
+		if( ( _shakeType & GoShakeType.Eulers ) != 0 )
 		{
 			var val = _startEulers + randomDiminishingTarget( easedTime );
 			if( _useLocalProperties )
@@ -126,7 +126,7 @@ public class ShakeTweenProperty : AbstractTweenProperty
 				_target.eulerAngles = val;
 		}
 		
-		if( ( _shakeType & ShakeType.Scale ) != 0 )
+		if( ( _shakeType & GoShakeType.Scale ) != 0 )
 		{
 			_target.localScale = _startScale + randomDiminishingTarget( easedTime );
 		}
