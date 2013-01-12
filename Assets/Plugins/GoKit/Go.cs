@@ -304,7 +304,8 @@ public class Go : MonoBehaviour
 			_tweens.Remove( tween );
 			
 #if UNITY_EDITOR
-		_instance.gameObject.name = string.Format( "GoKit ({0} tweens)", _tweens.Count );
+		if( _instance != null && _tweens != null )
+			_instance.gameObject.name = string.Format( "GoKit ({0} tweens)", _tweens.Count );
 #endif
 			
 			if( _tweens.Count == 0 )
