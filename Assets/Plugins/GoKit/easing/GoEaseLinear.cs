@@ -1,4 +1,7 @@
-﻿public static class GoEaseLinear
+﻿using UnityEngine;
+
+
+public static class GoEaseLinear
 {
     public static float EaseNone( float t, float b, float c, float d )
     {
