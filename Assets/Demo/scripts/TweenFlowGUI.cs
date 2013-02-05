@@ -23,7 +23,7 @@ public class TweenFlowGUI : BaseDemoGUI
 			.setIterations( 2, GoLoopType.PingPong ); // 2 iterations with a PingPong loop so we go out and back;
 		
 		// create the flow and set it to have 2 iterations
-		var flow = new GoTweenFlow().setIterations( 2 );
+		var flow = new GoTweenFlow(new GoTweenCollectionConfig().setIterations( 2 ));
 		
 		// add a completion handler for the chain
 		flow.setOnCompleteHandler( c => Debug.Log( "flow complete" ) );

@@ -9,42 +9,8 @@ using System.Collections;
 /// </summary>
 public class GoTweenFlow : AbstractGoTweenCollection
 {
-	public GoTweenFlow() : base()
-	{}
-	
-	
-	#region chained property setters
-	
-	public GoTweenFlow setId( int id )
-	{
-		this.id = id;
-		return this;
-	}
-
-	
-	public GoTweenFlow setIterations( int iterations )
-	{
-		this.iterations = iterations;
-		return this;
-	}
-	
-	
-	public GoTweenFlow setIterations( int iterations, GoLoopType loopType )
-	{
-		this.iterations = iterations;
-		this.loopType = loopType;
-		return this;
-	}
-
-	
-	public GoTweenFlow setUpdateType( GoUpdateType updateType )
-	{
-		this.updateType = updateType;
-		return this;
-	}
-	
-	#endregion
-	
+	public GoTweenFlow() : this(new GoTweenCollectionConfig()) {}
+	public GoTweenFlow(GoTweenCollectionConfig config) : base(config) {}
 	
 	#region internal Flow management
 	

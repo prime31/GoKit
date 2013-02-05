@@ -37,15 +37,19 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
 	}
 	
-	
-	public AbstractGoTweenCollection()
-	{
+	public AbstractGoTweenCollection(GoTweenCollectionConfig config) {
+		// copy the TweenConfig info over
+		id = config.id;
+		loopType = config.loopType;
+		iterations = config.iterations;
+		updateType = config.propertyUpdateType;
+		_onComplete = config.onCompleteHandler;
+		_onStart = config.onStartHandler;
 		timeScale = 1;
-		iterations = 1;
 		state = GoTweenState.Paused;
 		Go.addTween( this );
 	}
-	
+		
 	
 	#region AbstractTween overrides
 	

@@ -19,7 +19,7 @@ public class TweenChainGUI : BaseDemoGUI
 			.setIterations( 2, GoLoopType.PingPong ); // 2 iterations with a PingPong loop so we go out and back
 		
 		// create the chain and set it to have 2 iterations
-		var chain = new GoTweenChain().setIterations( 2 );
+		var chain = new GoTweenChain(new GoTweenCollectionConfig().setIterations( 2 ));
 		
 		// add a completion handler for the chain
 		chain.setOnCompleteHandler( c => Debug.Log( "chain complete" ) );
