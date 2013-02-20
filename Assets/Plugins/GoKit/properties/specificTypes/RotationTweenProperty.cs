@@ -77,9 +77,9 @@ public class RotationTweenProperty : AbstractVector3TweenProperty
 		var vec = GoTweenUtils.unclampedVector3Lerp( _startValue, _diffValue, easedTime );
 		
 		if( _useLocalRotation )
-			_target.rotation = Quaternion.Euler( vec );
-		else
 			_target.localRotation = Quaternion.Euler( vec );
+		else
+			_target.rotation = Quaternion.Euler( vec );
 	}
 
 }
