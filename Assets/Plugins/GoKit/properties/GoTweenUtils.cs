@@ -49,6 +49,8 @@ public static class GoTweenUtils
 				return GoEaseElastic.EaseOut;
 			case GoEaseType.ElasticInOut:
 				return GoEaseElastic.EaseInOut;
+			case GoEaseType.Punch:
+				return GoEaseElastic.Punch;
 			
 			case GoEaseType.ExpoIn:
 				return GoEaseExponential.EaseIn;
