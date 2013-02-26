@@ -224,7 +224,7 @@ public class GoDummyPathEditor : Editor
 	
 	void OnSceneGUI()
 	{
-		if( !_target.gameObject.active )
+		if( !_target.gameObject.activeSelf )
 			return;
 		
 		// handle current selection and node addition via double click or ctrl click
