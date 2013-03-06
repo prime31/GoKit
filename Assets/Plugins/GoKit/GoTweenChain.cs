@@ -4,43 +4,9 @@ using System.Collections;
 
 public class GoTweenChain : AbstractGoTweenCollection
 {
-	public GoTweenChain() : base()
-	{}
-	
-	
-	#region chained property setters
-	
-	public GoTweenChain setId( int id )
-	{
-		this.id = id;
-		return this;
-	}
+	public GoTweenChain() : this(new GoTweenCollectionConfig()) {}
+	public GoTweenChain(GoTweenCollectionConfig config) : base(config) {}
 
-	
-	public GoTweenChain setIterations( int iterations )
-	{
-		this.iterations = iterations;
-		return this;
-	}
-	
-	
-	public GoTweenChain setIterations( int iterations, GoLoopType loopType )
-	{
-		this.iterations = iterations;
-		this.loopType = loopType;
-		return this;
-	}
-
-	
-	public GoTweenChain setUpdateType( GoUpdateType updateType )
-	{
-		this.updateType = updateType;
-		return this;
-	}
-	
-	#endregion
-
-	
 	#region internal Chain management
 	
 	private void append( TweenFlowItem item )
