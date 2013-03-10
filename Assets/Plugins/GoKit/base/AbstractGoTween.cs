@@ -282,7 +282,10 @@ public abstract class AbstractGoTween
 	public virtual void goTo( float time )
 	{
 		// clamp time to valid numbers
-		time = Mathf.Clamp( time, 0, totalDuration );
+        if ( loopType == GoLoopType.PingPong )
+            time = Mathf.Clamp( time, 0, totalDuration * 2 );
+        else
+            time = Mathf.Clamp( time, 0, totalDuration );
 		
 		// set time and force an update so we move to the desired location if we are not running
 		_totalElapsedTime = time;
