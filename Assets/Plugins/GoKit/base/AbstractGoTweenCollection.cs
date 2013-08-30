@@ -37,7 +37,8 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
 	}
 	
-	public AbstractGoTweenCollection(GoTweenCollectionConfig config) {
+	public AbstractGoTweenCollection( GoTweenCollectionConfig config )
+	{
 		// copy the TweenConfig info over
 		id = config.id;
 		loopType = config.loopType;
