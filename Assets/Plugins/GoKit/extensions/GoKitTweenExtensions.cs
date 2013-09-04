@@ -84,15 +84,15 @@ public static class GoKitTweenExtensions
 	
 	#region Material extensions
 	
-	public static GoTween colorTo( this Material self, float duration, Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color )
+	public static GoTween colorTo( this Material self, float duration, Color endValue, string colorName = "_Color" )
 	{
-		return Go.to( self, duration, new GoTweenConfig().materialColor( endValue, colorType ) );
+		return Go.to( self, duration, new GoTweenConfig().materialColor( endValue, colorName ) );
 	}
 	
 	
-	public static GoTween colorFrom( this Material self, float duration, Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color )
+	public static GoTween colorFrom( this Material self, float duration, Color endValue, string colorName = "_Color" )
 	{
-		return Go.from( self, duration, new GoTweenConfig().materialColor( endValue, colorType ) );
+		return Go.from( self, duration, new GoTweenConfig().materialColor( endValue, colorName ) );
 	}
 	
 	#endregion

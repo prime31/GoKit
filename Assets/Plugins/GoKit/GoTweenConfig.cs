@@ -168,9 +168,9 @@ public class GoTweenConfig
 	/// <summary>
 	/// material color tween
 	/// </summary>
-	public GoTweenConfig materialColor( Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color, bool isRelative = false )
+	public GoTweenConfig materialColor( Color endValue, string colorName = "_Color", bool isRelative = false )
 	{
-		var prop = new MaterialColorTweenProperty( endValue, colorType, isRelative );
+		var prop = new MaterialColorTweenProperty( endValue, colorName, isRelative );
 		_tweenProperties.Add( prop );
 		
 		return this;
