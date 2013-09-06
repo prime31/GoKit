@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Reflection;
 
 
 public static class GoTweenUtils
@@ -99,7 +100,7 @@ public static class GoTweenUtils
 	public static T setterForProperty<T>( System.Object targetObject, string propertyName )
 	{
 			// first get the property
-#if NET_CORE
+#if NETFX_CORE
 			var propInfo = targetObject.GetType().GetRuntimeProperty( propertyName );
 #else
 			var propInfo = targetObject.GetType().GetProperty( propertyName );
@@ -111,7 +112,7 @@ public static class GoTweenUtils
 				return default( T );
 			}
 			
-#if NET_CORE
+#if NETFX_CORE
 			// Windows Phone/Store new API
 			return (T)(object)propInfo.SetMethod.CreateDelegate( typeof( T ), targetObject );
 #else
@@ -127,7 +128,7 @@ public static class GoTweenUtils
 	public static T getterForProperty<T>( System.Object targetObject, string propertyName )
 	{
 			// first get the property
-#if NET_CORE
+#if NETFX_CORE
 			var propInfo = targetObject.GetType().GetRuntimeProperty( propertyName );
 #else
 			var propInfo = targetObject.GetType().GetProperty( propertyName );
@@ -139,7 +140,7 @@ public static class GoTweenUtils
 				return default( T );
 			}
 			
-#if NET_CORE
+#if NETFX_CORE
 			// Windows Phone/Store new API
 			return (T)(object)propInfo.GetMethod.CreateDelegate( typeof( T ), targetObject );
 #else
