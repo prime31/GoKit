@@ -91,7 +91,7 @@ public class GoSpline
 			path = Path.Combine( Path.Combine( Application.dataPath, "StreamingAssets" ), pathAssetName );
 		}
 		
-#if UNITY_WEBPLAYER
+#if UNITY_WEBPLAYER || NETFX_CORE
 		// it isnt possible to get here but the compiler needs it to be here anyway
 		return null;
 #else
