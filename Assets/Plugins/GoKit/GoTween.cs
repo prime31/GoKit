@@ -47,7 +47,7 @@ public class GoTween : AbstractGoTween
 		autoRemoveOnComplete = true;
 		
 		this.target = target;
-		this.targetString = target.GetType().ToString();
+		this.targetTypeString = target.GetType().ToString();
 		this.duration = duration;
 		
 		// copy the TweenConfig info over
