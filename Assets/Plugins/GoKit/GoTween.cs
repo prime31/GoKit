@@ -14,7 +14,7 @@ public class GoTween : AbstractGoTween
 	public bool isFrom { get; private set; } // a value of true will make this a "from" tween
 
 	private List<AbstractTweenProperty> _tweenPropertyList = new List<AbstractTweenProperty>();
-	
+	private string targetTypeString;
 	
     /// <summary>
     /// sets the ease type for all Tweens. this will overwrite the ease types for each Tween!
@@ -47,6 +47,7 @@ public class GoTween : AbstractGoTween
 		autoRemoveOnComplete = true;
 		
 		this.target = target;
+		this.targetString = target.GetType().ToString();
 		this.duration = duration;
 		
 		// copy the TweenConfig info over
@@ -104,7 +105,7 @@ public class GoTween : AbstractGoTween
 			if( target == null || target.Equals(null) )
 			{
 				// if the target doesn't pass validation
-				Debug.LogWarning( "target validation failed. destroying the tween to avoid errors" );
+				Debug.LogWarning( "target validation failed. destroying the tween to avoid errors. Target type: " + this.targetTypeString );
 				autoRemoveOnComplete = true;
 				return true;
 			}
