@@ -158,27 +158,41 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		// if we are looping back on a PingPong loop
 		var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
 		
-		// update all properties
-		foreach( var flow in _tweenFlows )
-		{
-			// only update flows that have a Tween and whose startTime has passed
-			if( flow.tween != null && flow.startTime < convertedElapsedTime )
-			{
-				// TODO: further narrow down who gets an update for efficiency
-				var tweenConvertedElapsed = convertedElapsedTime - flow.startTime;
-				flow.tween.goTo( tweenConvertedElapsed );
-			}
-		}
-		
 		if( state == GoTweenState.Complete )
 		{
-			if( !_didComplete )
-				onComplete();
+
+			//Make sure all tweens get completed
+			//Sometimes, it happens the last tween has not yet completed when the tweenchain is completed (maybe for a 0.0000000001 difference in the way convertedElapsedTime calculated)
+			foreach( var flow in _tweenFlows )
+			{
+				// only update flows that have a Tween and whose startTime has passed
+				if( flow.tween != null && flow.tween.state!=GoTweenState.Complete )
+				{
+					//Finish the tween and update it to call onComplete if needed
+					flow.tween.complete();
+					flow.tween.update(0);
+				}
+			}
 			
 			return true; //true if complete
+
+		} else {
+
+			// update all properties
+			foreach( var flow in _tweenFlows )
+			{
+				// only update flows that have a Tween and whose startTime has passed
+				if( flow.tween != null && flow.startTime < convertedElapsedTime )
+				{
+					// TODO: further narrow down who gets an update for efficiency
+					var tweenConvertedElapsed = convertedElapsedTime - flow.startTime;
+					flow.tween.goTo( tweenConvertedElapsed );
+				}
+			}
+
+			return false; //false if not complete
+
 		}
-		
-		return false; //false if not complete
 	}
 	
 	
