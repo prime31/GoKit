@@ -188,7 +188,7 @@ public abstract class AbstractGoTween
 	public virtual void destroy()
 	{
 		state = GoTweenState.Destroyed;
-		Go.removeTween( this );
+		//Go.removeTween( this ); //this done now in Go.handleUpdateOfType to avoid removing a tween while they are parsed in the main loop
 	}
 
 	
