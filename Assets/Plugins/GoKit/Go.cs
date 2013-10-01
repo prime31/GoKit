@@ -66,14 +66,18 @@ public class Go : MonoBehaviour
 		{
 			var t = _tweens[i];
 
-			// only process tweens with our update type that are running
-			if( t.updateType == updateType && t.state == GoTweenState.Running && t.update( deltaTime * t.timeScale ) )
-			{
-				// tween is complete if we get here. if destroyed or set to auto remove kill it
-				if( t.state == GoTweenState.Destroyed || t.autoRemoveOnComplete )
+			if( t.state == GoTweenState.Destroyed ) { // destroy method has been called
+				removeTween( t );
+			} else {
+				// only process tweens with our update type that are running
+				if( t.updateType == updateType && t.state == GoTweenState.Running && t.update( deltaTime * t.timeScale ) )
 				{
-					removeTween( t );
-					t.destroy();
+					// tween is complete if we get here. if destroyed or set to auto remove kill it
+					if( t.state == GoTweenState.Destroyed || t.autoRemoveOnComplete )
+					{
+						removeTween( t );
+						t.destroy();
+					}
 				}
 			}
 		}
