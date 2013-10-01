@@ -66,9 +66,13 @@ public class Go : MonoBehaviour
 		{
 			var t = _tweens[i];
 
-			if( t.state == GoTweenState.Destroyed ) { // destroy method has been called
+			if( t.state == GoTweenState.Destroyed )
+			{
+				// destroy method has been called
 				removeTween( t );
-			} else {
+			}
+			else
+			{
 				// only process tweens with our update type that are running
 				if( t.updateType == updateType && t.state == GoTweenState.Running && t.update( deltaTime * t.timeScale ) )
 				{
