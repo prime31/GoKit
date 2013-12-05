@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Reflection;
 
 
 public static class GoTweenUtils
@@ -49,6 +50,8 @@ public static class GoTweenUtils
 				return GoEaseElastic.EaseOut;
 			case GoEaseType.ElasticInOut:
 				return GoEaseElastic.EaseInOut;
+			case GoEaseType.Punch:
+				return GoEaseElastic.Punch;
 			
 			case GoEaseType.ExpoIn:
 				return GoEaseExponential.EaseIn;
@@ -96,16 +99,25 @@ public static class GoTweenUtils
 	/// </summary>
 	public static T setterForProperty<T>( System.Object targetObject, string propertyName )
 	{
-		// first get the property
-		var propInfo = targetObject.GetType().GetProperty( propertyName );
-		
-		if( propInfo == null )
-		{
-			Debug.Log( "could not find property with name: " + propertyName );
-			return default( T );
-		}
-		
-		return (T)(object)Delegate.CreateDelegate( typeof( T ), targetObject, propInfo.GetSetMethod() );
+			// first get the property
+#if NETFX_CORE
+			var propInfo = targetObject.GetType().GetRuntimeProperty( propertyName );
+#else
+			var propInfo = targetObject.GetType().GetProperty( propertyName );
+#endif
+			
+			if( propInfo == null )
+			{
+				Debug.Log( "could not find property with name: " + propertyName );
+				return default( T );
+			}
+			
+#if NETFX_CORE
+			// Windows Phone/Store new API
+			return (T)(object)propInfo.SetMethod.CreateDelegate( typeof( T ), targetObject );
+#else
+			return (T)(object)Delegate.CreateDelegate( typeof( T ), targetObject, propInfo.GetSetMethod() );
+#endif
 	}
 	
 	
@@ -115,16 +127,25 @@ public static class GoTweenUtils
 	/// </summary>
 	public static T getterForProperty<T>( System.Object targetObject, string propertyName )
 	{
-		// first get the property
-		var propInfo = targetObject.GetType().GetProperty( propertyName );
-		
-		if( propInfo == null )
-		{
-			Debug.Log( "could not find property with name: " + propertyName );
-			return default( T );
-		}
-		
-		return (T)(object)Delegate.CreateDelegate( typeof( T ), targetObject, propInfo.GetGetMethod() );
+			// first get the property
+#if NETFX_CORE
+			var propInfo = targetObject.GetType().GetRuntimeProperty( propertyName );
+#else
+			var propInfo = targetObject.GetType().GetProperty( propertyName );
+#endif
+			
+			if( propInfo == null )
+			{
+				Debug.Log( "could not find property with name: " + propertyName );
+				return default( T );
+			}
+			
+#if NETFX_CORE
+			// Windows Phone/Store new API
+			return (T)(object)propInfo.GetMethod.CreateDelegate( typeof( T ), targetObject );
+#else
+			return (T)(object)Delegate.CreateDelegate( typeof( T ), targetObject, propInfo.GetGetMethod() );
+#endif
 	}
 	
 	

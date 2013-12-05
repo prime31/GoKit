@@ -128,7 +128,7 @@ public class GoTweenConfig
 		
 		return this;
 	}
-	
+
 
 	/// <summary>
 	/// localRotation tween
@@ -140,14 +140,37 @@ public class GoTweenConfig
 		
 		return this;
 	}
-	
-	
+
+
+	/// <summary>
+	/// rotation tween as Quaternion
+	/// </summary>
+	public GoTweenConfig rotation( Quaternion endValue, bool isRelative = false )
+	{
+		var prop = new RotationQuaternionTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// localRotation tween as Quaternion
+	/// </summary>
+	public GoTweenConfig localRotation( Quaternion endValue, bool isRelative = false )
+	{
+		var prop = new RotationQuaternionTweenProperty( endValue, isRelative, true );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+
 	/// <summary>
 	/// material color tween
 	/// </summary>
-	public GoTweenConfig materialColor( Color endValue, GoMaterialColorType colorType = GoMaterialColorType.Color, bool isRelative = false )
+	public GoTweenConfig materialColor( Color endValue, string colorName = "_Color", bool isRelative = false )
 	{
-		var prop = new MaterialColorTweenProperty( endValue, colorType, isRelative );
+		var prop = new MaterialColorTweenProperty( endValue, colorName, isRelative );
 		_tweenProperties.Add( prop );
 		
 		return this;

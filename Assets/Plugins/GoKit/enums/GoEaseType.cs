@@ -38,6 +38,7 @@ public enum GoEaseType
     ElasticIn,
     ElasticOut,
     ElasticInOut,
+	Punch,
 	
     BackIn,
     BackOut,
