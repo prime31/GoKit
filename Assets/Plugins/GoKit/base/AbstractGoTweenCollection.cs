@@ -174,6 +174,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
 				}
 			}
 			
+			if( !_didComplete )
+				onComplete();			
+			
 			return true; //true if complete
 
 		} else {
