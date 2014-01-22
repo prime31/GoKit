@@ -47,12 +47,24 @@ public class PositionTweenProperty : AbstractVector3TweenProperty
 		// if this is a from tween we need to swap the start and end values
 		if( _ownerTween.isFrom )
 		{
-			_startValue = _endValue;
-			
 			if( _useLocalPosition )
+			{
+				if (_isRelative)
+					_startValue = _target.localPosition + _endValue;
+				else
+					_startValue = _endValue;
+
 				_endValue = _target.localPosition;
+			}
 			else
+			{
+				if (_isRelative)
+					_startValue = _target.position + _endValue;
+				else
+					_startValue = _endValue;
+
 				_endValue = _target.position;
+			}
 		}
 		else
 		{
