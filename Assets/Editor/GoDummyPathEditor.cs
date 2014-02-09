@@ -110,7 +110,7 @@ public class GoDummyPathEditor : Editor
 		// close route?
 		if( GUILayout.Button( "Close Path" ) )
 		{
-			Undo.RegisterUndo( _target, "Path Vector Changed" );
+			Undo.RecordObject( _target, "Path Vector Changed" );
 			closeRoute();
 			GUI.changed = true;
 		}
@@ -119,7 +119,7 @@ public class GoDummyPathEditor : Editor
 		// shift the start point to the origin
 		if( GUILayout.Button( "Shift Path to Start at Origin" ) )
 		{
-			Undo.RegisterUndo( _target, "Path Vector Changed" );
+			Undo.RecordObject( _target, "Path Vector Changed" );
 			
 			var offset = Vector3.zero;
 			
@@ -140,7 +140,7 @@ public class GoDummyPathEditor : Editor
 		// reverse
 		if( GUILayout.Button( "Reverse Path" ) )
 		{
-			Undo.RegisterUndo( _target, "Path Vector Changed" );
+			Undo.RecordObject( _target, "Path Vector Changed" );
 			_target.nodes.Reverse();
 			GUI.changed = true;
 		}
@@ -239,7 +239,7 @@ public class GoDummyPathEditor : Editor
 				var translatedPoint = HandleUtility.GUIPointToWorldRay( Event.current.mousePosition )
 						.GetPoint( ( _target.transform.position - Camera.current.transform.position ).magnitude );
 				
-				Undo.RegisterUndo( _target, "Path Node Added" );
+				Undo.RecordObject( _target, "Path Node Added" );
 				
 				// if alt is down then prepend the node to the beginning
 				if( Event.current.alt )
@@ -255,7 +255,7 @@ public class GoDummyPathEditor : Editor
 			// shall we delete the selected node?
 			if( Event.current.keyCode == KeyCode.Delete || Event.current.keyCode == KeyCode.Backspace )
 			{
-				Undo.RegisterUndo( _target, "Path Node Deleted" );
+				Undo.RecordObject( _target, "Path Node Deleted" );
 				Event.current.Use();
 				removeNodeAtIndex( _selectedNodeIndex );
 				_selectedNodeIndex = -1;
@@ -266,7 +266,7 @@ public class GoDummyPathEditor : Editor
 		if( _target.nodes.Count > 1 )
 		{
 			// allow path adjustment undo:
-			Undo.RegisterUndo( _target, "Path Vector Changed" );
+			Undo.RecordObject( _target, "Path Vector Changed" );
 			
 			// path begin and end labels or just one if the path is closed
 			if( Vector3.Distance( _target.nodes[0], _target.nodes[_target.nodes.Count - 1] ) == 0 )

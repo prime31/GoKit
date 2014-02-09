@@ -160,27 +160,27 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		
 		if( state == GoTweenState.Complete )
 		{
-
-			//Make sure all tweens get completed
-			//Sometimes, it happens the last tween has not yet completed when the tweenchain is completed (maybe for a 0.0000000001 difference in the way convertedElapsedTime calculated)
+			// Make sure all tweens get completed
+			// Sometimes the last tween has not yet completed when the tweenchain is completed (maybe because a minute difference in
+			// the way convertedElapsedTime calculated)
 			foreach( var flow in _tweenFlows )
 			{
 				// only update flows that have a Tween and whose startTime has passed
-				if( flow.tween != null && flow.tween.state!=GoTweenState.Complete )
+				if( flow.tween != null && flow.tween.state != GoTweenState.Complete )
 				{
-					//Finish the tween and update it to call onComplete if needed
+					// finish the tween and update it to call onComplete if needed
 					flow.tween.complete();
-					flow.tween.update(0);
+					flow.tween.update( 0 );
 				}
 			}
 			
 			if( !_didComplete )
 				onComplete();			
 			
-			return true; //true if complete
-
-		} else {
-
+			return true; // true means we are complete
+		}
+		else
+		{
 			// update all properties
 			foreach( var flow in _tweenFlows )
 			{
@@ -193,8 +193,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 				}
 			}
 
-			return false; //false if not complete
-
+			return false; // false since we are not complete
 		}
 	}
 	

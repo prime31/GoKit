@@ -9,9 +9,11 @@ using System.Collections;
 /// </summary>
 public class GoTweenFlow : AbstractGoTweenCollection
 {
-	public GoTweenFlow() : this(new GoTweenCollectionConfig()) {}
-	public GoTweenFlow(GoTweenCollectionConfig config) : base(config) {}
-	
+	public GoTweenFlow() : this( new GoTweenCollectionConfig() ) {}
+
+	public GoTweenFlow( GoTweenCollectionConfig config ) : base( config ) {}
+
+
 	#region internal Flow management
 	
 	/// <summary>
@@ -61,6 +63,5 @@ public class GoTweenFlow : AbstractGoTweenCollection
 	}
 	
 	#endregion
-	
 
 }
