@@ -17,23 +17,34 @@ public class GoTweenChain : AbstractGoTweenCollection
 		
 		if( float.IsInfinity( item.duration ) )
 		{
-			Debug.Log( "adding a Tween with infinite iterations to a TweenChain is not permitted" );
+			Debug.LogError( "adding a Tween with infinite iterations to a TweenChain is not permitted" );
 			return;
 		}
-		
-		// ensure the tween isnt already live
-		if( item.tween != null )
-			Go.removeTween( item.tween );
+
+        if ( item.tween != null )
+        {
+            if ( item.tween.isReversed != isReversed )
+            {
+                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+                return;
+            }
+
+            // ensure the tween isnt already live
+            Go.removeTween(item.tween);
+
+            // ensure that the item is marked to play.
+            item.tween.play();
+        }
 		
 		_tweenFlows.Add( item );
 		
 		// update the duration and total duration
 		duration += item.duration;
 		
-		if( iterations > 0 )
-			totalDuration = duration * iterations;
-		else
+		if( iterations < 0 )
 			totalDuration = float.PositiveInfinity;
+		else
+            totalDuration = duration * iterations;
 	}
 	
 	
@@ -45,24 +56,39 @@ public class GoTweenChain : AbstractGoTweenCollection
 		
 		if( float.IsInfinity( item.duration ) )
 		{
-			Debug.Log( "adding a Tween with infinite iterations to a TweenChain is not permitted" );
+			Debug.LogError( "adding a Tween with infinite iterations to a TweenChain is not permitted" );
 			return;
 		}
-		
-		// ensure the tween isnt already live
-		if( item.tween != null )
-			Go.removeTween( item.tween );
+
+        if ( item.tween != null )
+        {
+            if ( item.tween.isReversed != isReversed )
+            {
+                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+                return;
+            }
+
+            // ensure the tween isnt already live
+            Go.removeTween( item.tween );
+
+            // ensure that the item is marked to play.
+            item.tween.play();
+        }
 		
 		// fix all the start times on our previous chains
-		foreach( var ci in _tweenFlows )
-			ci.startTime += item.duration;
-		
-		_tweenFlows.Add( item );
+		foreach( var flowItem in _tweenFlows )
+			flowItem.startTime += item.duration;
+
+        _tweenFlows.Insert( 0, item );
 		
 		// update the duration and total duration
 		duration += item.duration;
-		totalDuration = duration * iterations;
-	}
+
+        if ( iterations < 0 )
+            totalDuration = float.PositiveInfinity;
+        else
+            totalDuration = duration * iterations;
+    }
 	
 	#endregion
 	

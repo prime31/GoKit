@@ -18,9 +18,13 @@ public class GoTweenConfig
 	public bool isPaused;
 	public GoUpdateType propertyUpdateType = Go.defaultUpdateType;
 	public bool isFrom;
-	public Action<AbstractGoTween> onCompleteHandler;
-	public Action<AbstractGoTween> onStartHandler;
 
+    public Action<AbstractGoTween> onInitHandler;
+    public Action<AbstractGoTween> onBeginHandler;
+    public Action<AbstractGoTween> onIterationStartHandler;
+    public Action<AbstractGoTween> onUpdateHandler;
+    public Action<AbstractGoTween> onIterationEndHandler;
+    public Action<AbstractGoTween> onCompleteHandler;
 	
 	
 	#region TweenProperty adders
@@ -321,6 +325,7 @@ public class GoTweenConfig
 	public GoTweenConfig addTweenProperty( AbstractTweenProperty tweenProp )
 	{
 		_tweenProperties.Add( tweenProp );
+
 		return this;
 	}
 	
@@ -331,9 +336,24 @@ public class GoTweenConfig
 	public GoTweenConfig clearProperties()
 	{
 		_tweenProperties.Clear();
+
 		return this;
 	}
-	
+
+    /// <summary>
+    /// clears out all the TweenProperties
+    /// </summary>
+    public GoTweenConfig clearEvents()
+    {
+        onInitHandler = null;
+        onBeginHandler = null;
+        onIterationStartHandler = null;
+        onUpdateHandler = null;
+        onIterationEndHandler = null;
+        onCompleteHandler = null;
+
+        return this;
+    }
 	
 	/// <summary>
 	/// sets the delay for the tween
@@ -341,6 +361,7 @@ public class GoTweenConfig
 	public GoTweenConfig setDelay( float seconds )
 	{
 		delay = seconds;
+
 		return this;
 	}
 	
@@ -351,6 +372,7 @@ public class GoTweenConfig
 	public GoTweenConfig setIterations( int iterations )
 	{
 		this.iterations = iterations;
+
 		return this;
 	}
 	
@@ -362,6 +384,7 @@ public class GoTweenConfig
 	{
 		this.iterations = iterations;
 		this.loopType = loopType;
+
 		return this;
 	}
 	
@@ -372,6 +395,7 @@ public class GoTweenConfig
 	public GoTweenConfig setTimeScale( int timeScale )
 	{
 		this.timeScale = timeScale;
+
 		return this;
 	}
 	
@@ -382,6 +406,7 @@ public class GoTweenConfig
 	public GoTweenConfig setEaseType( GoEaseType easeType )
 	{
 		this.easeType = easeType;
+
 		return this;
 	}
 	
@@ -392,6 +417,7 @@ public class GoTweenConfig
 	public GoTweenConfig startPaused()
 	{
 		isPaused = true;
+
 		return this;
 	}
 	
@@ -402,40 +428,97 @@ public class GoTweenConfig
 	public GoTweenConfig setUpdateType( GoUpdateType setUpdateType )
 	{
 		propertyUpdateType = setUpdateType;
+
 		return this;
 	}
-	
-	
+
+
+    /// <summary>
+    /// sets if this Tween should be a "from" Tween. From Tweens use the current property as the endValue and
+    /// the endValue as the start value
+    /// </summary>
+    public GoTweenConfig setIsFrom()
+    {
+        isFrom = true;
+
+        return this;
+    }
+
+    /// <summary>
+    /// sets if this Tween should be a "to" Tween.
+    /// </summary>
+    public GoTweenConfig setIsTo()
+    {
+        isFrom = false;
+
+        return this;
+    }
+
+
+    /// <summary>
+    /// sets the onInit handler for the Tween
+    /// </summary>
+    public GoTweenConfig onInit( Action<AbstractGoTween> onInit )
+    {
+        onInitHandler = onInit;
+        return this;
+    }
+
+
 	/// <summary>
-	/// sets if this Tween should be a "from" Tween. From Tweens use the current property as the endValue and
-	/// the endValue as the start value
+    /// sets the onBegin handler for the Tween
 	/// </summary>
-	public GoTweenConfig setIsFrom()
+    public GoTweenConfig onBegin( Action<AbstractGoTween> onBegin )
 	{
-		isFrom = true;
+        onBeginHandler = onBegin;
+
 		return this;
 	}
-	
-	
-	/// <summary>
-	/// sets the onComplete handler for the Tween
-	/// </summary>
-	public GoTweenConfig onComplete( Action<AbstractGoTween> onComplete )
-	{
-		onCompleteHandler = onComplete;
-		return this;
-	}
-	
-	
-	/// <summary>
-	/// sets the onStart handler for the Tween
-	/// </summary>
-	public GoTweenConfig onStart( Action<AbstractGoTween> onStart )
-	{
-		onStartHandler = onStart;
-		return this;
-	}
-	
+
+
+    /// <summary>
+    /// sets the onIterationStart handler for the Tween
+    /// </summary>
+    public GoTweenConfig onIterationStart( Action<AbstractGoTween> onIterationStart )
+    {
+        onIterationStartHandler = onIterationStart;
+
+        return this;
+    }
+
+
+    /// <summary>
+    /// sets the onUpdate handler for the Tween
+    /// </summary>
+    public GoTweenConfig onUpdate( Action<AbstractGoTween> onUpdate )
+    {
+        onUpdateHandler = onUpdate;
+
+        return this;
+    }
+
+
+    /// <summary>
+    /// sets the onIterationEnd handler for the Tween
+    /// </summary>
+    public GoTweenConfig onIterationEnd( Action<AbstractGoTween> onIterationEnd )
+    {
+        onIterationEndHandler = onIterationEnd;
+
+        return this;
+    }
+
+
+    /// <summary>
+    /// sets the onComplete handler for the Tween
+    /// </summary>
+    public GoTweenConfig onComplete( Action<AbstractGoTween> onComplete )
+    {
+        onCompleteHandler = onComplete;
+
+        return this;
+    }
+
 	
 	/// <summary>
 	/// sets the id for the Tween. Multiple Tweens can have the same id and you can retrieve them with the Go class
@@ -443,6 +526,7 @@ public class GoTweenConfig
 	public GoTweenConfig setId( int id )
 	{
 		this.id = id;
+
 		return this;
 	}
 

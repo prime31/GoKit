@@ -36,7 +36,6 @@ public class GoTween : AbstractGoTween
         }
     }
 	
-	
 
 	/// <summary>
 	/// initializes a new instance and sets up the details according to the config parameter
@@ -45,11 +44,23 @@ public class GoTween : AbstractGoTween
 	{
 		// default to removing on complete
 		autoRemoveOnComplete = true;
+
+        // allow events by default
+        allowEvents = true;
+
+        // setup callback bools
+        _didInit = false;
+        _didBegin = false;
+
+        // flag the onIterationStart event to fire. 
+        // as long as goTo is not called on this tween, the onIterationStart event will fire 
+        // as soon as the delay, if any, is completed.
+        _fireIterationStart = true;
 		
-		this.target = target;
+        this.target = target;
 		this.targetTypeString = target.GetType().ToString();
 		this.duration = duration;
-		
+
 		// copy the TweenConfig info over
 		id = config.id;
 		delay = config.delay;
@@ -59,8 +70,13 @@ public class GoTween : AbstractGoTween
 		updateType = config.propertyUpdateType;
 		isFrom = config.isFrom;
 		timeScale = config.timeScale;
-		_onComplete = config.onCompleteHandler;
-		_onStart = config.onStartHandler;
+
+        _onInit = config.onInitHandler;
+        _onBegin = config.onBeginHandler;
+        _onIterationStart = config.onIterationStartHandler;
+        _onUpdate = config.onUpdateHandler;
+        _onIterationEnd = config.onIterationEndHandler;
+        _onComplete = config.onCompleteHandler;
 		
 		if( config.isPaused )
 			state = GoTweenState.Paused;
@@ -71,7 +87,7 @@ public class GoTween : AbstractGoTween
 			_onComplete = onComplete;
 		
 		// add all our properties
-		for( var i = 0; i < config.tweenProperties.Count; i++ )
+		for( var i = 0; i < config.tweenProperties.Count; ++i )
 		{
 			var tweenProp = config.tweenProperties[i];
 			
@@ -88,13 +104,16 @@ public class GoTween : AbstractGoTween
 		else
 			totalDuration = iterations * duration;
 	}
-
 	
 	/// <summary>
 	/// tick method. if it returns true it indicates the tween is complete
 	/// </summary>
 	public override bool update( float deltaTime )
 	{
+        // properties are prepared only once on the first update of the tween.
+        if ( !_didInit )
+            onInit();
+
 		// should we validate the target?
 		if( Go.validateTargetObjectsEachTick )
 		{
@@ -110,6 +129,10 @@ public class GoTween : AbstractGoTween
 				return true;
 			}
 		}
+
+        // we only fire the begin callback once per run.
+        if ( !_didBegin )
+            onBegin();
 		
 		// handle delay and return if we are still delaying
 		if( !_delayComplete && _elapsedDelay < delay )
@@ -124,26 +147,35 @@ public class GoTween : AbstractGoTween
 
 			return false;
 		}
-		
-		// base will calculate the proper elapsedTime for us
+
+        // loops only start once the delay has completed.
+        if ( _fireIterationStart )
+            onIterationStart();
+
+		// base will calculate the proper elapsedTime, iterations, etc.
 		base.update( deltaTime );
-		
+
 		// if we are looping back on a PingPong loop
 		var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
-		
+        //Debug.Log(string.Format("{0} : {1} -- {2}", _elapsedTime, convertedElapsedTime, _isLoopingBackOnPingPong ? "Y" : "N"));
+
 		// update all properties
-		for( var i = 0; i < _tweenPropertyList.Count; i++ )
+		for( var i = 0; i < _tweenPropertyList.Count; ++i )
 			_tweenPropertyList[i].tick( convertedElapsedTime );
-		
+
+        onUpdate();
+
+        if ( _fireIterationEnd )
+            onIterationEnd();
+
 		if( state == GoTweenState.Complete )
 		{
-			if( !_didComplete )
-				onComplete();
+            onComplete();
 			
-			return true; //true if complete
+			return true; // true if complete
 		}
 		
-		return false; //false if not complete
+		return false; // false if not complete
 	}
 	
 	
@@ -211,19 +243,19 @@ public class GoTween : AbstractGoTween
 	}
 	
 	
-	// override to prepare all the TweenProperies for use
-	protected override void onStart()
-	{
-		base.onStart();
-		
-		// prepare our TweenProperties
-		for( var i = 0; i < _tweenPropertyList.Count; i++ )
-			_tweenPropertyList[i].prepareForUse();
-	}
-	
-	
 	#region AbstractTween overrides
-	
+
+    /// <summary>
+    /// called only once the first update of a tween.
+    /// </summary>
+    protected override void onInit()
+    {
+        base.onInit();
+
+        for ( var i = 0; i < _tweenPropertyList.Count; ++i )
+            _tweenPropertyList[i].prepareForUse();
+    }
+
 	/// <summary>
 	/// removes the tween and cleans up its state
 	/// </summary>
@@ -235,19 +267,49 @@ public class GoTween : AbstractGoTween
 		target = null;
 	}
 	
-	
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it will be force updated to the time specified.
 	/// </summary>
-	public override void goTo( float time )
-	{
-		// handle delay, which is specific to Tweens
-		_delayComplete = true;
-		_elapsedDelay = delay;
-		
-		base.goTo( time );
-	}
+    public override void goTo( float time )
+    {
+        // handle delay, which is specific to Tweens
+        _delayComplete = true;
+        _elapsedDelay = delay;
+
+        time = Mathf.Clamp( time, 0f, totalDuration );
+
+        // provide an early out for calling goto on the same time multiple times.
+        if ( time == _totalElapsedTime )
+            return;
+
+        // if we are doing a goTo at the "start" of the timeline, based on the isReversed variable, 
+        // allow the onBegin and onIterationStart callback to fire again.
+        // we only allow the onIterationStart event callback to fire at the start of the timeline, 
+        // as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we 
+        // go to the start.
+        if ( ( isReversed && time == totalDuration ) || ( !isReversed && time == 0f ) )
+        {
+            _didBegin = false;
+            _fireIterationStart = true;
+        }
+        else
+        {
+            _didBegin = true;
+            _fireIterationStart = false;
+        }
+
+        // since we're doing a goTo, we want to stop this tween from remembering that it iterated.
+        // this could cause issues if you caused the tween to complete an iteration and then goTo somewhere
+        // else while still paused.
+        _didIterateThisFrame = false;
+
+        // force a time and completedIterations before we update
+        _totalElapsedTime = time;
+        _completedIterations = Mathf.FloorToInt( _totalElapsedTime / duration );
+
+        update( 0 );
+    }
 	
 
 	/// <summary>
@@ -261,29 +323,27 @@ public class GoTween : AbstractGoTween
 	
 	public void rewind( bool skipDelay )
 	{
-		state = GoTweenState.Paused;
-		
-		// reset all state here
-		_elapsedTime = _totalElapsedTime = 0;
-		_elapsedDelay = skipDelay ? duration : 0;
-		_delayComplete = skipDelay;
-		_isLoopingBackOnPingPong = false;
-		_completedIterations = 0;
+        // tween-specific reset
+        _elapsedDelay = skipDelay ? duration : 0;
+        _delayComplete = skipDelay;
+
+        base.rewind();
 	}
-	
-	
-	/// <summary>
-	/// completes the tween. sets the object to it's final position as if the tween completed normally
-	/// </summary>
+
+
+    /// <summary>
+    /// completes the tween. sets the object to it's final position as if the tween completed normally. 
+    /// takes into effect if the tween was playing forward or reversed.
+    /// </summary>
 	public override void complete()
 	{
 		if( iterations < 0 )
 			return;
-		
+
+        // set delayComplete so we get one last update in before we die (base will set the elapsed time for us)
+        _delayComplete = true;
+
 		base.complete();
-		
-		// set delayComplete so we get one last update in before we die (base will set the elapsed time for us)
-		_delayComplete = true;
 	}
 
 	#endregion

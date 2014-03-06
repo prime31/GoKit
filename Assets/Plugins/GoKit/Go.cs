@@ -325,7 +325,7 @@ public class Go : MonoBehaviour
 			_instance.gameObject.name = string.Format( "GoKit ({0} tweens)", _tweens.Count );
 #endif
 
-			if( _instance!=null && _tweens.Count == 0 )
+			if( _instance != null && _tweens.Count == 0 )
 			{
 				// disable ourself if we have no more tweens
 				_instance.enabled = false;
