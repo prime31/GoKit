@@ -27,14 +27,25 @@ public class GoTweenFlow : AbstractGoTweenCollection
 		
 		if( float.IsInfinity( item.duration ) )
 		{
-			Debug.Log( "adding a Tween with infinite iterations to a TweenFlow is not permitted" );
+			Debug.LogError( "adding a Tween with infinite iterations to a TweenFlow is not permitted" );
 			return;
 		}
 		
-		// ensure the tween isnt already live
 		if( item.tween != null )
-			Go.removeTween( item.tween );
-		
+        {
+            if (item.tween.isReversed != isReversed)
+            {
+                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenFlow is not permitted." );
+                return;
+            }
+
+            // ensure the tween isnt already live
+            Go.removeTween(item.tween);
+
+            // ensure that the item is marked to play.
+            item.tween.play();
+        }
+
 		// add the item then sort based on startTimes
 		_tweenFlows.Add( item );
 		_tweenFlows.Sort( ( x, y ) =>
@@ -43,7 +54,11 @@ public class GoTweenFlow : AbstractGoTweenCollection
 		} );
 		
 		duration = Mathf.Max( item.startTime + item.duration, duration );
-		totalDuration = duration * iterations;
+
+        if (iterations < 0)
+            totalDuration = float.PositiveInfinity;
+        else
+            totalDuration = duration * iterations;
 	}
 	
 	#endregion
@@ -63,5 +78,6 @@ public class GoTweenFlow : AbstractGoTweenCollection
 	}
 	
 	#endregion
+	
 
 }

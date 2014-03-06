@@ -22,8 +22,11 @@ public abstract class AbstractGoTween
 	
 	public bool autoRemoveOnComplete { get; set; } // should we automatically remove ourself from the Go's list of tweens when done?
 	public bool isReversed { get; protected set; } // have we been reversed? this is different than a PingPong loop's backwards section
-	protected bool _didStart; // flag to ensure onStart only gets fired once and TweenProperties are initialized once
-	protected bool _didComplete; // flag to ensure onComplete only gets fired once
+    public bool allowEvents { get; set; } // allow the user to surpress events.
+    protected bool _didInit; // flag to ensure event only gets fired once 
+    protected bool _didBegin; // flag to ensure event only gets fired once
+    protected bool _fireIterationStart; 
+    protected bool _fireIterationEnd; 
 	
 	// internal state for update logic
 	protected float _elapsedTime; // elapsed time for the current loop iteration
@@ -31,63 +34,143 @@ public abstract class AbstractGoTween
 	public float totalElapsedTime { get { return _totalElapsedTime; } }
 	
 	protected bool _isLoopingBackOnPingPong;
-	public bool isLoopoingBackOnPingPong { get { return _isLoopingBackOnPingPong; } }
-	
+	public bool isLoopingBackOnPingPong { get { return _isLoopingBackOnPingPong; } }
+
+    protected bool _didIterateLastFrame;
+    protected bool _didIterateThisFrame;
+    protected int _deltaIterations; // change in completed iterations this frame.
 	protected int _completedIterations;
 	public int completedIterations { get { return _completedIterations; } }
 	
-	
 	// action event handlers
-	protected Action<AbstractGoTween> _onStart; // executes only once at initial startup
-	protected Action<AbstractGoTween> _onComplete; // exectures whenever a Tween completes
-	
-	
-	
-	public void setOnStartHandler( Action<AbstractGoTween> onStart )
+    protected Action<AbstractGoTween> _onInit; // executes before initial setup.
+    protected Action<AbstractGoTween> _onBegin; // executes when a tween starts.
+    protected Action<AbstractGoTween> _onIterationStart; // executes whenever a tween starts an iteration.
+    protected Action<AbstractGoTween> _onUpdate; // execute whenever a tween updates.
+    protected Action<AbstractGoTween> _onIterationEnd; // executes whenever a tween ends an iteration.
+	protected Action<AbstractGoTween> _onComplete; // exectures whenever a tween completes
+
+    public void setOnInitHandler( Action<AbstractGoTween> onInit )
+    {
+        _onInit = onInit;
+    }
+
+    public void setOnBeginHandler( Action<AbstractGoTween> onBegin )
 	{
-		_onStart = onStart;
+        _onBegin = onBegin;
 	}
 
+    public void setonIterationStartHandler( Action<AbstractGoTween> onIterationStart )
+    {
+        _onIterationStart = onIterationStart;
+    }
+
+    public void setOnUpdateHandler( Action<AbstractGoTween> onUpdate )
+    {
+        _onUpdate = onUpdate;
+    }
+
+    public void setonIterationEndHandler( Action<AbstractGoTween> onIterationEnd )
+    {
+        _onIterationEnd = onIterationEnd;
+    }
 	
 	public void setOnCompleteHandler( Action<AbstractGoTween> onComplete )
 	{
 		_onComplete = onComplete;
 	}
-	
-	
+
+    /// <summary>
+    /// called once per tween when it is first updated
+    /// </summary>
+    protected virtual void onInit()
+    {
+        if ( !allowEvents )
+            return;
+
+        if ( _onInit != null )
+            _onInit( this );
+
+        _didInit = true;
+    }
+
 	/// <summary>
-	/// called once per tween when it is first started
+	/// called whenever the tween is updated and the playhead is at the start (or end, depending on isReversed) of the tween.
 	/// </summary>
-	protected virtual void onStart()
+	protected virtual void onBegin()
 	{
-		_didStart = true;
-		
-		if( _onStart != null )
-			_onStart( this );
+        if ( !allowEvents )
+            return;
+
+        if ( isReversed && _totalElapsedTime != totalDuration )
+            return;
+        else if ( !isReversed && _totalElapsedTime != 0f )
+            return;
+
+        if ( _onBegin != null )
+            _onBegin( this );
+
+        _didBegin = true;
 	}
-	
-	
+
+
+    /// <summary>
+    /// called once per iteration at the start of the iteration.
+    /// </summary>
+	protected virtual void onIterationStart()
+    {
+        if ( !allowEvents )
+            return;
+
+        if ( _onIterationStart != null )
+            _onIterationStart( this );
+    }
+
+    /// <summary>
+    /// called once per update, after the update has occured.
+    /// </summary>
+    protected virtual void onUpdate()
+    {
+        if ( !allowEvents )
+            return;
+
+        if ( _onUpdate != null )
+            _onUpdate( this );
+    }
+
+    /// <summary>
+    /// called once per iteration at the end of the iteration.
+    /// </summary>
+    protected virtual void onIterationEnd()
+    {
+        if ( !allowEvents )
+            return;
+
+        if ( _onIterationEnd != null )
+            _onIterationEnd( this );
+    }
+
+
 	/// <summary>
-	/// called once per tween when it completes
+	/// called when the tween completes playing.
 	/// </summary>
 	protected virtual void onComplete()
 	{
-		_didComplete = true;
-		
+        if ( !allowEvents )
+            return;
+
 		if( _onComplete != null )
 			_onComplete( this );
 	}
 	
 	
 	/// <summary>
-	/// tick method. if it returns true it indicates the tween is complete
+	/// tick method. if it returns true it indicates the tween is complete.
+    ///   note: at it's base, AbstractGoTween does not fire events, it is up to the implementer to
+    ///         do so. see GoTween and AbstractGoTweenCollection for examples.
 	/// </summary>
 	public virtual bool update( float deltaTime )
 	{
-		// handle startup
-		if( !_didStart )
-			onStart();
-		
 		// increment or decrement the total elapsed time then clamp from 0 to totalDuration
         if( isReversed )
 			_totalElapsedTime -= deltaTime;
@@ -96,64 +179,89 @@ public abstract class AbstractGoTween
 		
 		_totalElapsedTime = Mathf.Clamp( _totalElapsedTime, 0, totalDuration );
 		
-		
-		// using our fresh totalElapsedTime, figure out what iteration we are on
-		_completedIterations = (int)Mathf.Floor( _totalElapsedTime / duration );
-		
-		// we can only be loopiong back on a PingPong if our loopType is PingPong and we are on an odd numbered iteration
-		_isLoopingBackOnPingPong = false;
-		if( loopType == GoLoopType.PingPong )
-		{
-			// infinite loops and we are on an odd numbered iteration
-			if( iterations < 0 && _completedIterations % 2 != 0 )
-			{
-				_isLoopingBackOnPingPong = true;
-			}
-			else if( iterations > 0 )
-			{
-				// we have finished all iterations and we went one over to a non looping back iteration
-				// so we still count as looping back so that we finish in the proper location
-				if( completedIterations >= iterations && _completedIterations % 2 == 0 )
-					_isLoopingBackOnPingPong = true;
-				else if( completedIterations < iterations && _completedIterations % 2 != 0 )
-					_isLoopingBackOnPingPong = true;
-			}
-		}
-		
-		
-		// figure out the current elapsedTime
-		if( iterations > 0 && _completedIterations >= iterations )
-		{
-			// we finished all iterations so clamp to the end of this tick
-			_elapsedTime = duration;
-			
-			// if we arent reversed, we are done
-			if( !isReversed )
-				state = GoTweenState.Complete;
-		}
-		else if( _totalElapsedTime < duration )
-		{
-			_elapsedTime = _totalElapsedTime; // havent finished a single iteration yet
-		}
-		else
-		{
-			// TODO: when we increment a completed iteration (go from 0 to 1 for example) we should probably run through once setting
-			// _elapsedTime = duration so that complete handlers in a chain or flow fire when expected
-			_elapsedTime = _totalElapsedTime % duration; // have finished at least one iteration
-		}
-		
-		
-		// check for completion when going in reverse
-		if( isReversed && _totalElapsedTime <= 0 )
-			state = GoTweenState.Complete;
-		
-		return false;
+        _didIterateLastFrame = _didIterateThisFrame || ( !isReversed && _totalElapsedTime == 0 ) || ( isReversed && _totalElapsedTime == totalDuration );
+
+        // we flip between ceil and floor based on the direction, because we want the iteration change 
+        // to happen when "duration" seconds has elapsed, not immediately, as was the case if you 
+        // were doing a floor and were going in reverse.
+        if ( isReversed )
+            _deltaIterations = Mathf.CeilToInt( _totalElapsedTime / duration ) - _completedIterations;
+        else
+            _deltaIterations = Mathf.FloorToInt( _totalElapsedTime / duration ) - _completedIterations;
+
+        // we iterated this frame if we have done a goTo() to an iteration point, or we've passed over
+        // an iteration threshold.
+        _didIterateThisFrame = !_didIterateLastFrame && ( _deltaIterations != 0f || _totalElapsedTime % duration == 0f );
+
+        _completedIterations += _deltaIterations;
+
+        // set the elapsedTime, given what we know.
+        if ( _didIterateLastFrame )
+        {
+            _elapsedTime = isReversed ? duration : 0f;
+        }
+        else if ( _didIterateThisFrame )
+        {
+            // if we iterated this frame, we force the _elapsedTime to the end of the timeline.
+            _elapsedTime = isReversed ? 0f : duration;
+        }
+        else
+        {
+            _elapsedTime = _totalElapsedTime % duration; 
+
+            // if you do a goTo(x) where x is a multiple of duration, we assume that you want
+            // to be at the end of your duration, as this sets you up to have an automatic OnIterationStart fire
+            // the next updated frame. the only caveat is when you do a goTo(0) when playing forwards,
+            // or a goTo(totalDuration) when playing in reverse. we assume that at that point, you want to be 
+            // at the start of your tween.
+            if ( _elapsedTime == 0f && ( ( isReversed && _totalElapsedTime == totalDuration ) || ( !isReversed && _totalElapsedTime > 0f ) ) )
+            {
+                _elapsedTime = duration;
+            }
+        }
+
+        // we can only be looping back on a PingPong if our loopType is PingPong and we are on an odd numbered iteration
+        _isLoopingBackOnPingPong = false;
+        if ( loopType == GoLoopType.PingPong )
+        {
+            // due to the way that we count iterations, and force a tween to remain at the end 
+            // of it's timeline for one frame after passing the duration threshold,
+            // we need to make sure that _isLoopingBackOnPingPong references the current
+            // iteration, and not the next one. 
+            if ( isReversed )
+            {
+                _isLoopingBackOnPingPong = _completedIterations % 2 == 0;
+
+                if ( _elapsedTime == 0f )
+                    _isLoopingBackOnPingPong = !_isLoopingBackOnPingPong;
+            }
+            else
+            {
+                _isLoopingBackOnPingPong = _completedIterations % 2 != 0;
+
+                if ( _elapsedTime == duration )
+                    _isLoopingBackOnPingPong = !_isLoopingBackOnPingPong;
+            }
+        }
+
+        // set a flag whether to fire the onIterationEnd event or not.
+        _fireIterationStart = _didIterateThisFrame || ( !isReversed && _elapsedTime == duration ) || ( isReversed && _elapsedTime == 0f );
+        _fireIterationEnd = _didIterateThisFrame;
+
+		// check for completion
+        if( ( !isReversed && iterations >= 0 && _completedIterations >= iterations ) || ( isReversed && _totalElapsedTime <= 0 ) )
+            state = GoTweenState.Complete;
+
+        if( state == GoTweenState.Complete )
+            return true; // true if complete
+
+        return false; // false if not complete
 	}
 	
 	
 	/// <summary>
 	/// subclasses should return true if they are a valid and ready to be added to the list of running tweens
-	/// or false if no
+	/// or false if not ready.
 	/// technically, this should be marked as internal
 	/// </summary>
 	public abstract bool isValid();
@@ -167,9 +275,8 @@ public abstract class AbstractGoTween
 	
 	
 	/// <summary>
-	/// returns true if the tween contains the same type (or propertyName) property in its
-	/// technically, this should be marked as internal
-	/// property list
+    /// returns true if the tween contains the same type (or propertyName) property in its property list
+    /// technically, this should be marked as internal
 	/// </summary>
 	public abstract bool containsTweenProperty( AbstractTweenProperty property );
 	
@@ -188,14 +295,13 @@ public abstract class AbstractGoTween
 	public virtual void destroy()
 	{
 		state = GoTweenState.Destroyed;
-		//Go.removeTween( this ); //this done now in Go.handleUpdateOfType to avoid removing a tween while they are parsed in the main loop
 	}
 
 	
 	/// <summary>
 	/// pauses playback
 	/// </summary>
-	public void pause()
+	public virtual void pause()
 	{
 		state = GoTweenState.Paused;
 	}
@@ -204,7 +310,7 @@ public abstract class AbstractGoTween
 	/// <summary>
 	/// resumes playback
 	/// </summary>
-	public void play()
+	public virtual void play()
 	{
 		state = GoTweenState.Running;
 	}
@@ -215,8 +321,10 @@ public abstract class AbstractGoTween
 	/// </summary>
 	public void playForward()
 	{
-		isReversed = false;
-		state = GoTweenState.Running;
+        if ( isReversed )
+            reverse();
+
+        play();
 	}
 	
 	
@@ -225,42 +333,62 @@ public abstract class AbstractGoTween
 	/// </summary>
 	public void playBackwards()
 	{
-		isReversed = true;
-		state = GoTweenState.Running;
+        if ( !isReversed )
+            reverse();
+
+        play();
 	}
-	
-	
+
+
+    /// <summary>
+    /// resets the tween to the beginning, taking isReversed into account.
+    /// </summary> 
+    protected virtual void reset()
+    {
+        goTo(isReversed ? totalDuration : 0);
+
+        _fireIterationStart = true;
+    }
+
+
 	/// <summary>
-	/// rewinds the tween to the beginning and pauses playback
+	/// rewinds the tween to the beginning (or end, depending on isReversed) and pauses playback.
 	/// </summary>
-	public abstract void rewind();
+	public virtual void rewind()
+    {
+        reset();
+        pause();
+    }
 	
 	
 	/// <summary>
-	/// rewinds the tween to the beginning and starts playback optionally skipping delay (only relevant for Tweens). Note that onComplete
-	/// will again fire after calling restart
+    /// rewinds the tween to the beginning (or end, depending on isReversed) and starts playback, 
+    /// optionally skipping delay (only relevant for Tweens). 
 	/// </summary>
 	public void restart( bool skipDelay = true )
 	{
-		// reset state when we restart
-		_didComplete = false;
-		rewind();
-		state = GoTweenState.Running;
+        reset();
+        play();
 	}
 	
 	
 	/// <summary>
 	/// reverses playback. if going forward it will be going backward after this and vice versa.
 	/// </summary>
-	public void reverse()
+	public virtual void reverse()
 	{
 		isReversed = !isReversed;
+
+        // if we are at the "start" of the timeline, based on isReversed, 
+        // allow the onBegin callback to fire again.
+        if ( ( isReversed && _totalElapsedTime == totalDuration ) || ( !isReversed && _totalElapsedTime == 0f ) )
+            _didBegin = false;
 	}
 	
 	
 	/// <summary>
-	/// completes the tween. sets the object to it's final position as if the tween completed normally. takes into effect
-	/// if the tween was playing forward or reversed
+	/// completes the tween. sets the playhead to it's final position as if the tween completed normally. 
+    /// takes into account if the tween was playing forward or reversed.
 	/// </summary>
 	public virtual void complete()
 	{
@@ -268,53 +396,24 @@ public abstract class AbstractGoTween
 			return;
 		
 		// set full elapsed time and let the next iteration finish it off
-		_elapsedTime = isReversed ? 0 : duration;
-		_totalElapsedTime = isReversed ? 0 : totalDuration;
-		_completedIterations = isReversed ? 0 : iterations;
-		state = GoTweenState.Running;
+        goTo( isReversed ? 0 : totalDuration );
 	}
 	
-	
+	 
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
-	/// not playing it can optionally be force updated to the time specified. delays are not taken into effect
+	/// not playing it can optionally be force updated to the time specified. delays are not taken into effect.
+    /// (must be implemented by inherited classes.)
 	/// </summary>
-	public virtual void goTo( float time )
-	{
-		// clamp time to valid numbers
-        if ( loopType == GoLoopType.PingPong )
-            time = Mathf.Clamp( time, 0, totalDuration * 2 );
-        else
-            time = Mathf.Clamp( time, 0, totalDuration );
-		
-		// set time and force an update so we move to the desired location if we are not running
-		_totalElapsedTime = time;
-		_elapsedTime = _totalElapsedTime;
-		
-		// manually set the loop count and if we are on the reverse end of a PingPong loop
-		if( iterations > 0 || iterations < 0 )
-		{
-			_completedIterations = (int)Mathf.Floor( _totalElapsedTime / duration );
-			if( loopType == GoLoopType.PingPong )
-				_isLoopingBackOnPingPong = _completedIterations % 2 != 0;
-			
-			// set elapsed time taking into account if we are set to loop.
-			// if we have loops left we need to get a proper elapsed by modding the totalElapsed
-			if( iterations < 0 || ( iterations > 0 && _completedIterations < iterations + 1 ) )
-				_elapsedTime = _totalElapsedTime % duration;
-		}
-
-		update( 0 );
-	}
-
+    public abstract void goTo( float time );
 	
 	/// <summary>
 	/// goes to the time and starts playback skipping any delays
 	/// </summary>
 	public void goToAndPlay( float time )
 	{
-		state = GoTweenState.Running;
 		goTo( time );
+        play();
 	}
 	
 	
@@ -328,6 +427,4 @@ public abstract class AbstractGoTween
 
         yield break;
     }
-	
-
 }
