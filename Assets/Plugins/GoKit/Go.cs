@@ -246,6 +246,7 @@ public class Go : MonoBehaviour
 	/// </summary>
 	public static GoTween to( object target, float duration, GoTweenConfig config )
 	{
+        config.setIsTo();
 		var tween = new GoTween( target, duration, config );
 		addTween( tween );
 
