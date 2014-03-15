@@ -52,8 +52,8 @@ public class GoTween : AbstractGoTween
         _didInit = false;
         _didBegin = false;
 
-        // flag the onIterationStart event to fire. 
-        // as long as goTo is not called on this tween, the onIterationStart event will fire 
+        // flag the onIterationStart event to fire.
+        // as long as goTo is not called on this tween, the onIterationStart event will fire
         // as soon as the delay, if any, is completed.
         _fireIterationStart = true;
 		
@@ -118,7 +118,7 @@ public class GoTween : AbstractGoTween
 		if( Go.validateTargetObjectsEachTick )
 		{
 			// This might seem to be overkill, but on the case of Transforms that
-			// have been destroyed, target == null will return false, whereas 
+			// have been destroyed, target == null will return false, whereas
 			// target.Equals(null) will return true.  Otherwise we don't really
 			// get the benefits of the nanny.
 			if( target == null || target.Equals(null) )
@@ -283,10 +283,10 @@ public class GoTween : AbstractGoTween
         if ( time == _totalElapsedTime )
             return;
 
-        // if we are doing a goTo at the "start" of the timeline, based on the isReversed variable, 
+        // if we are doing a goTo at the "start" of the timeline, based on the isReversed variable,
         // allow the onBegin and onIterationStart callback to fire again.
-        // we only allow the onIterationStart event callback to fire at the start of the timeline, 
-        // as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we 
+        // we only allow the onIterationStart event callback to fire at the start of the timeline,
+        // as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we
         // go to the start.
         if ( ( isReversed && time == totalDuration ) || ( !isReversed && time == 0f ) )
         {
@@ -332,7 +332,7 @@ public class GoTween : AbstractGoTween
 
 
     /// <summary>
-    /// completes the tween. sets the object to it's final position as if the tween completed normally. 
+    /// completes the tween. sets the object to it's final position as if the tween completed normally.
     /// takes into effect if the tween was playing forward or reversed.
     /// </summary>
 	public override void complete()

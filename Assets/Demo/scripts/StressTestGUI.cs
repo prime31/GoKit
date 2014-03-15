@@ -15,7 +15,7 @@ public class StressTestGUI : MonoBehaviour
 	private float timex;
 	private float timey;
 	private float timez;
-	private Vector3 endPt; 
+	private Vector3 endPt;
 	private int i;
 	
 	
@@ -78,7 +78,7 @@ public class StressTestGUI : MonoBehaviour
 	
 	public class Perlin
 	{
-		// Original C code derived from 
+		// Original C code derived from
 		// http://astronomy.swin.edu.au/~pbourke/texture/perlin/perlin.c
 		// http://astronomy.swin.edu.au/~pbourke/texture/perlin/perlin.h
 		const int B = 0x100;
@@ -96,12 +96,12 @@ public class StressTestGUI : MonoBehaviour
 		}
 		
 		float lerp (float t, float a, float b)
-		{ 
+		{
 			return a + t * (b - a);
 		}
 	
 		void setup (float value, out int b0, out int b1, out float r0, out float r1)
-		{ 
+		{
 	        float t = value + N;
 	        b0 = ((int)t) & BM;
 	        b1 = (b0+1) & BM;
@@ -234,7 +234,7 @@ public class StressTestGUI : MonoBehaviour
 		
 			  for (j = 0 ; j < 3 ; j++)
 				 g3[i,j] = (float)(rnd.Next(B + B) - B) / B;
-				 
+				
 		
 			  normalize3(ref g3[i, 0], ref g3[i, 1], ref g3[i, 2]);
 		   }

@@ -3,7 +3,7 @@ using System.Collections;
 
 
 [RequireComponent( typeof( GUIText ) )]
-public class FPSHUD : MonoBehaviour 
+public class FPSHUD : MonoBehaviour
 {
 
 	// Attach this to a GUIText to make a frames/second indicator.
@@ -16,9 +16,9 @@ public class FPSHUD : MonoBehaviour
 	// by accumulating FPS for each frame. This way we end up with
 	// correct overall FPS even if the interval renders something like
 	// 5.5 frames.
- 
+
 	public  float updateInterval = 0.5f;
- 
+
 	private float accum   = 0; // FPS accumulated over the interval
 	private int   frames  = 0; // Frames drawn over the interval
 	private float timeleft; // Left time for current interval
@@ -39,7 +39,7 @@ public class FPSHUD : MonoBehaviour
 	        enabled = false;
 	        return;
 	    }
-	    timeleft = updateInterval;  
+	    timeleft = updateInterval;
 	}
 
 
@@ -48,7 +48,7 @@ public class FPSHUD : MonoBehaviour
 	    timeleft -= Time.deltaTime;
 	    accum += Time.timeScale/Time.deltaTime;
 	    ++frames;
-    
+
 	    // Interval ended - update GUI text and start new interval
 	    if( timeleft <= 0.0 )
 	    {
@@ -61,7 +61,7 @@ public class FPSHUD : MonoBehaviour
 			{
 		        guiText.material.color = Color.yellow;
 			}
-		    else 
+		    else
 			{
 		        if( fps < 10 )
 		            guiText.material.color = Color.red;

@@ -47,8 +47,8 @@ public class AbstractGoTweenCollection : AbstractGoTween
         _didInit = false;
         _didBegin = false;
 
-        // flag the onIterationStart event to fire. 
-        // as long as goTo is not called on this tween, the onIterationStart event will fire 
+        // flag the onIterationStart event to fire.
+        // as long as goTo is not called on this tween, the onIterationStart event will fire
         _fireIterationStart = true;
 
 		// copy the TweenConfig info over
@@ -187,7 +187,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
         base.pause();
 
         foreach( var flowItem in _tweenFlows )
-        { 
+        {
             if( flowItem.tween != null )
                 flowItem.tween.pause();
         }
@@ -377,10 +377,10 @@ public class AbstractGoTweenCollection : AbstractGoTween
         // it's also possible that people will move around a tween via the goTo method, so we want to
         // try to make that as efficient as possible.
 
-        // if we are doing a goTo at the "start" of the timeline, based on the isReversed variable, 
+        // if we are doing a goTo at the "start" of the timeline, based on the isReversed variable,
         // allow the onBegin and onIterationStart callback to fire again.
-        // we only allow the onIterationStart event callback to fire at the start of the timeline, 
-        // as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we 
+        // we only allow the onIterationStart event callback to fire at the start of the timeline,
+        // as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we
         // go to the start.
         if ( ( isReversed && time == totalDuration ) || ( !isReversed && time == 0f ) )
         {
@@ -403,7 +403,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
         _completedIterations = Mathf.FloorToInt( _totalElapsedTime / duration );
 
         // we don't want to use the Collection update function, because we don't have all of our
-        // child tweenFlowItems setup properly. this will properly setup our iterations, 
+        // child tweenFlowItems setup properly. this will properly setup our iterations,
         // totalElapsedTime, and other useful information.
         base.update( 0 );
 

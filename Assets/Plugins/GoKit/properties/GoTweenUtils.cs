@@ -156,10 +156,10 @@ public static class GoTweenUtils
 	/// val1 + ( val2 - val1 ) * t
 	/// or in more familiar terms:
 	/// start + ( end - start ) * t
-	/// 
+	///
 	/// when lerping relatively, the formula simplifies to:
 	/// start + end * t
-	/// 
+	///
 	/// for all the unclamped lerps in this class the diff value is precalculated and cached. that means these arent like normal
 	/// lerps where you pass in the start and end values. the "diff" paramter in each method should be either the cached
 	/// ( end - start ) for non-relative tweens or just end for relative tweens (that are not "from" tweens)
@@ -209,8 +209,8 @@ public static class GoTweenUtils
 		/*
         return new Vector3
 		(
-			v1.x + ( v2.x - v1.x ) * value, 
-			v1.y + ( v2.y - v1.y ) * value, 
+			v1.x + ( v2.x - v1.x ) * value,
+			v1.y + ( v2.y - v1.y ) * value,
 			v1.z + ( v2.z - v1.z ) * value
 		);
 		*/

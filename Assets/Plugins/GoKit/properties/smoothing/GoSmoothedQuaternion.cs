@@ -4,13 +4,13 @@ using System.Collections;
 
 /// <summary>
 /// based on the idea by Mike Talbot here http://whydoidoit.com/2012/04/01/smoothed-vector3-quaternions-and-floats-in-unity/
-/// 
+///
 /// lerps or slerps a Quaternion over time. usage is like so:
-/// 
+///
 /// mySmoothedQuat = target.rotation; // creates the GoSmoothedQuaternion
 /// mySmoothedQuat.smoothValue = someNewQuaternion; // update the smoothValue whenever you would normally set the value on your object
 /// target.rotation = mySmoothedQuat.smoothValue; // use the smoothValue property in an Update method to lerp/slerp it
-/// 
+///
 /// </summary>
 public struct GoSmoothedQuaternion
 {

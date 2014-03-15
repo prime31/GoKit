@@ -23,10 +23,10 @@ public abstract class AbstractGoTween
 	public bool autoRemoveOnComplete { get; set; } // should we automatically remove ourself from the Go's list of tweens when done?
 	public bool isReversed { get; protected set; } // have we been reversed? this is different than a PingPong loop's backwards section
     public bool allowEvents { get; set; } // allow the user to surpress events.
-    protected bool _didInit; // flag to ensure event only gets fired once 
+    protected bool _didInit; // flag to ensure event only gets fired once
     protected bool _didBegin; // flag to ensure event only gets fired once
-    protected bool _fireIterationStart; 
-    protected bool _fireIterationEnd; 
+    protected bool _fireIterationStart;
+    protected bool _fireIterationEnd;
 	
 	// internal state for update logic
 	protected float _elapsedTime; // elapsed time for the current loop iteration
@@ -181,8 +181,8 @@ public abstract class AbstractGoTween
 		
         _didIterateLastFrame = _didIterateThisFrame || ( !isReversed && _totalElapsedTime == 0 ) || ( isReversed && _totalElapsedTime == totalDuration );
 
-        // we flip between ceil and floor based on the direction, because we want the iteration change 
-        // to happen when "duration" seconds has elapsed, not immediately, as was the case if you 
+        // we flip between ceil and floor based on the direction, because we want the iteration change
+        // to happen when "duration" seconds has elapsed, not immediately, as was the case if you
         // were doing a floor and were going in reverse.
         if ( isReversed )
             _deltaIterations = Mathf.CeilToInt( _totalElapsedTime / duration ) - _completedIterations;
@@ -207,12 +207,12 @@ public abstract class AbstractGoTween
         }
         else
         {
-            _elapsedTime = _totalElapsedTime % duration; 
+            _elapsedTime = _totalElapsedTime % duration;
 
             // if you do a goTo(x) where x is a multiple of duration, we assume that you want
             // to be at the end of your duration, as this sets you up to have an automatic OnIterationStart fire
             // the next updated frame. the only caveat is when you do a goTo(0) when playing forwards,
-            // or a goTo(totalDuration) when playing in reverse. we assume that at that point, you want to be 
+            // or a goTo(totalDuration) when playing in reverse. we assume that at that point, you want to be
             // at the start of your tween.
             if ( _elapsedTime == 0f && ( ( isReversed && _totalElapsedTime == totalDuration ) || ( !isReversed && _totalElapsedTime > 0f ) ) )
             {
@@ -224,10 +224,10 @@ public abstract class AbstractGoTween
         _isLoopingBackOnPingPong = false;
         if ( loopType == GoLoopType.PingPong )
         {
-            // due to the way that we count iterations, and force a tween to remain at the end 
+            // due to the way that we count iterations, and force a tween to remain at the end
             // of it's timeline for one frame after passing the duration threshold,
             // we need to make sure that _isLoopingBackOnPingPong references the current
-            // iteration, and not the next one. 
+            // iteration, and not the next one.
             if ( isReversed )
             {
                 _isLoopingBackOnPingPong = _completedIterations % 2 == 0;
@@ -342,7 +342,7 @@ public abstract class AbstractGoTween
 
     /// <summary>
     /// resets the tween to the beginning, taking isReversed into account.
-    /// </summary> 
+    /// </summary>
     protected virtual void reset()
     {
         goTo(isReversed ? totalDuration : 0);
@@ -362,8 +362,8 @@ public abstract class AbstractGoTween
 	
 	
 	/// <summary>
-    /// rewinds the tween to the beginning (or end, depending on isReversed) and starts playback, 
-    /// optionally skipping delay (only relevant for Tweens). 
+    /// rewinds the tween to the beginning (or end, depending on isReversed) and starts playback,
+    /// optionally skipping delay (only relevant for Tweens).
 	/// </summary>
 	public void restart( bool skipDelay = true )
 	{
@@ -379,7 +379,7 @@ public abstract class AbstractGoTween
 	{
 		isReversed = !isReversed;
 
-        // if we are at the "start" of the timeline, based on isReversed, 
+        // if we are at the "start" of the timeline, based on isReversed,
         // allow the onBegin callback to fire again.
         if ( ( isReversed && _totalElapsedTime == totalDuration ) || ( !isReversed && _totalElapsedTime == 0f ) )
             _didBegin = false;
@@ -387,7 +387,7 @@ public abstract class AbstractGoTween
 	
 	
 	/// <summary>
-	/// completes the tween. sets the playhead to it's final position as if the tween completed normally. 
+	/// completes the tween. sets the playhead to it's final position as if the tween completed normally.
     /// takes into account if the tween was playing forward or reversed.
 	/// </summary>
 	public virtual void complete()
@@ -399,7 +399,7 @@ public abstract class AbstractGoTween
         goTo( isReversed ? 0 : totalDuration );
 	}
 	
-	 
+	
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it can optionally be force updated to the time specified. delays are not taken into effect.

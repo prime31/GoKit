@@ -302,10 +302,10 @@ public class GoDummyPathEditor : Editor
 					distanceToTarget = Mathf.Abs( distanceToTarget );
 					var handleSize = Mathf.Ceil( distanceToTarget / 75 );
 					
-					_target.nodes[i] = Handles.FreeMoveHandle( _target.nodes[i], 
+					_target.nodes[i] = Handles.FreeMoveHandle( _target.nodes[i],
 					                        Quaternion.identity,
 					                        handleSize,
-					                        new Vector3( 5, 0, 5 ), 
+					                        new Vector3( 5, 0, 5 ),
 					                        Handles.SphereCap );
 				}
 				
