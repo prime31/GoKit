@@ -115,7 +115,7 @@ public class GoTweenConfig
 	/// </summary>
 	public GoTweenConfig localEulerAngles( Vector3 endValue, bool isRelative = false )
 	{
-		var prop = new EulerAnglesTweenProperty( endValue, isRelative );
+		var prop = new EulerAnglesTweenProperty( endValue, isRelative, true );
 		_tweenProperties.Add( prop );
 		
 		return this;
