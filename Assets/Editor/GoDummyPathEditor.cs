@@ -196,9 +196,10 @@ public class GoDummyPathEditor : Editor
 		_showNodeDetails = EditorGUILayout.Foldout( _showNodeDetails, "Show Node Values" );
 		if( _showNodeDetails )
 		{
-			EditorGUI.indentLevel = 3;
+			EditorGUI.indentLevel++;
 			for( int i = 0; i < _target.nodes.Count; i++ )
 				_target.nodes[i] = EditorGUILayout.Vector3Field( "Node " + ( i + 1 ), _target.nodes[i] );
+			EditorGUI.indentLevel--;
 		}
 		
 		
