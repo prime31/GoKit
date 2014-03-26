@@ -255,10 +255,12 @@ public class GoDummyPathEditor : Editor
 			// shall we delete the selected node?
 			if( Event.current.keyCode == KeyCode.Delete || Event.current.keyCode == KeyCode.Backspace )
 			{
-				Undo.RecordObject( _target, "Path Node Deleted" );
-				Event.current.Use();
-				removeNodeAtIndex( _selectedNodeIndex );
-				_selectedNodeIndex = -1;
+				if (_target.nodes.Count > 2) {
+					Undo.RecordObject( _target, "Path Node Deleted" );
+					Event.current.Use();
+					removeNodeAtIndex( _selectedNodeIndex );
+					_selectedNodeIndex = -1;
+				}
 			}
 		}
 		
