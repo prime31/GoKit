@@ -306,7 +306,7 @@ public class GoTween : AbstractGoTween
 
         // force a time and completedIterations before we update
         _totalElapsedTime = time;
-        _completedIterations = Mathf.FloorToInt( _totalElapsedTime / duration );
+        _completedIterations = isReversed ? Mathf.CeilToInt( _totalElapsedTime / duration ) : Mathf.FloorToInt( _totalElapsedTime / duration );
 
         update( 0 );
     }

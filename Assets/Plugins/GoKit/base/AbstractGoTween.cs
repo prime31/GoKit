@@ -379,6 +379,8 @@ public abstract class AbstractGoTween
 	{
 		isReversed = !isReversed;
 
+        _completedIterations = isReversed ? Mathf.CeilToInt( _totalElapsedTime / duration ) : Mathf.FloorToInt( _totalElapsedTime / duration );
+
         // if we are at the "start" of the timeline, based on isReversed,
         // allow the onBegin callback to fire again.
         if ( ( isReversed && _totalElapsedTime == totalDuration ) || ( !isReversed && _totalElapsedTime == 0f ) )

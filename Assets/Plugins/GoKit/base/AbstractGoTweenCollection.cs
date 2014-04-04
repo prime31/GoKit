@@ -400,7 +400,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
         // force a time and completedIterations before we update
         _totalElapsedTime = time;
-        _completedIterations = Mathf.FloorToInt( _totalElapsedTime / duration );
+        _completedIterations = isReversed ? Mathf.CeilToInt( _totalElapsedTime / duration ) : Mathf.FloorToInt( _totalElapsedTime / duration );
 
         // we don't want to use the Collection update function, because we don't have all of our
         // child tweenFlowItems setup properly. this will properly setup our iterations,
