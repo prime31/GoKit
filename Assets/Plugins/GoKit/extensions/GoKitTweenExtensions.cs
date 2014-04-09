@@ -7,13 +7,13 @@ public static class GoKitTweenExtensions
 	#region Transform extensions
 	
 	// to tweens
-	public static GoTween eularAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	public static GoTween eulerAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
 		return Go.to( self, duration, new GoTweenConfig().eulerAngles( endValue, isRelative ) );
 	}
 	
 	
-	public static GoTween localEularAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	public static GoTween localEulerAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
 		return Go.to( self, duration, new GoTweenConfig().localEulerAngles( endValue, isRelative ) );
 	}
@@ -50,13 +50,13 @@ public static class GoKitTweenExtensions
 	
 	
 	// from tweens
-	public static GoTween eularAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	public static GoTween eulerAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
 		return Go.from( self, duration, new GoTweenConfig().eulerAngles( endValue, isRelative ) );
 	}
 	
 	
-	public static GoTween localEularAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	public static GoTween localEulerAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
 		return Go.from( self, duration, new GoTweenConfig().localEulerAngles( endValue, isRelative ) );
 	}
