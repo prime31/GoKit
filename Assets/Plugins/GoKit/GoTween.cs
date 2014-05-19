@@ -271,11 +271,20 @@ public class GoTween : AbstractGoTween
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it will be force updated to the time specified.
 	/// </summary>
-    public override void goTo( float time )
+    public override void goTo( float time , bool skipDelay = true )
     {
         // handle delay, which is specific to Tweens
-        _delayComplete = true;
-        _elapsedDelay = delay;
+		if( skipDelay )
+		{
+			_elapsedDelay = delay;
+		}
+		else
+		{
+			_elapsedDelay = Mathf.Min( time, delay );
+			time -= _elapsedDelay;
+		}
+
+		_delayComplete = _elapsedDelay >= delay;
 
         time = Mathf.Clamp( time, 0f, totalDuration );
 
@@ -310,25 +319,6 @@ public class GoTween : AbstractGoTween
 
         update( 0 );
     }
-	
-
-	/// <summary>
-	/// rewinds the tween to the beginning and pauses playback
-	/// </summary>
-	public override void rewind()
-	{
-		rewind( true );
-	}
-	
-	
-	public void rewind( bool skipDelay )
-	{
-        // tween-specific reset
-        _elapsedDelay = skipDelay ? duration : 0;
-        _delayComplete = skipDelay;
-
-        base.rewind();
-	}
 
 
     /// <summary>

@@ -364,11 +364,11 @@ public class AbstractGoTweenCollection : AbstractGoTween
     /// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
     /// not playing it will be force updated to the time specified.
     /// </summary>
-    public override void goTo( float time )
+	public override void goTo( float time, bool skipDelay = true )
     {
         time = Mathf.Clamp( time, 0f, totalDuration );
 
-        // provide an early out for calling goto on the same time multiple times.
+		// provide an early out for calling goTo on the same time multiple times.
         if ( time == _totalElapsedTime )
             return;
 
