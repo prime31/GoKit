@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public class GoTweenConfig
 {
-	private List<AbstractTweenProperty> _tweenProperties = new List<AbstractTweenProperty>();
+	private List<AbstractTweenProperty> _tweenProperties = new List<AbstractTweenProperty>( 2 );
 	public List<AbstractTweenProperty> tweenProperties { get { return _tweenProperties; } }
-	
+
 	public int id; // id for finding the Tween at a later time. multiple Tweens can have the same id
 	public float delay; // how long should we delay before starting the Tween
 	public int iterations = 1; // number of times to iterate. -1 will loop indefinitely
@@ -25,10 +25,10 @@ public class GoTweenConfig
     public Action<AbstractGoTween> onUpdateHandler;
     public Action<AbstractGoTween> onIterationEndHandler;
     public Action<AbstractGoTween> onCompleteHandler;
-	
-	
+
+
 	#region TweenProperty adders
-	
+
 	/// <summary>
 	/// position tween
 	/// </summary>
@@ -36,10 +36,10 @@ public class GoTweenConfig
 	{
 		var prop = new PositionTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
+
 
 	/// <summary>
 	/// localPosition tween
@@ -48,11 +48,11 @@ public class GoTweenConfig
 	{
 		var prop = new PositionTweenProperty( endValue, isRelative, true );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// position path tween
 	/// </summary>
@@ -60,11 +60,11 @@ public class GoTweenConfig
 	{
 		var prop = new PositionPathTweenProperty( path, isRelative, false, lookAtType, lookTarget );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// uniform scale tween (x, y and z scale to the same value)
 	/// </summary>
@@ -72,8 +72,8 @@ public class GoTweenConfig
 	{
 		return this.scale( new Vector3( endValue, endValue, endValue ), isRelative );
 	}
-	
-	
+
+
 	/// <summary>
 	/// scale tween
 	/// </summary>
@@ -81,11 +81,11 @@ public class GoTweenConfig
 	{
 		var prop = new ScaleTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
-	
+
 	/// <summary>
 	/// scale through a series of Vector3s
 	/// </summary>
@@ -93,11 +93,11 @@ public class GoTweenConfig
 	{
 		var prop = new ScalePathTweenProperty( path, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
-	
+
 	/// <summary>
 	/// eulerAngle tween
 	/// </summary>
@@ -105,11 +105,11 @@ public class GoTweenConfig
 	{
 		var prop = new EulerAnglesTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// local eulerAngle tween
 	/// </summary>
@@ -117,11 +117,11 @@ public class GoTweenConfig
 	{
 		var prop = new EulerAnglesTweenProperty( endValue, isRelative, true );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// rotation tween
 	/// </summary>
@@ -129,7 +129,7 @@ public class GoTweenConfig
 	{
 		var prop = new RotationTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
@@ -141,7 +141,7 @@ public class GoTweenConfig
 	{
 		var prop = new RotationTweenProperty( endValue, isRelative, true );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
@@ -153,7 +153,7 @@ public class GoTweenConfig
 	{
 		var prop = new RotationQuaternionTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
@@ -164,7 +164,7 @@ public class GoTweenConfig
 	{
 		var prop = new RotationQuaternionTweenProperty( endValue, isRelative, true );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
 
@@ -176,11 +176,11 @@ public class GoTweenConfig
 	{
 		var prop = new MaterialColorTweenProperty( endValue, colorName, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// shake tween
 	/// </summary>
@@ -188,13 +188,13 @@ public class GoTweenConfig
 	{
 		var prop = new ShakeTweenProperty( shakeMagnitude, shakeType, frameMod, useLocalProperties );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	#region generic properties
-	
+
 	/// <summary>
 	/// generic vector2 tween
 	/// </summary>
@@ -202,11 +202,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector2TweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic vector3 tween
 	/// </summary>
@@ -214,11 +214,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector3TweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic vector4 tween
 	/// </summary>
@@ -226,10 +226,10 @@ public class GoTweenConfig
 	{
 		var prop = new Vector4TweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
+
 
 	/// <summary>
 	/// generic vector3 path tween
@@ -238,11 +238,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector3PathTweenProperty( propertyName, path, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic vector3.x tween
 	/// </summary>
@@ -250,11 +250,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector3XTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic vector3.y tween
 	/// </summary>
@@ -262,11 +262,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector3YTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic vector3.z tween
 	/// </summary>
@@ -274,11 +274,11 @@ public class GoTweenConfig
 	{
 		var prop = new Vector3ZTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic color tween
 	/// </summary>
@@ -286,11 +286,11 @@ public class GoTweenConfig
 	{
 		var prop = new ColorTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic integer tween
 	/// </summary>
@@ -298,11 +298,11 @@ public class GoTweenConfig
 	{
 		var prop = new IntTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// generic float tween
 	/// </summary>
@@ -310,15 +310,15 @@ public class GoTweenConfig
 	{
 		var prop = new FloatTweenProperty( propertyName, endValue, isRelative );
 		_tweenProperties.Add( prop );
-		
+
 		return this;
 	}
-	
+
 	#endregion
-	
+
 	#endregion
-	
-	
+
+
 	/// <summary>
 	/// adds a TweenProperty to the list
 	/// </summary>
@@ -328,8 +328,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// clears out all the TweenProperties
 	/// </summary>
@@ -354,7 +354,7 @@ public class GoTweenConfig
 
         return this;
     }
-	
+
 	/// <summary>
 	/// sets the delay for the tween
 	/// </summary>
@@ -364,8 +364,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets the number of iterations. setting to -1 will loop infinitely
 	/// </summary>
@@ -375,8 +375,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets the number of iterations and the loop type. setting to -1 will loop infinitely
 	/// </summary>
@@ -387,8 +387,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets the timeScale to be used by the Tween
 	/// </summary>
@@ -398,8 +398,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets the ease type for the Tween
 	/// </summary>
@@ -409,8 +409,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets whether the Tween should start paused
 	/// </summary>
@@ -420,8 +420,8 @@ public class GoTweenConfig
 
 		return this;
 	}
-	
-	
+
+
 	/// <summary>
 	/// sets the update type for the Tween
 	/// </summary>
@@ -519,7 +519,7 @@ public class GoTweenConfig
         return this;
     }
 
-	
+
 	/// <summary>
 	/// sets the id for the Tween. Multiple Tweens can have the same id and you can retrieve them with the Go class
 	/// </summary>

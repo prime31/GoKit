@@ -13,9 +13,9 @@ public class GoTween : AbstractGoTween
 	private bool _delayComplete; // once we complete the delay this gets set so we can reverse and play properly for the future
 	public bool isFrom { get; private set; } // a value of true will make this a "from" tween
 
-	private List<AbstractTweenProperty> _tweenPropertyList = new List<AbstractTweenProperty>();
-	private string targetTypeString;
-	
+	private List<AbstractTweenProperty> _tweenPropertyList = new List<AbstractTweenProperty>( 2 );
+	private Type targetType;
+
     /// <summary>
     /// sets the ease type for all Tweens. this will overwrite the ease types for each Tween!
     /// </summary>
@@ -29,13 +29,13 @@ public class GoTween : AbstractGoTween
         set
         {
             _easeType = value;
-			
+
             // change ease type of all existing tweens.
             foreach( var tween in _tweenPropertyList )
             	tween.setEaseType( value );
         }
     }
-	
+
 
 	/// <summary>
 	/// initializes a new instance and sets up the details according to the config parameter
@@ -56,9 +56,9 @@ public class GoTween : AbstractGoTween
         // as long as goTo is not called on this tween, the onIterationStart event will fire
         // as soon as the delay, if any, is completed.
         _fireIterationStart = true;
-		
+
         this.target = target;
-		this.targetTypeString = target.GetType().ToString();
+		this.targetType = target.GetType();
 		this.duration = duration;
 
 		// copy the TweenConfig info over
@@ -77,34 +77,34 @@ public class GoTween : AbstractGoTween
         _onUpdate = config.onUpdateHandler;
         _onIterationEnd = config.onIterationEndHandler;
         _onComplete = config.onCompleteHandler;
-		
+
 		if( config.isPaused )
 			state = GoTweenState.Paused;
-		
+
 		// if onComplete is passed to the constructor it wins. it is left as the final param to allow an inline Action to be
 		// set and maintain clean code (Actions always try to be the last param of a method)
 		if( onComplete != null )
 			_onComplete = onComplete;
-		
+
 		// add all our properties
 		for( var i = 0; i < config.tweenProperties.Count; ++i )
 		{
 			var tweenProp = config.tweenProperties[i];
-			
+
 			// if the tween property is initialized already it means it is being reused so we need to clone it
 			if( tweenProp.isInitialized )
 				tweenProp = tweenProp.clone();
-			
+
 			addTweenProperty( tweenProp );
 		}
-		
+
 		// calculate total duration
 		if( iterations < 0 )
 			totalDuration = float.PositiveInfinity;
 		else
 			totalDuration = iterations * duration;
 	}
-	
+
 	/// <summary>
 	/// tick method. if it returns true it indicates the tween is complete
 	/// </summary>
@@ -124,7 +124,7 @@ public class GoTween : AbstractGoTween
 			if( target == null || target.Equals(null) )
 			{
 				// if the target doesn't pass validation
-				Debug.LogWarning( "target validation failed. destroying the tween to avoid errors. Target type: " + this.targetTypeString );
+				Debug.LogWarning( "target validation failed. destroying the tween to avoid errors. Target type: " + this.targetType );
 				autoRemoveOnComplete = true;
 				return true;
 			}
@@ -133,14 +133,14 @@ public class GoTween : AbstractGoTween
         // we only fire the begin callback once per run.
         if ( !_didBegin )
             onBegin();
-		
+
 		// handle delay and return if we are still delaying
 		if( !_delayComplete && _elapsedDelay < delay )
 		{
 			// if we have a timeScale set we need to remove its influence so that delays are always in seconds
 			if( timeScale != 0 )
 				_elapsedDelay += deltaTime / timeScale;
-			
+
 			// are we done delaying?
 			if( _elapsedDelay >= delay )
 				_delayComplete = true;
@@ -171,14 +171,14 @@ public class GoTween : AbstractGoTween
 		if( state == GoTweenState.Complete )
 		{
             onComplete();
-			
+
 			return true; // true if complete
 		}
-		
+
 		return false; // false if not complete
 	}
-	
-	
+
+
 	/// <summary>
 	/// we are valid if we have a target and at least one TweenProperty
 	/// </summary>
@@ -186,8 +186,8 @@ public class GoTween : AbstractGoTween
 	{
 		return target != null;
 	}
-	
-	
+
+
 	/// <summary>
 	/// adds the tween property if it passes validation and initializes the property
 	/// </summary>
@@ -202,7 +202,7 @@ public class GoTween : AbstractGoTween
 				Debug.Log( "not adding tween property because one already exists: " + tweenProp );
 				return;
 			}
-			
+
 			_tweenPropertyList.Add( tweenProp );
 			tweenProp.init( this );
 		}
@@ -211,8 +211,8 @@ public class GoTween : AbstractGoTween
 			Debug.Log( "tween failed to validate target: " + tweenProp );
 		}
 	}
-	
-	
+
+
 	public override bool removeTweenProperty( AbstractTweenProperty property )
 	{
 		if( _tweenPropertyList.Contains( property ) )
@@ -220,29 +220,29 @@ public class GoTween : AbstractGoTween
 			_tweenPropertyList.Remove( property );
 			return true;
 		}
-		
+
 		return false;
 	}
-	
-	
+
+
 	public override bool containsTweenProperty( AbstractTweenProperty property )
 	{
 		return _tweenPropertyList.Contains( property );
 	}
-	
-	
+
+
 	public void clearTweenProperties()
 	{
 		_tweenPropertyList.Clear();
 	}
 
-	
+
 	public override List<AbstractTweenProperty> allTweenProperties()
 	{
 		return _tweenPropertyList;
 	}
-	
-	
+
+
 	#region AbstractTween overrides
 
     /// <summary>
@@ -262,11 +262,11 @@ public class GoTween : AbstractGoTween
 	public override void destroy()
 	{
 		base.destroy();
-		
+
 		_tweenPropertyList.Clear();
 		target = null;
 	}
-	
+
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it will be force updated to the time specified.
