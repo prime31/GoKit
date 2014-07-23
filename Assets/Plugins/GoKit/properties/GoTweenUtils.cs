@@ -9,7 +9,7 @@ public static class GoTweenUtils
 	/// <summary>
 	/// fetches the actual function for the given ease type
 	/// </summary>
-	public static Func<float,float,float,float,float> easeFunctionForType( GoEaseType easeType )
+	public static Func<float,float,float,float,float> easeFunctionForType( GoEaseType easeType, GoTween tween = null )
 	{
 		switch( easeType )
 		{
@@ -87,6 +87,9 @@ public static class GoTweenUtils
 				return GoEaseSinusoidal.EaseOut;
 			case GoEaseType.SineInOut:
 				return GoEaseSinusoidal.EaseInOut;
+
+			case GoEaseType.AnimationCurve:
+				return GoEaseAnimationCurve.EaseCurve(tween);
 		}
 		
 		return GoEaseLinear.EaseNone;

@@ -12,8 +12,6 @@ public abstract class AbstractTweenProperty
 	protected GoTween _ownerTween;
 	
 	protected Func<float, float, float, float, float> _easeFunction;
-	
-	
 
 	public AbstractTweenProperty( bool isRelative = false )
 	{
@@ -83,7 +81,7 @@ public abstract class AbstractTweenProperty
 	/// </summary>
 	public void setEaseType( GoEaseType easeType )
 	{
-		_easeFunction = GoTweenUtils.easeFunctionForType( easeType );
+		_easeFunction = GoTweenUtils.easeFunctionForType( easeType, _ownerTween );
 	}
 	
 	

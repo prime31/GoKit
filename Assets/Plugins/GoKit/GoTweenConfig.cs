@@ -15,6 +15,7 @@ public class GoTweenConfig
 	public int timeScale = 1;
 	public GoLoopType loopType = Go.defaultLoopType;
 	public GoEaseType easeType = Go.defaultEaseType;
+	public AnimationCurve easeCurve;
 	public bool isPaused;
 	public GoUpdateType propertyUpdateType = Go.defaultUpdateType;
 	public bool isFrom;
@@ -410,6 +411,17 @@ public class GoTweenConfig
 		return this;
 	}
 
+
+	/// <summary>
+	/// sets the ease curve for the Tween
+	/// </summary>
+	public GoTweenConfig setEaseCurve( AnimationCurve easeCurve )
+	{
+		this.easeCurve = easeCurve;
+		this.easeType = GoEaseType.AnimationCurve;
+
+		return this;
+	}
 
 	/// <summary>
 	/// sets whether the Tween should start paused

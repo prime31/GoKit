@@ -36,6 +36,10 @@ public class GoTween : AbstractGoTween
         }
     }
 
+    /// <summary>
+    /// sets the ease curve for all Tweens
+    /// </summary>
+    public AnimationCurve easeCurve { get; set; }
 
 	/// <summary>
 	/// initializes a new instance and sets up the details according to the config parameter
@@ -67,6 +71,7 @@ public class GoTween : AbstractGoTween
 		loopType = config.loopType;
 		iterations = config.iterations;
 		_easeType = config.easeType;
+		easeCurve = config.easeCurve;
 		updateType = config.propertyUpdateType;
 		isFrom = config.isFrom;
 		timeScale = config.timeScale;
