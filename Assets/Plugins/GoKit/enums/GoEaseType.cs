@@ -46,5 +46,7 @@ public enum GoEaseType
 
     BounceIn,
     BounceOut,
-    BounceInOut
+    BounceInOut,
+
+    AnimationCurve
 }
