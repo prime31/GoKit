@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 /// <summary>
-/// nodes should be in the order start, end, control1, control2
+/// nodes should be in the order start, control1, control2, end
 /// </summary>
 public class GoSplineCubicBezierSolver : AbstractGoSplineSolver
 {
