@@ -17,6 +17,7 @@ public abstract class AbstractGoSplineSolver
 		}
 	}
 	
+	
 	// how many subdivisions should we divide each segment into? higher values take longer to build and lookup but
 	// result in closer to actual constant velocity
 	protected int totalSubdivisionsPerNodeForLookupTable = 5;
