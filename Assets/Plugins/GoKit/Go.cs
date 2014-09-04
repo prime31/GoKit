@@ -253,6 +253,16 @@ public class Go : MonoBehaviour
 		return tween;
 	}
 
+	public static GoTween to( object target, GoSpline path, float speed, GoTweenConfig config )
+	{
+		config.setIsTo();
+		path.buildPath();
+		float duration = path.pathLength / speed;
+		var tween = new GoTween( target, duration, config );
+		addTween( tween );
+		
+		return tween;
+	}
 
 	/// <summary>
 	/// helper function that creates a "from" Tween and adds it to the pool
@@ -266,6 +276,17 @@ public class Go : MonoBehaviour
 		return tween;
 	}
 
+
+	public static GoTween from( object target, GoSpline path, float speed, GoTweenConfig config )
+	{
+		config.setIsFrom();
+		path.buildPath();
+		float duration = path.pathLength / speed;
+		var tween = new GoTween( target, duration, config );
+		addTween( tween );
+		
+		return tween;
+	}
 
 	/// <summary>
 	/// adds an AbstractTween (Tween, TweenChain or TweenFlow) to the current list of running Tweens
