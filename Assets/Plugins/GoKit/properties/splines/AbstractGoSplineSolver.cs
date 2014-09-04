@@ -9,6 +9,15 @@ public abstract class AbstractGoSplineSolver
 	public List<Vector3> nodes { get { return _nodes; } }
 	protected float _pathLength;
 	
+	public float pathLength
+	{
+		get
+		{
+			return _pathLength;
+		}
+	}
+	
+	
 	// how many subdivisions should we divide each segment into? higher values take longer to build and lookup but
 	// result in closer to actual constant velocity
 	protected int totalSubdivisionsPerNodeForLookupTable = 5;

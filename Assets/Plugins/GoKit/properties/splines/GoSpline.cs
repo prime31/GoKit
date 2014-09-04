@@ -18,6 +18,14 @@ public class GoSpline
 	private bool _isReversed; // internal flag that lets us know if our nodes are reversed or not
 	private AbstractGoSplineSolver _solver;
 	
+	public float pathLength
+	{
+		get
+		{
+			return _solver.pathLength;
+		}
+	}
+	
 	
 	// default constructor
 	public GoSpline( List<Vector3> nodes, bool useStraightLines = false )
