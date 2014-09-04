@@ -26,6 +26,7 @@ public class GoSpline
 		}
 	}
 	
+	
 	// default constructor
 	public GoSpline( List<Vector3> nodes, bool useStraightLines = false )
 	{
