@@ -80,7 +80,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	{
 		List<GoTween> list = new List<GoTween>();
 		
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip TweenFlowItems with no target
@@ -111,7 +111,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	
 	public override bool removeTweenProperty( AbstractTweenProperty property )
 	{
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
@@ -128,7 +128,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	
 	public override bool containsTweenProperty( AbstractTweenProperty property )
 	{
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
@@ -147,7 +147,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	{
 		var propList = new List<AbstractTweenProperty>();
 		
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
@@ -176,7 +176,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
     {
         base.play();
 
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
             if( flowItem.tween != null )
@@ -191,7 +191,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
     {
         base.pause();
 
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
             if( flowItem.tween != null )
@@ -341,7 +341,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
         var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
 
-		for(int k = 0; k < _tweenFlows.Count; k++)
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 

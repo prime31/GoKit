@@ -76,7 +76,7 @@ public class GoTweenChain : AbstractGoTweenCollection
         }
 		
 		// fix all the start times on our previous chains
-		for (int k = 0; k < _tweenFlows.Count; k++)
+		for ( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			flowItem.startTime += item.duration;

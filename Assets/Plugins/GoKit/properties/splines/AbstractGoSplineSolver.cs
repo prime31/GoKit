@@ -74,10 +74,10 @@ public abstract class AbstractGoSplineSolver
 		var nextNodeLength = 0f;
 
 		float[] keysSegmentTimeForDistance = new float[_segmentTimeForDistance.Keys.Count];
-		_segmentTimeForDistance.Keys.CopyTo (keysSegmentTimeForDistance, 0);
+		_segmentTimeForDistance.Keys.CopyTo ( keysSegmentTimeForDistance, 0 );
 
 		// loop through all the values in our lookup table and find the two nodes our targetDistance falls between
-		for(int k = 0; k < keysSegmentTimeForDistance.Length; k++)
+		for( int k = 0; k < keysSegmentTimeForDistance.Length; ++k )
 		{
 			float key = keysSegmentTimeForDistance[k];
 			float value = _segmentTimeForDistance[key];

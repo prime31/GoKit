@@ -166,12 +166,12 @@ public class Go : MonoBehaviour
 		// TODO: perhaps only perform the check on running Tweens?
 
 		// loop through all the tweens with the same target
-		for(int k = 0; k < allTweensWithTarget.Count; k++)
+		for( int k = 0; k < allTweensWithTarget.Count; ++k )
 		{
 			GoTween tweenWithTarget = allTweensWithTarget[k];
 
 			// loop through all the properties in the tween and see if there are any dupes
-			for(int z = 0; z < allProperties.Count; z++)
+			for( int z = 0; z < allProperties.Count; ++z )
 			{
 				AbstractTweenProperty tweenProp = allProperties[z];
 
@@ -371,7 +371,7 @@ public class Go : MonoBehaviour
 	{
 		List<AbstractGoTween> list = null;
 
-		for(int k = 0; k < _tweens.Count; k++)
+		for( int k = 0; k < _tweens.Count; ++k )
 		{
 			AbstractGoTween tween = _tweens[k];
 
@@ -395,7 +395,7 @@ public class Go : MonoBehaviour
 	{
 		List<GoTween> list = new List<GoTween>();
 
-		for(int k = 0; k < _tweens.Count; k++)
+		for( int k = 0; k < _tweens.Count; ++k )
 		{
 			AbstractGoTween item = _tweens[k];
 			// we always check Tweens so handle them first
@@ -426,7 +426,8 @@ public class Go : MonoBehaviour
 	public static void killAllTweensWithTarget( object target )
 	{
 		List<GoTween> items = tweensWithTarget( target, true );
-		for(int k = 0; k < items.Count; k++)
+
+		for( int k = 0; k < items.Count; ++k )
 		{
 			GoTween tween = items[k];
 			tween.destroy();

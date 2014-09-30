@@ -470,7 +470,7 @@ public class GoDummyPathEditor : Editor
 	{
 		var bytes = new List<byte>();
 		
-		for(int k = 0; k < _target.nodes.Count; k++)
+		for( int k = 0; k < _target.nodes.Count; ++k )
 		{
 			Vector3 vec = _target.nodes[k];
 			bytes.AddRange( System.BitConverter.GetBytes( vec.x ) );
