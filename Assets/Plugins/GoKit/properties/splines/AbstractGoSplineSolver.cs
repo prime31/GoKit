@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public abstract class AbstractGoSplineSolver
 {
@@ -74,7 +73,8 @@ public abstract class AbstractGoSplineSolver
 		var nextNodeTime = 0f;
 		var nextNodeLength = 0f;
 
-		float[] keysSegmentTimeForDistance = _segmentTimeForDistance.Keys.ToArray();
+		float[] keysSegmentTimeForDistance = new float[_segmentTimeForDistance.Keys.Count];
+		_segmentTimeForDistance.Keys.CopyTo (keysSegmentTimeForDistance, 0);
 
 		// loop through all the values in our lookup table and find the two nodes our targetDistance falls between
 		for(int k = 0; k < keysSegmentTimeForDistance.Length; k++)
