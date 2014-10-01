@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class GoSplineStraightLineSolver : AbstractGoSplineSolver
 {
 	private Dictionary<int, float> _segmentStartLocations;
@@ -67,15 +66,20 @@ public class GoSplineStraightLineSolver : AbstractGoSplineSolver
 		// node 1 to node 2
 		if( _nodes.Count < 3 )
 			return Vector3.Lerp( _nodes[0], _nodes[1], t );
-		
-		
+
+		int[] keysSegmentStartLocations = new int[_segmentStartLocations.Keys.Count];
+		_segmentStartLocations.Keys.CopyTo ( keysSegmentStartLocations, 0 );
+
 		// which segment are we on?
 		_currentSegment = 0;
-		foreach( var info in _segmentStartLocations )
+		for( int k = 0; k < keysSegmentStartLocations.Length; ++k )
 		{
-			if( info.Value < t )
+			int key = keysSegmentStartLocations[k];
+			float value = _segmentStartLocations[key];
+
+			if( value < t )
 			{
-				_currentSegment = info.Key;
+				_currentSegment = key;
 				continue;
 			}
 			

@@ -80,8 +80,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	{
 		List<GoTween> list = new List<GoTween>();
 		
-		foreach( var flowItem in _tweenFlows )
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
+			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip TweenFlowItems with no target
 			if( flowItem.tween == null )
 				continue;
@@ -110,8 +111,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	
 	public override bool removeTweenProperty( AbstractTweenProperty property )
 	{
-		foreach( var flowItem in _tweenFlows )
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
+			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
@@ -126,8 +128,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	
 	public override bool containsTweenProperty( AbstractTweenProperty property )
 	{
-		foreach( var flowItem in _tweenFlows )
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
+			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
@@ -144,8 +147,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	{
 		var propList = new List<AbstractTweenProperty>();
 		
-		foreach( var flowItem in _tweenFlows )
+		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
+			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
@@ -172,8 +176,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
     {
         base.play();
 
-        foreach( var flowItem in _tweenFlows )
-        {
+		for( int k = 0; k < _tweenFlows.Count; ++k )
+		{
+			TweenFlowItem flowItem = _tweenFlows[k];
             if( flowItem.tween != null )
                 flowItem.tween.play();
         }
@@ -186,8 +191,9 @@ public class AbstractGoTweenCollection : AbstractGoTween
     {
         base.pause();
 
-        foreach( var flowItem in _tweenFlows )
-        {
+		for( int k = 0; k < _tweenFlows.Count; ++k )
+		{
+			TweenFlowItem flowItem = _tweenFlows[k];
             if( flowItem.tween != null )
                 flowItem.tween.pause();
         }
@@ -335,8 +341,10 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
         var convertedElapsedTime = _isLoopingBackOnPingPong ? duration - _elapsedTime : _elapsedTime;
 
-        foreach ( var flowItem in _tweenFlows )
-        {
+		for( int k = 0; k < _tweenFlows.Count; ++k )
+		{
+			TweenFlowItem flowItem = _tweenFlows[k];
+
             if ( flowItem.tween == null )
                 continue;
 

@@ -550,8 +550,9 @@ public class GoTweenConfig
 		var other = this.MemberwiseClone() as GoTweenConfig;
 
 		other._tweenProperties = new List<AbstractTweenProperty>( 2 );
-		foreach( var tweenProp in this._tweenProperties )
+		for( int k = 0; k < this._tweenProperties.Count; ++k )
 		{
+			AbstractTweenProperty tweenProp = this._tweenProperties[k];
 			other._tweenProperties.Add(tweenProp);
 		}
 

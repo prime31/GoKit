@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public abstract class AbstractGoSplineSolver
 {
 	protected List<Vector3> _nodes;
@@ -73,22 +72,28 @@ public abstract class AbstractGoSplineSolver
 		var previousNodeLength = 0f;
 		var nextNodeTime = 0f;
 		var nextNodeLength = 0f;
-		
+
+		float[] keysSegmentTimeForDistance = new float[_segmentTimeForDistance.Keys.Count];
+		_segmentTimeForDistance.Keys.CopyTo ( keysSegmentTimeForDistance, 0 );
+
 		// loop through all the values in our lookup table and find the two nodes our targetDistance falls between
-		foreach( var item in _segmentTimeForDistance )
+		for( int k = 0; k < keysSegmentTimeForDistance.Length; ++k )
 		{
+			float key = keysSegmentTimeForDistance[k];
+			float value = _segmentTimeForDistance[key];
+
 			// have we passed our targetDistance yet?
-		    if( item.Value >= targetDistance )
+		    if( value >= targetDistance )
 		    {
-		        nextNodeTime = item.Key;
-		        nextNodeLength = item.Value;
+		        nextNodeTime = key;
+		        nextNodeLength = value;
 				
 		        if( previousNodeTime > 0 )
 		            previousNodeLength = _segmentTimeForDistance[previousNodeTime];
 
 		        break;
 		    }
-		    previousNodeTime = item.Key;
+		    previousNodeTime = key;
 		}
 		
 		// translate the values from the lookup table estimating the arc length between our known nodes from the lookup table

@@ -31,8 +31,11 @@ public class GoTween : AbstractGoTween
             _easeType = value;
 
             // change ease type of all existing tweens.
-            foreach( var tween in _tweenPropertyList )
-            	tween.setEaseType( value );
+			for ( int k = 0; k < _tweenPropertyList.Count; ++k )
+			{
+				AbstractTweenProperty tween = _tweenPropertyList[k];
+				tween.setEaseType (value);
+			}
         }
     }
 
