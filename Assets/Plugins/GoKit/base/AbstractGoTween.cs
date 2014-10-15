@@ -415,12 +415,17 @@ public abstract class AbstractGoTween
 	}
 
 
+	public void goTo( float time )
+	{
+		goTo(time, true);
+	}
+
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it can optionally be force updated to the time specified. delays are not taken into effect.
 	/// (must be implemented by inherited classes.)
 	/// </summary>
-	public abstract void goTo( float time, bool skipDelay = true );
+	public abstract void goTo( float time, bool skipDelay);
 
 	/// <summary>
 	/// goes to the time and starts playback skipping any delays
