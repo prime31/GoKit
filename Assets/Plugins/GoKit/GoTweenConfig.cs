@@ -181,6 +181,27 @@ public class GoTweenConfig
 		return this;
 	}
 
+    /// <summary>
+    /// material vector tween
+    /// </summary>
+    public GoTweenConfig materialVector( Vector4 endValue, string propertyName, bool isRelative = false)
+    {
+        var prop = new MaterialVectorTweenProperty(endValue, propertyName, isRelative);
+        _tweenProperties.Add(prop);
+
+        return this;
+    }
+
+    /// <summary>
+    /// material float tween
+    /// </summary>
+    public GoTweenConfig materialFloat( float endValue, string propertyName, bool isRelative = false )
+    {
+        var prop = new MaterialFloatTweenProperty(endValue, propertyName, isRelative);
+        _tweenProperties.Add(prop);
+
+        return this;
+    }
 
 	/// <summary>
 	/// shake tween

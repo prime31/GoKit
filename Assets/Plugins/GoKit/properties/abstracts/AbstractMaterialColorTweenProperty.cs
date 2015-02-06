@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// base class for any color tweens (MaterialColor and ColorTween)
 /// </summary>
-public abstract class AbstractColorTweenProperty : AbstractTweenProperty
+public abstract class AbstractMaterialColorTweenProperty : AbstractTweenProperty
 {
 	protected Material _target;
 	
@@ -15,7 +15,7 @@ public abstract class AbstractColorTweenProperty : AbstractTweenProperty
 	protected Color _diffValue;
 	
 	
-	public AbstractColorTweenProperty( Color endValue, bool isRelative ) : base( isRelative )
+	public AbstractMaterialColorTweenProperty( Color endValue, bool isRelative ) : base( isRelative )
 	{
 		_originalEndValue = endValue;
 	}
