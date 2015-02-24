@@ -17,7 +17,18 @@ public static class GoKitTweenExtensions
     {
         return Go.to( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
     }
+	
 
+    public static GoTween rotationTo( this Transform self, float duration, Quaternion endValue, bool isRelative = false )
+    {
+        return Go.to( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
+    }
+
+    public static GoTween localRotationTo( this Transform self, float duration, Quaternion endValue, bool isRelative = false )
+    {
+        return Go.to( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
+    }
+	
 
 	public static GoTween eulerAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
