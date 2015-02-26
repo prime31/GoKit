@@ -9,7 +9,7 @@ public class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
 	
 	public MaterialFloatTweenProperty( float endValue, string propertyName, bool isRelative = false ) : base( endValue, isRelative )
 	{
-        _materialPropertyName = propertyName;
+		_materialPropertyName = propertyName;
 	}
 	
 	
@@ -25,7 +25,7 @@ public class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
 	{
 		// start with a base check and then compare our material names
 		if( base.Equals( obj ) )
-            return this._materialPropertyName == ((MaterialFloatTweenProperty)obj)._materialPropertyName;
+			return this._materialPropertyName == ((MaterialFloatTweenProperty)obj)._materialPropertyName;
 		
 		return false;
 	}

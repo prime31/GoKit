@@ -9,7 +9,7 @@ public class MaterialVectorTweenProperty : AbstractMaterialVectorTweenProperty
 	
 	public MaterialVectorTweenProperty( Vector4 endValue, string propertyName, bool isRelative = false ) : base( endValue, isRelative )
 	{
-        _materialPropertyName = propertyName;
+		_materialPropertyName = propertyName;
 	}
 	
 	
@@ -25,7 +25,7 @@ public class MaterialVectorTweenProperty : AbstractMaterialVectorTweenProperty
 	{
 		// start with a base check and then compare our material names
 		if( base.Equals( obj ) )
-            return this._materialPropertyName == ((MaterialVectorTweenProperty)obj)._materialPropertyName;
+			return this._materialPropertyName == ((MaterialVectorTweenProperty)obj)._materialPropertyName;
 		
 		return false;
 	}

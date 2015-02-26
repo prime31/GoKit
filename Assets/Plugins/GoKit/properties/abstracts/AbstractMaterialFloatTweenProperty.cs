@@ -10,9 +10,9 @@ public abstract class AbstractMaterialFloatTweenProperty : AbstractTweenProperty
 	protected Material _target;
 	
 	protected float _originalEndValue;
-    protected float _startValue;
-    protected float _endValue;
-    protected float _diffValue;
+	protected float _startValue;
+	protected float _endValue;
+	protected float _diffValue;
 	
 	
 	public AbstractMaterialFloatTweenProperty( float endValue, bool isRelative ) : base( isRelative )

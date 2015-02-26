@@ -10,9 +10,9 @@ public abstract class AbstractMaterialVectorTweenProperty : AbstractTweenPropert
 	protected Material _target;
 	
 	protected Vector4 _originalEndValue;
-    protected Vector4 _startValue;
-    protected Vector4 _endValue;
-    protected Vector4 _diffValue;
+	protected Vector4 _startValue;
+	protected Vector4 _endValue;
+	protected Vector4 _diffValue;
 	
 	
 	public AbstractMaterialVectorTweenProperty( Vector4 endValue, bool isRelative ) : base( isRelative )
