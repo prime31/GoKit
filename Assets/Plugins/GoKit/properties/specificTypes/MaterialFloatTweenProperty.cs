@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 
-public class MaterialColorTweenProperty : AbstractMaterialColorTweenProperty
+public class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
 {
-	private string _materialColorName;
+	private string _materialPropertyName;
 	
 	
-	public MaterialColorTweenProperty( Color endValue, string colorName = "_Color", bool isRelative = false ) : base( endValue, isRelative )
+	public MaterialFloatTweenProperty( float endValue, string propertyName, bool isRelative = false ) : base( endValue, isRelative )
 	{
-		_materialColorName = colorName;
+		_materialPropertyName = propertyName;
 	}
 	
 	
@@ -25,7 +25,7 @@ public class MaterialColorTweenProperty : AbstractMaterialColorTweenProperty
 	{
 		// start with a base check and then compare our material names
 		if( base.Equals( obj ) )
-			return this._materialColorName == ((MaterialColorTweenProperty)obj)._materialColorName;
+			return this._materialPropertyName == ((MaterialFloatTweenProperty)obj)._materialPropertyName;
 		
 		return false;
 	}
@@ -41,11 +41,11 @@ public class MaterialColorTweenProperty : AbstractMaterialColorTweenProperty
 		if( _ownerTween.isFrom )
 		{
 			_startValue = _endValue;
-			_endValue = _target.GetColor( _materialColorName );
+			_endValue = _target.GetFloat( _materialPropertyName );
 		}
 		else
 		{
-			_startValue = _target.GetColor( _materialColorName );
+			_startValue = _target.GetFloat( _materialPropertyName );
 		}
 		
 		base.prepareForUse();
@@ -55,9 +55,9 @@ public class MaterialColorTweenProperty : AbstractMaterialColorTweenProperty
 	public override void tick( float totalElapsedTime )
 	{
 		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
-		var color = GoTweenUtils.unclampedColorLerp( _startValue, _diffValue, easedTime );
+		var value = Mathf.Lerp( _startValue, _diffValue, easedTime );
 		
-		_target.SetColor( _materialColorName, color );
+		_target.SetFloat( _materialPropertyName, value );
 	}
 
 }

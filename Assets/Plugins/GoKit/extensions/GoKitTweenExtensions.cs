@@ -7,17 +7,28 @@ public static class GoKitTweenExtensions
 	#region Transform extensions
 	
 	// to tweens
-    public static GoTween rotationTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
-    {
-        return Go.to( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
-    }
+	public static GoTween rotationTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	{
+		return Go.to( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
+	}
 
 
-    public static GoTween localRotationTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
-    {
-        return Go.to( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
-    }
+	public static GoTween localRotationTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	{
+		return Go.to( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
+	}
+	
 
+	public static GoTween rotationTo( this Transform self, float duration, Quaternion endValue, bool isRelative = false )
+	{
+		return Go.to( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
+	}
+
+	public static GoTween localRotationTo( this Transform self, float duration, Quaternion endValue, bool isRelative = false )
+	{
+		return Go.to( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
+	}
+	
 
 	public static GoTween eulerAnglesTo( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
 	{
@@ -62,16 +73,16 @@ public static class GoKitTweenExtensions
 	
 	
 	// from tweens
-    public static GoTween rotationFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
-    {
-        return Go.from( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
-    }
+	public static GoTween rotationFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	{
+		return Go.from( self, duration, new GoTweenConfig().rotation( endValue, isRelative ) );
+	}
 
 
-    public static GoTween localRotationFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
-    {
-        return Go.from( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
-    }
+	public static GoTween localRotationFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
+	{
+		return Go.from( self, duration, new GoTweenConfig().localRotation( endValue, isRelative ) );
+	}
 	
 
 	public static GoTween eulerAnglesFrom( this Transform self, float duration, Vector3 endValue, bool isRelative = false )
@@ -112,11 +123,30 @@ public static class GoKitTweenExtensions
 	{
 		return Go.to( self, duration, new GoTweenConfig().materialColor( endValue, colorName ) );
 	}
-	
+
+	public static GoTween vectorTo( this Material self, float duration, Vector4 endValue, string propertyName )
+	{
+		return Go.to(self, duration, new GoTweenConfig().materialVector(endValue, propertyName));
+	}
+
+	public static GoTween floatTo( this Material self, float duration, float endValue, string propertyName )
+	{
+		return Go.to(self, duration, new GoTweenConfig().materialFloat(endValue, propertyName));
+	}
 	
 	public static GoTween colorFrom( this Material self, float duration, Color endValue, string colorName = "_Color" )
 	{
 		return Go.from( self, duration, new GoTweenConfig().materialColor( endValue, colorName ) );
+	}
+
+	public static GoTween vectorFrom( this Material self, float duration, Vector4 endValue, string propertyName )
+	{
+		return Go.from(self, duration, new GoTweenConfig().materialVector(endValue, propertyName));
+	}
+
+	public static GoTween colorFrom( this Material self, float duration, float endValue, string propertyName )
+	{
+		return Go.from(self, duration, new GoTweenConfig().materialFloat(endValue, propertyName));
 	}
 	
 	#endregion
