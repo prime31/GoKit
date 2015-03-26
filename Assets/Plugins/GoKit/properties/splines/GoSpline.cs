@@ -96,7 +96,7 @@ public class GoSpline
 		else
 		{
 			// in the editor we default to looking in the StreamingAssets folder
-			path = Path.Combine( Path.Combine( Application.dataPath, "StreamingAssets" ), pathAssetName );
+			path = Path.Combine( Application.streamingAssetsPath, pathAssetName );
 		}
 		
 #if UNITY_WEBPLAYER || NETFX_CORE || UNITY_WP8
