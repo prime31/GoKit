@@ -171,6 +171,94 @@ public class GoTweenConfig
 
 
 	/// <summary>
+	/// anchoredPosition tween
+	/// </summary>
+	public GoTweenConfig anchoredPosition( Vector2 endValue, bool isRelative = false ) 
+	{
+		var prop = new AnchoredPositionTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// anchoredPosition3D tween
+	/// </summary>
+	public GoTweenConfig anchoredPosition3D( Vector3 endValue, bool isRelative = false )
+	{
+		var prop = new AnchoredPosition3DTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// anchorMax tween
+	/// </summary>
+	public GoTweenConfig anchorMax( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new AnchorMaxTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// anchorMin tween
+	/// </summary>
+	public GoTweenConfig anchorMin( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new AnchorMinTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// offsetMax tween
+	/// </summary>
+	public GoTweenConfig offsetMax( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new OffsetTweenProperty( endValue, isRelative, true );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+	
+	/// <summary>
+	/// offsetMin tween
+	/// </summary>
+	public GoTweenConfig offsetMin( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new OffsetTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
+	/// pivot tween
+	/// </summary>
+	public GoTweenConfig pivot( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new PivotTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+	
+	/// <summary>
+	/// sizeDelta tween
+	/// </summary>
+	public GoTweenConfig sizeDelta( Vector2 endValue, bool isRelative = false )
+	{
+		var prop = new SizeDeltaTweenProperty( endValue, isRelative );
+		_tweenProperties.Add( prop );
+		
+		return this;
+	}
+
+	/// <summary>
 	/// material color tween
 	/// </summary>
 	public GoTweenConfig materialColor( Color endValue, string colorName = "_Color", bool isRelative = false )
