@@ -363,6 +363,39 @@ public class Go : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// removes the Tween with specific tag
+	/// </summary>
+	public static void removeTweenWithTag( string tag )
+	{
+		List<AbstractGoTween> tweenList = tweensWithTag( tag );
+		if( tweenList != null )
+		{
+			foreach( var tween in tweenList )
+			{
+				removeTween( tween );
+			}
+		}
+	}	
+	
+	/// <summary>
+	/// returns a list of all Tweens, TweenChains and TweenFlows with the given tag
+	/// </summary>
+	public static List<AbstractGoTween> tweensWithTag( string tag )
+	{
+		List<AbstractGoTween> list = null;
+		foreach( var tween in _tweens )
+		{
+			if( tween.tag == tag )
+			{
+				if( list == null )
+					list = new List<AbstractGoTween>();
+				list.Add( tween );
+			}
+		}
+		
+		return list;
+	}
 
 	/// <summary>
 	/// returns a list of all Tweens, TweenChains and TweenFlows with the given id

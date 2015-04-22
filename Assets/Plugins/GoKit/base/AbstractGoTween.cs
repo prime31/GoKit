@@ -10,7 +10,8 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class AbstractGoTween
 {
-	public int id = 0; // optional id used for identifying this tween
+	public int id { get; set; } // optional id used for identifying this tween
+	public string tag { get; set; } // optional tag used for identifying this tween	
 	public GoTweenState state { get; protected set; } // current state of the tween
 	public float duration { get; protected set; } // duration for a single loop
 	public float totalDuration { get; protected set; } // duration for all loops of this tween
