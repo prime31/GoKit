@@ -175,11 +175,11 @@ public class Go : MonoBehaviour
 			{
 				AbstractTweenProperty tweenProp = allProperties[z];
 
-				warn( "found duplicate TweenProperty {0} in tween {1}", tweenProp, tween );
-
 				// check for a matched property
 				if( tweenWithTarget.containsTweenProperty( tweenProp ) )
 				{
+					warn( "found duplicate TweenProperty {0} in tween {1}", tweenProp, tween );
+					
 					// handle the different duplicate property rules
 					if( duplicatePropertyRule == GoDuplicatePropertyRuleType.DontAddCurrentProperty )
 					{
