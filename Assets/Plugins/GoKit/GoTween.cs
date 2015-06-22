@@ -44,13 +44,22 @@ public class GoTween : AbstractGoTween
     /// </summary>
     public AnimationCurve easeCurve { get; set; }
 
-	/// <summary>
-	/// initializes a new instance and sets up the details according to the config parameter
-	/// </summary>
-	public GoTween( object target, float duration, GoTweenConfig config, Action<AbstractGoTween> onComplete = null )
-	{
-		// default to removing on complete
-		autoRemoveOnComplete = true;
+    /// <summary>
+    /// initializes a new instance and sets up the details according to the config parameter
+    /// </summary>
+    public GoTween( object target, float duration, GoTweenConfig config, Action<AbstractGoTween> onComplete = null )
+    {
+        // all tweens must be intialized to have a duration greater than zero. keep in mind that this will ensure
+        // the tween occurs over two frames: the initialized value, and the final value. if you are looking for a
+        // tween to reach the end of it's tween immediately, be sure to call complete() on it after creation.
+        if( duration <= 0 )
+        {
+            duration = float.Epsilon;
+            Debug.LogError( "tween duration must be greater than 0. coerced to float.Epsilon." );
+        }
+
+        // default to removing on complete
+        autoRemoveOnComplete = true;
 
         // allow events by default
         allowEvents = true;
