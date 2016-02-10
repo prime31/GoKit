@@ -12,7 +12,7 @@ public class GoTweenConfig
 	public int id; // id for finding the Tween at a later time. multiple Tweens can have the same id
 	public float delay; // how long should we delay before starting the Tween
 	public int iterations = 1; // number of times to iterate. -1 will loop indefinitely
-	public int timeScale = 1;
+	public float timeScale = 1.0f;
 	public GoLoopType loopType = Go.defaultLoopType;
 	public GoEaseType easeType = Go.defaultEaseType;
 	public AnimationCurve easeCurve;
@@ -502,7 +502,7 @@ public class GoTweenConfig
 	/// <summary>
 	/// sets the timeScale to be used by the Tween
 	/// </summary>
-	public GoTweenConfig setTimeScale( int timeScale )
+	public GoTweenConfig setTimeScale( float timeScale )
 	{
 		this.timeScale = timeScale;
 
