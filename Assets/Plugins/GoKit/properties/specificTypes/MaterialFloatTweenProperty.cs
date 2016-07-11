@@ -54,10 +54,9 @@ public class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
 	
 	public override void tick( float totalElapsedTime )
 	{
-		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
-		var value = Mathf.Lerp( _startValue, _diffValue, easedTime );
+		var easedValue = _easeFunction( totalElapsedTime, _startValue, _diffValue, _ownerTween.duration );
 		
-		_target.SetFloat( _materialPropertyName, value );
+		_target.SetFloat( _materialPropertyName, easedValue );
 	}
 
 }
