@@ -67,7 +67,7 @@ public class GoSpline
 	/// </summary>
 	private static List<Vector3> nodeListFromAsset( string pathAssetName )
 	{
-		if( Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer )
+		if( Application.platform == RuntimePlatform.WebGLPlayer )
 		{
 			Debug.LogError( "The Web Player does not support loading files from disk." );
 			return null;
