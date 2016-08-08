@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class EulerAnglesTweenProperty : AbstractVector3TweenProperty
+public sealed class EulerAnglesTweenProperty : AbstractVector3TweenProperty
 {
 	private bool _useLocalEulers;
 	public bool useLocalEulers { get { return _useLocalEulers; } }

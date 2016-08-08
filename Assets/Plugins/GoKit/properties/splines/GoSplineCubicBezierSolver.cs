@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// nodes should be in the order start, control1, control2, end
 /// </summary>
-public class GoSplineCubicBezierSolver : AbstractGoSplineSolver
+public sealed class GoSplineCubicBezierSolver : AbstractGoSplineSolver
 {
 	public GoSplineCubicBezierSolver( List<Vector3> nodes )
 	{

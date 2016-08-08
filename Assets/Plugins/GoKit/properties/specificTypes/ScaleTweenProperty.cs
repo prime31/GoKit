@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class ScaleTweenProperty : AbstractVector3TweenProperty
+public sealed class ScaleTweenProperty : AbstractVector3TweenProperty
 {
 	public ScaleTweenProperty( Vector3 endValue, bool isRelative = false ) : base( endValue, isRelative )
 	{}

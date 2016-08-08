@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 
-public class PositionTweenProperty : AbstractVector3TweenProperty
+public sealed class PositionTweenProperty : AbstractVector3TweenProperty
 {
-	protected bool _useLocalPosition;
+	private bool _useLocalPosition;
+
 	public bool useLocalPosition { get { return _useLocalPosition; } }
 	
 	public PositionTweenProperty( Vector3 endValue, bool isRelative = false, bool useLocalPosition = false ) : base( endValue, isRelative )

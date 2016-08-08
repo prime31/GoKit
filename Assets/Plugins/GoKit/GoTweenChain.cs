@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class GoTweenChain : AbstractGoTweenCollection
+public sealed class GoTweenChain : AbstractGoTweenCollection
 {
 	public GoTweenChain() : this(new GoTweenCollectionConfig()) {}
 	public GoTweenChain(GoTweenCollectionConfig config) : base(config) {}

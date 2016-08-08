@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
+public sealed class MaterialFloatTweenProperty : AbstractMaterialFloatTweenProperty
 {
 	private string _materialPropertyName;
 	

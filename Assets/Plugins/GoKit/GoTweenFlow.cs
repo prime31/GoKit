@@ -7,7 +7,7 @@ using System.Collections;
 /// like control by inserting Tweens and setting them to start at a specific time. Note that TweenFlows do not
 /// honor the delays set within regular Tweens. Use the append/prependDelay method to add any required delays
 /// </summary>
-public class GoTweenFlow : AbstractGoTweenCollection
+public sealed class GoTweenFlow : AbstractGoTweenCollection
 {
 	public GoTweenFlow() : this( new GoTweenCollectionConfig() ) {}
 

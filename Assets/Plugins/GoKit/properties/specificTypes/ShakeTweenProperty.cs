@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class ShakeTweenProperty : AbstractTweenProperty
+public sealed class ShakeTweenProperty : AbstractTweenProperty
 {
 	private Transform _target;
 	private Vector3 _shakeMagnitude;

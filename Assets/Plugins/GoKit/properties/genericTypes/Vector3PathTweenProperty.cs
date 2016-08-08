@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 
-public class Vector3PathTweenProperty : AbstractTweenProperty, IGenericProperty
+public sealed class Vector3PathTweenProperty : AbstractTweenProperty, IGenericProperty
 {
 	public string propertyName { get; private set; }
 	

@@ -3,16 +3,16 @@ using System;
 using System.Collections;
 
 
-public class Vector2TweenProperty : AbstractTweenProperty, IGenericProperty
+public sealed class Vector2TweenProperty : AbstractTweenProperty, IGenericProperty
 {
 	public string propertyName { get; private set; }
 	private Action<Vector2> _setter;
 	
-	protected Vector2 _originalEndValue;
-	protected Vector2 _startValue;
-	protected Vector2 _endValue;
-	protected Vector2 _diffValue;
-	
+	private Vector2 _originalEndValue;
+	private Vector2 _startValue;
+	private Vector2 _endValue;
+	private Vector2 _diffValue;
+
 	
 	public Vector2TweenProperty( string propertyName, Vector2 endValue, bool isRelative = false ) : base( isRelative )
 	{

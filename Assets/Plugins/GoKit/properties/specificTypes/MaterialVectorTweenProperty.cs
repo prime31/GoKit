@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class MaterialVectorTweenProperty : AbstractMaterialVectorTweenProperty
+public sealed class MaterialVectorTweenProperty : AbstractMaterialVectorTweenProperty
 {
 	private string _materialPropertyName;
 	

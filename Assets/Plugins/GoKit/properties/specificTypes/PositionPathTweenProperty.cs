@@ -7,13 +7,14 @@ using System.Collections;
 /// relative to the start position of the object. a "from" tween will reverse the path and make the start
 /// position be the last node in the path.
 /// </summary>
-public class PositionPathTweenProperty : AbstractTweenProperty
+public sealed class PositionPathTweenProperty : AbstractTweenProperty
 {
-	protected bool _useLocalPosition;
+	private bool _useLocalPosition;
+
 	public bool useLocalPosition { get { return _useLocalPosition; } }
-	
-	protected Transform _target;
-	protected Vector3 _startValue;
+
+	private Transform _target;
+	private Vector3 _startValue;
 	
 	private GoSpline _path;
 	private GoLookAtType _lookAtType = GoLookAtType.None;

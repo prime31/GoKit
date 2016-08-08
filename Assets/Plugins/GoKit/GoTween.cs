@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class GoTween : AbstractGoTween
+public sealed class GoTween : AbstractGoTween
 {
 	// Tween specific properties
 	public object target { get; private set; } // the target of the tweens

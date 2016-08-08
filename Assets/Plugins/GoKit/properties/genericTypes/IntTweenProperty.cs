@@ -3,17 +3,17 @@ using System;
 using System.Collections;
 
 
-public class IntTweenProperty : AbstractTweenProperty, IGenericProperty
+public sealed class IntTweenProperty : AbstractTweenProperty, IGenericProperty
 {
 	public string propertyName { get; private set; }
 	
 	private Action<int> _setter;
 	
-	protected int _originalEndValue;
-	protected int _startValue;
-	protected int _endValue;
-	protected int _diffValue;
-	
+	private int _originalEndValue;
+	private int _startValue;
+	private int _endValue;
+	private int _diffValue;
+
 	
 	public IntTweenProperty( string propertyName, int endValue, bool isRelative = false ) : base( isRelative )
 	{

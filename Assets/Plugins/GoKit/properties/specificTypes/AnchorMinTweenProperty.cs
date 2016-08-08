@@ -2,16 +2,16 @@
 using System.Collections;
 
 
-public class AnchorMinTweenProperty : AbstractTweenProperty
+public sealed class AnchorMinTweenProperty : AbstractTweenProperty
 {
-	protected RectTransform _target;
+	private RectTransform _target;
 	
-	protected Vector2 _originalEndValue;
-	protected Vector2 _startValue;
-	protected Vector2 _endValue;
-	protected Vector2 _diffValue;
-	
-	public AnchorMinTweenProperty( Vector2 endValue, bool isRelative = false) : base( isRelative )
+	private Vector2 _originalEndValue;
+	private Vector2 _startValue;
+	private Vector2 _endValue;
+	private Vector2 _diffValue;
+
+	public AnchorMinTweenProperty( Vector2 endValue, bool isRelative = false ) : base( isRelative )
 	{
 		_originalEndValue = endValue;
 	}

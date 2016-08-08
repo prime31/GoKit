@@ -7,10 +7,10 @@ using System.Collections;
 /// relative to the start scale of the object. a "from" tween will reverse the path and make the start
 /// scale be the last node in the path.
 /// </summary>
-public class ScalePathTweenProperty : AbstractTweenProperty
+public sealed class ScalePathTweenProperty : AbstractTweenProperty
 {
-	protected Transform _target;
-	protected Vector3 _startValue;
+	private Transform _target;
+	private Vector3 _startValue;
 	
 	private GoSpline _path;
 	

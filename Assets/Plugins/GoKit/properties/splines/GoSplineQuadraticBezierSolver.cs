@@ -6,16 +6,15 @@ using System.Collections.Generic;
 /// <summary>
 /// nodes should be in the order start, control, end
 /// </summary>
-public class GoSplineQuadraticBezierSolver : AbstractGoSplineSolver
+public sealed class GoSplineQuadraticBezierSolver : AbstractGoSplineSolver
 {
 	public GoSplineQuadraticBezierSolver( List<Vector3> nodes )
 	{
 		_nodes = nodes;
 	}
-
 	
 	// http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d/
-	protected float quadBezierLength( Vector3 startPoint, Vector3 controlPoint, Vector3 endPoint )
+	private float quadBezierLength( Vector3 startPoint, Vector3 controlPoint, Vector3 endPoint )
 	{
 	    // ASSERT: all inputs are distinct points.
 		var A = new Vector3[2];

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class GoSplineCatmullRomSolver : AbstractGoSplineSolver
+public sealed class GoSplineCatmullRomSolver : AbstractGoSplineSolver
 {
 	public GoSplineCatmullRomSolver( List<Vector3> nodes )
 	{

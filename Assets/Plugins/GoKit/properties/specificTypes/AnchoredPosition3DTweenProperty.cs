@@ -2,16 +2,16 @@
 using System.Collections;
 
 
-public class AnchoredPosition3DTweenProperty : AbstractTweenProperty
+public sealed class AnchoredPosition3DTweenProperty : AbstractTweenProperty
 {
-	protected RectTransform _target;
+	private RectTransform _target;
 	
-	protected Vector3 _originalEndValue;
-	protected Vector3 _startValue;
-	protected Vector3 _endValue;
-	protected Vector3 _diffValue;
-	
-	public AnchoredPosition3DTweenProperty( Vector3 endValue, bool isRelative = false) : base( isRelative )
+	private Vector3 _originalEndValue;
+	private Vector3 _startValue;
+	private Vector3 _endValue;
+	private Vector3 _diffValue;
+
+	public AnchoredPosition3DTweenProperty( Vector3 endValue, bool isRelative = false ) : base( isRelative )
 	{
 		_originalEndValue = endValue;
 	}

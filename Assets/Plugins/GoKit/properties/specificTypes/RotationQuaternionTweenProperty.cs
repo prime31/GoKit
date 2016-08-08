@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class RotationQuaternionTweenProperty : AbstractQuaternionTweenProperty
+public sealed class RotationQuaternionTweenProperty : AbstractQuaternionTweenProperty
 {
 	private bool _useLocalRotation;
 	public bool useLocalRotation { get { return _useLocalRotation; } }

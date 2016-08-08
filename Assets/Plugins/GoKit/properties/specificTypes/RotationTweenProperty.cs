@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class RotationTweenProperty : AbstractVector3TweenProperty
+public sealed class RotationTweenProperty : AbstractVector3TweenProperty
 {
 	private bool _useLocalRotation;
 	public bool useLocalRotation { get { return _useLocalRotation; } }

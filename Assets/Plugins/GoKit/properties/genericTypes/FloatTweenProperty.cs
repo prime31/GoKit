@@ -3,16 +3,16 @@ using System;
 using System.Collections;
 
 
-public class FloatTweenProperty : AbstractTweenProperty, IGenericProperty
+public sealed class FloatTweenProperty : AbstractTweenProperty, IGenericProperty
 {
 	public string propertyName { get; private set; }
 	private Action<float> _setter;
 	
-	protected float _originalEndValue;
-	protected float _startValue;
-	protected float _endValue;
-	protected float _diffValue;
-	
+	private float _originalEndValue;
+	private float _startValue;
+	private float _endValue;
+	private float _diffValue;
+
 	
 	public FloatTweenProperty( string propertyName, float endValue, bool isRelative = false ) : base( isRelative )
 	{
