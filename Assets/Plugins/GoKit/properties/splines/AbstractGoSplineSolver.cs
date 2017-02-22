@@ -59,18 +59,18 @@ public abstract class AbstractGoSplineSolver
 		
 		// skip the first node and wrap 1 extra node
 		// we dont care about the first node for distances because they are always t:0 and len:0
-        for( var i = 1; i < totalSubdivisions + 1; i++ )
-        {
+		for( var i = 1; i < totalSubdivisions + 1; i++ )
+		{
 			// what is the current time along the path?
-            float currentTime = timePerSlice * i;
+			float currentTime = timePerSlice * i;
 
-            var currentPoint = getPoint( currentTime );
-            _pathLength += Vector3.Distance( currentPoint, lastPoint );
-            lastPoint = currentPoint;
+			var currentPoint = getPoint( currentTime );
+			_pathLength += Vector3.Distance( currentPoint, lastPoint );
+			lastPoint = currentPoint;
 
 			// cache segment
 			segments.Add(new Segment(currentTime, _pathLength));
-        }
+		}
 	}
 	
 	

@@ -11,12 +11,12 @@ public class GoTweenCollectionConfig
 	public GoLoopType loopType = Go.defaultLoopType;
 	public GoUpdateType propertyUpdateType = Go.defaultUpdateType;
 
-    public Action<AbstractGoTween> onInitHandler;
-    public Action<AbstractGoTween> onBeginHandler;
-    public Action<AbstractGoTween> onIterationStartHandler;
-    public Action<AbstractGoTween> onUpdateHandler;
-    public Action<AbstractGoTween> onIterationEndHandler;
-    public Action<AbstractGoTween> onCompleteHandler;
+	public Action<AbstractGoTween> onInitHandler;
+	public Action<AbstractGoTween> onBeginHandler;
+	public Action<AbstractGoTween> onIterationStartHandler;
+	public Action<AbstractGoTween> onUpdateHandler;
+	public Action<AbstractGoTween> onIterationEndHandler;
+	public Action<AbstractGoTween> onCompleteHandler;
 	
 
 	/// <summary>
@@ -50,64 +50,64 @@ public class GoTweenCollectionConfig
 	}
 
 
-    /// <summary>
-    /// sets the onInit handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onInit( Action<AbstractGoTween> onInit )
-    {
-        onInitHandler = onInit;
-        return this;
-    }
+	/// <summary>
+	/// sets the onInit handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onInit( Action<AbstractGoTween> onInit )
+	{
+		onInitHandler = onInit;
+		return this;
+	}
 
 
-    /// <summary>
-    /// sets the onBegin handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onBegin( Action<AbstractGoTween> onBegin )
-    {
-        onBeginHandler = onBegin;
-        return this;
-    }
+	/// <summary>
+	/// sets the onBegin handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onBegin( Action<AbstractGoTween> onBegin )
+	{
+		onBeginHandler = onBegin;
+		return this;
+	}
 
 
-    /// <summary>
-    /// sets the onIterationStart handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onIterationStart( Action<AbstractGoTween> onIterationStart )
-    {
-        onIterationStartHandler = onIterationStart;
-        return this;
-    }
+	/// <summary>
+	/// sets the onIterationStart handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onIterationStart( Action<AbstractGoTween> onIterationStart )
+	{
+		onIterationStartHandler = onIterationStart;
+		return this;
+	}
 
 
-    /// <summary>
-    /// sets the onUpdate handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onUpdate( Action<AbstractGoTween> onUpdate )
-    {
-        onUpdateHandler = onUpdate;
-        return this;
-    }
+	/// <summary>
+	/// sets the onUpdate handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onUpdate( Action<AbstractGoTween> onUpdate )
+	{
+		onUpdateHandler = onUpdate;
+		return this;
+	}
 
 
-    /// <summary>
-    /// sets the onIterationEnd handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onIterationEnd( Action<AbstractGoTween> onIterationEnd )
-    {
-        onIterationEndHandler = onIterationEnd;
-        return this;
-    }
+	/// <summary>
+	/// sets the onIterationEnd handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onIterationEnd( Action<AbstractGoTween> onIterationEnd )
+	{
+		onIterationEndHandler = onIterationEnd;
+		return this;
+	}
 
 
-    /// <summary>
-    /// sets the onComplete handler for the Tween
-    /// </summary>
-    public GoTweenCollectionConfig onComplete( Action<AbstractGoTween> onComplete )
-    {
-        onCompleteHandler = onComplete;
-        return this;
-    }
+	/// <summary>
+	/// sets the onComplete handler for the Tween
+	/// </summary>
+	public GoTweenCollectionConfig onComplete( Action<AbstractGoTween> onComplete )
+	{
+		onCompleteHandler = onComplete;
+		return this;
+	}
 	
 	
 	/// <summary>

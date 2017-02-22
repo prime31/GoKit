@@ -127,27 +127,27 @@ public class Go : MonoBehaviour
 	#endregion
 
 
-    /// <summary>
-    /// this only runs as needed and handles time scale independent Tweens
-    /// </summary>
-    private IEnumerator timeScaleIndependentUpdate()
-    {
+	/// <summary>
+	/// this only runs as needed and handles time scale independent Tweens
+	/// </summary>
+	private IEnumerator timeScaleIndependentUpdate()
+	{
 		_timeScaleIndependentUpdateIsRunning = true;
 		var time = Time.realtimeSinceStartup;
 
-        while( _tweens.Count > 0 )
-        {
-            var elapsed = Time.realtimeSinceStartup - time;
-            time = Time.realtimeSinceStartup;
+		while( _tweens.Count > 0 )
+		{
+			var elapsed = Time.realtimeSinceStartup - time;
+			time = Time.realtimeSinceStartup;
 
-            // update tweens
-            handleUpdateOfType( GoUpdateType.TimeScaleIndependentUpdate, elapsed );
+			// update tweens
+			handleUpdateOfType( GoUpdateType.TimeScaleIndependentUpdate, elapsed );
 
-            yield return null;
-        }
+			yield return null;
+		}
 
 		_timeScaleIndependentUpdateIsRunning = false;
-    }
+	}
 
 
 	/// <summary>
@@ -250,7 +250,7 @@ public class Go : MonoBehaviour
 	/// </summary>
 	public static GoTween to( object target, float duration, GoTweenConfig config )
 	{
-        config.setIsTo();
+		config.setIsTo();
 		var tween = new GoTween( target, duration, config );
 		addTween( tween );
 

@@ -10,5 +10,5 @@ public class GoProxyProp<T>
 	{
 		value = startValue;
 	}                                                   
-    
+	
 }

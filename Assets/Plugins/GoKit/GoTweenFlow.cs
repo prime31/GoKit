@@ -32,19 +32,19 @@ public sealed class GoTweenFlow : AbstractGoTweenCollection
 		}
 		
 		if( item.tween != null )
-        {
-            if (item.tween.isReversed != isReversed)
-            {
-                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenFlow is not permitted." );
-                return;
-            }
+		{
+			if (item.tween.isReversed != isReversed)
+			{
+				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenFlow is not permitted." );
+				return;
+			}
 
-            // ensure the tween isnt already live
-            Go.removeTween(item.tween);
+			// ensure the tween isnt already live
+			Go.removeTween(item.tween);
 
-            // ensure that the item is marked to play.
-            item.tween.play();
-        }
+			// ensure that the item is marked to play.
+			item.tween.play();
+		}
 
 		// add the item then sort based on startTimes
 		_tweenFlows.Add( item );
@@ -55,10 +55,10 @@ public sealed class GoTweenFlow : AbstractGoTweenCollection
 		
 		duration = Mathf.Max( item.startTime + item.duration, duration );
 
-        if (iterations < 0)
-            totalDuration = float.PositiveInfinity;
-        else
-            totalDuration = duration * iterations;
+		if (iterations < 0)
+			totalDuration = float.PositiveInfinity;
+		else
+			totalDuration = duration * iterations;
 	}
 	
 	#endregion

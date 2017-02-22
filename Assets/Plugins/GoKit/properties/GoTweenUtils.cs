@@ -174,65 +174,65 @@ public static class GoTweenUtils
 	/// </summary>
 	public static Color unclampedColorLerp( Color c1, Color diff, float value )
 	{
-        return new Color
+		return new Color
 		(
 			c1.r + diff.r * value,
 			c1.g + diff.g * value,
 			c1.b + diff.b * value,
 			c1.a + diff.a * value
 		);
-    }
+	}
 	
 	
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector2 unclampedVector2Lerp( Vector2 v1, Vector2 diff, float value )
+	public static Vector2 unclampedVector2Lerp( Vector2 v1, Vector2 diff, float value )
 	{
-        return new Vector2
+		return new Vector2
 		(
 			v1.x + diff.x * value,
-            v1.y + diff.y * value
+			v1.y + diff.y * value
 		);
-    }
+	}
 
 	
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector3 unclampedVector3Lerp( Vector3 v1, Vector3 diff, float value )
+	public static Vector3 unclampedVector3Lerp( Vector3 v1, Vector3 diff, float value )
 	{
-        return new Vector3
+		return new Vector3
 		(
 			v1.x + diff.x * value,
-            v1.y + diff.y * value,
-            v1.z + diff.z * value
+			v1.y + diff.y * value,
+			v1.z + diff.z * value
 		);
 		
 		/*
-        return new Vector3
+		return new Vector3
 		(
 			v1.x + ( v2.x - v1.x ) * value,
 			v1.y + ( v2.y - v1.y ) * value,
 			v1.z + ( v2.z - v1.z ) * value
 		);
 		*/
-    }
+	}
 
 	
 	/// <summary>
 	/// unclamped lerp from v1 to v2. diff should be v2 - v1 (or just v2 for relative lerps)
 	/// </summary>
-    public static Vector4 unclampedVector4Lerp( Vector4 v1, Vector4 diff, float value )
+	public static Vector4 unclampedVector4Lerp( Vector4 v1, Vector4 diff, float value )
 	{
-        return new Vector4
+		return new Vector4
 		(
 			v1.x + diff.x * value,
-            v1.y + diff.y * value,
-            v1.z + diff.z * value,
+			v1.y + diff.y * value,
+			v1.z + diff.z * value,
 			v1.w + diff.w * value
 		);
-    }
+	}
 
 	#endregion
 	

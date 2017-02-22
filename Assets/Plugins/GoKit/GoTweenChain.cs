@@ -21,20 +21,20 @@ public sealed class GoTweenChain : AbstractGoTweenCollection
 			return;
 		}
 
-        if ( item.tween != null )
-        {
-            if ( item.tween.isReversed != isReversed )
-            {
-                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
-                return;
-            }
+		if ( item.tween != null )
+		{
+			if ( item.tween.isReversed != isReversed )
+			{
+				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+				return;
+			}
 
-            // ensure the tween isnt already live
-            Go.removeTween(item.tween);
+			// ensure the tween isnt already live
+			Go.removeTween(item.tween);
 
-            // ensure that the item is marked to play.
-            item.tween.play();
-        }
+			// ensure that the item is marked to play.
+			item.tween.play();
+		}
 		
 		_tweenFlows.Add( item );
 		
@@ -44,7 +44,7 @@ public sealed class GoTweenChain : AbstractGoTweenCollection
 		if( iterations < 0 )
 			totalDuration = float.PositiveInfinity;
 		else
-            totalDuration = duration * iterations;
+			totalDuration = duration * iterations;
 	}
 	
 	
@@ -60,20 +60,20 @@ public sealed class GoTweenChain : AbstractGoTweenCollection
 			return;
 		}
 
-        if ( item.tween != null )
-        {
-            if ( item.tween.isReversed != isReversed )
-            {
-                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
-                return;
-            }
+		if ( item.tween != null )
+		{
+			if ( item.tween.isReversed != isReversed )
+			{
+				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+				return;
+			}
 
-            // ensure the tween isnt already live
-            Go.removeTween( item.tween );
+			// ensure the tween isnt already live
+			Go.removeTween( item.tween );
 
-            // ensure that the item is marked to play.
-            item.tween.play();
-        }
+			// ensure that the item is marked to play.
+			item.tween.play();
+		}
 		
 		// fix all the start times on our previous chains
 		for ( int k = 0; k < _tweenFlows.Count; ++k )
@@ -82,16 +82,16 @@ public sealed class GoTweenChain : AbstractGoTweenCollection
 			flowItem.startTime += item.duration;
 		}
 
-        _tweenFlows.Insert( 0, item );
+		_tweenFlows.Insert( 0, item );
 		
 		// update the duration and total duration
 		duration += item.duration;
 
-        if ( iterations < 0 )
-            totalDuration = float.PositiveInfinity;
-        else
-            totalDuration = duration * iterations;
-    }
+		if ( iterations < 0 )
+			totalDuration = float.PositiveInfinity;
+		else
+			totalDuration = duration * iterations;
+	}
 	
 	#endregion
 	

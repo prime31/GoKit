@@ -5,48 +5,48 @@ using System.Collections;
 
 public enum GoEaseType
 {
-    Linear,
+	Linear,
 
-    SineIn,
-    SineOut,
-    SineInOut,
+	SineIn,
+	SineOut,
+	SineInOut,
 
-    QuadIn,
-    QuadOut,
-    QuadInOut,
+	QuadIn,
+	QuadOut,
+	QuadInOut,
 
-    CubicIn,
-    CubicOut,
-    CubicInOut,
+	CubicIn,
+	CubicOut,
+	CubicInOut,
 
-    QuartIn,
-    QuartOut,
-    QuartInOut,
+	QuartIn,
+	QuartOut,
+	QuartInOut,
 
-    QuintIn,
-    QuintOut,
-    QuintInOut,
+	QuintIn,
+	QuintOut,
+	QuintInOut,
 
-    ExpoIn,
-    ExpoOut,
-    ExpoInOut,
+	ExpoIn,
+	ExpoOut,
+	ExpoInOut,
 
-    CircIn,
-    CircOut,
-    CircInOut,
+	CircIn,
+	CircOut,
+	CircInOut,
 
-    ElasticIn,
-    ElasticOut,
-    ElasticInOut,
+	ElasticIn,
+	ElasticOut,
+	ElasticInOut,
 	Punch,
 	
-    BackIn,
-    BackOut,
-    BackInOut,
+	BackIn,
+	BackOut,
+	BackInOut,
 
-    BounceIn,
-    BounceOut,
-    BounceInOut,
+	BounceIn,
+	BounceOut,
+	BounceInOut,
 
-    AnimationCurve
+	AnimationCurve
 }

@@ -64,15 +64,15 @@ public abstract class AbstractTweenProperty
 	/// <summary>
 	/// clones the instance
 	/// </summary>
-    public AbstractTweenProperty clone()
-    {
+	public AbstractTweenProperty clone()
+	{
 		var clone = MemberwiseClone() as AbstractTweenProperty;
 		clone._ownerTween = null;
 		clone._isInitialized = false;
 		clone._easeFunction = null;
 		
 		return clone;
-    }
+	}
 	
 	
 	/// <summary>
@@ -85,13 +85,13 @@ public abstract class AbstractTweenProperty
 	}
 	
 	
-    /// <summary>
-    /// each TweenProperty should override this to ensure the object is the correct type
-    /// </summary>
-    public virtual bool validateTarget( object target )
-    {
-        return true;
-    }
+	/// <summary>
+	/// each TweenProperty should override this to ensure the object is the correct type
+	/// </summary>
+	public virtual bool validateTarget( object target )
+	{
+		return true;
+	}
 	
 	
 	/// <summary>
