@@ -1,8 +1,7 @@
 GoKit
 ====
 
-Lightweight tween library for Unity aimed at making tweening objects dead simple and completely flexible. API docs are available
-[here](http://prime31.com/unity/docs/#goKitDoc) and the [wiki](https://github.com/prime31/GoKit/wiki) contains usage information and examples.
+Lightweight tween library for Unity aimed at making tweening objects dead simple and completely flexible. The [wiki](https://github.com/prime31/GoKit/wiki) contains some usage information and examples.
 
 
 
