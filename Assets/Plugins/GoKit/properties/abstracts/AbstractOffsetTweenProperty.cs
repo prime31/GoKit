@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public sealed class OffsetTweenProperty : AbstractTweenProperty
+public abstract class AbstractOffsetTweenProperty : AbstractTweenProperty
 {
 	private bool _useMax;
 	
@@ -13,7 +13,7 @@ public sealed class OffsetTweenProperty : AbstractTweenProperty
 	private Vector2 _endValue;
 	private Vector2 _diffValue;
 
-	public OffsetTweenProperty( Vector2 endValue, bool isRelative = false, bool useMax = false ) : base( isRelative )
+	public AbstractOffsetTweenProperty( Vector2 endValue, bool isRelative = false, bool useMax = false ) : base( isRelative )
 	{
 		_originalEndValue = endValue;
 		_useMax = useMax;

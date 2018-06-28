@@ -219,7 +219,7 @@ public class GoTweenConfig
 	/// </summary>
 	public GoTweenConfig offsetMax( Vector2 endValue, bool isRelative = false )
 	{
-		var prop = new OffsetTweenProperty( endValue, isRelative, true );
+		var prop = new OffsetMaxTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
 		
 		return this;
@@ -230,7 +230,7 @@ public class GoTweenConfig
 	/// </summary>
 	public GoTweenConfig offsetMin( Vector2 endValue, bool isRelative = false )
 	{
-		var prop = new OffsetTweenProperty( endValue, isRelative );
+		var prop = new OffsetMinTweenProperty( endValue, isRelative );
 		_tweenProperties.Add( prop );
 		
 		return this;
