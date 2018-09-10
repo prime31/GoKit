@@ -9,13 +9,13 @@ using System.Collections;
 /// </summary>
 public sealed class GoTweenFlow : AbstractGoTweenCollection
 {
-	public GoTweenFlow() : this( new GoTweenCollectionConfig() ) {}
+	public GoTweenFlow() : this( new GoTweenCollectionConfig() ) { }
 
-	public GoTweenFlow( GoTweenCollectionConfig config ) : base( config ) {}
+	public GoTweenFlow( GoTweenCollectionConfig config ) : base( config ) { }
 
 
 	#region internal Flow management
-	
+
 	/// <summary>
 	/// the item being added already has a start time so no extra parameter is needed
 	/// </summary>
@@ -24,23 +24,23 @@ public sealed class GoTweenFlow : AbstractGoTweenCollection
 		// early out for invalid items
 		if( item.tween != null && !item.tween.isValid() )
 			return;
-		
+
 		if( float.IsInfinity( item.duration ) )
 		{
 			Debug.LogError( "adding a Tween with infinite iterations to a TweenFlow is not permitted" );
 			return;
 		}
-		
+
 		if( item.tween != null )
 		{
-			if (item.tween.isReversed != isReversed)
+			if( item.tween.isReversed != isReversed )
 			{
 				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenFlow is not permitted." );
 				return;
 			}
 
 			// ensure the tween isnt already live
-			Go.removeTween(item.tween);
+			Go.removeTween( item.tween );
 
 			// ensure that the item is marked to play.
 			item.tween.play();
@@ -52,20 +52,20 @@ public sealed class GoTweenFlow : AbstractGoTweenCollection
 		{
 			return x.startTime.CompareTo( y.startTime );
 		} );
-		
+
 		duration = Mathf.Max( item.startTime + item.duration, duration );
 
-		if (iterations < 0)
+		if( iterations < 0 )
 			totalDuration = float.PositiveInfinity;
 		else
 			totalDuration = duration * iterations;
 	}
-	
+
 	#endregion
-	
-	
+
+
 	#region Flow management
-	
+
 	/// <summary>
 	/// inserts a Tween and sets it to start at the given startTime
 	/// </summary>
@@ -73,11 +73,11 @@ public sealed class GoTweenFlow : AbstractGoTweenCollection
 	{
 		var item = new TweenFlowItem( startTime, tween );
 		insert( item );
-		
+
 		return this;
 	}
-	
+
 	#endregion
-	
+
 
 }

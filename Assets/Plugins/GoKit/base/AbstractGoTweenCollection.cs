@@ -9,8 +9,8 @@ using System.Collections.Generic;
 public class AbstractGoTweenCollection : AbstractGoTween
 {
 	protected List<TweenFlowItem> _tweenFlows = new List<TweenFlowItem>();
-	
-	
+
+
 	/// <summary>
 	/// data class that wraps an AbstractTween and its start time for the timeline
 	/// </summary>
@@ -28,15 +28,15 @@ public class AbstractGoTweenCollection : AbstractGoTween
 			this.startTime = startTime;
 			this.duration = tween.totalDuration;
 		}
-		
-		
+
+
 		public TweenFlowItem( float startTime, float duration )
 		{
 			this.duration = duration;
 			this.startTime = startTime;
 		}
 	}
-	
+
 
 	public AbstractGoTweenCollection( GoTweenCollectionConfig config )
 	{
@@ -68,10 +68,10 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
 		Go.addTween( this );
 	}
-		
-	
+
+
 	#region AbstractTween overrides
-	
+
 	/// <summary>
 	/// returns a list of all Tweens with the given target in the collection
 	/// technically, this should be marked as internal
@@ -79,19 +79,19 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	public List<GoTween> tweensWithTarget( object target )
 	{
 		List<GoTween> list = new List<GoTween>();
-		
+
 		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
-			TweenFlowItem flowItem = _tweenFlows[k];
+			var flowItem = _tweenFlows[k];
 			// skip TweenFlowItems with no target
 			if( flowItem.tween == null )
 				continue;
-			
+
 			// check Tweens first
 			var tween = flowItem.tween as GoTween;
 			if( tween != null && tween.target == target )
 				list.Add( tween );
-			
+
 			// check for TweenCollections
 			if( tween == null )
 			{
@@ -104,28 +104,28 @@ public class AbstractGoTweenCollection : AbstractGoTween
 				}
 			}
 		}
-		
+
 		return list;
 	}
-	
-	
+
+
 	public override bool removeTweenProperty( AbstractTweenProperty property )
 	{
 		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
-			TweenFlowItem flowItem = _tweenFlows[k];
+			var flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
-			
+
 			if( flowItem.tween.removeTweenProperty( property ) )
 				return true;
 		}
-		
+
 		return false;
 	}
-	
-	
+
+
 	public override bool containsTweenProperty( AbstractTweenProperty property )
 	{
 		for( int k = 0; k < _tweenFlows.Count; ++k )
@@ -134,33 +134,33 @@ public class AbstractGoTweenCollection : AbstractGoTween
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
-			
+
 			if( flowItem.tween.containsTweenProperty( property ) )
 				return true;
 		}
-		
+
 		return false;
 	}
-	
-	
+
+
 	public override List<AbstractTweenProperty> allTweenProperties()
 	{
 		var propList = new List<AbstractTweenProperty>();
-		
+
 		for( int k = 0; k < _tweenFlows.Count; ++k )
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 			// skip delay items which have no tween
 			if( flowItem.tween == null )
 				continue;
-			
+
 			propList.AddRange( flowItem.tween.allTweenProperties() );
 		}
-		
+
 		return propList;
 	}
 
-	
+
 	/// <summary>
 	/// we are always considered valid because our constructor adds us to Go and we start paused
 	/// </summary>
@@ -198,19 +198,19 @@ public class AbstractGoTweenCollection : AbstractGoTween
 				flowItem.tween.pause();
 		}
 	}
-	
+
 	/// <summary>
 	/// tick method. if it returns true it indicates the tween is complete
 	/// </summary>
 	public override bool update( float deltaTime )
 	{
-		if ( !_didInit )
+		if( !_didInit )
 			onInit();
 
-		if ( !_didBegin )
+		if( !_didBegin )
 			onBegin();
 
-		if ( _fireIterationStart )
+		if( _fireIterationStart )
 			onIterationStart();
 
 		// update the timeline and state.
@@ -226,15 +226,15 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		// of the flowItem tweens to either the beginning or the end of their respective timelines
 		// we also want to do this in the _opposite_ way that we would normally iterate on them
 		// as the start value of a later flowItem may alter a property of an earlier flowItem.
-		if ( _didIterateLastFrame && loopType == GoLoopType.RestartFromBeginning )
+		if( _didIterateLastFrame && loopType == GoLoopType.RestartFromBeginning )
 		{
-			if ( isReversed || _isLoopingBackOnPingPong )
+			if( isReversed || _isLoopingBackOnPingPong )
 			{
-				for ( int i = 0; i < _tweenFlows.Count; ++i )
+				for( int i = 0; i < _tweenFlows.Count; ++i )
 				{
 					flowItem = _tweenFlows[i];
 
-					if ( flowItem.tween == null )
+					if( flowItem.tween == null )
 						continue;
 
 					var cacheAllow = flowItem.tween.allowEvents;
@@ -245,11 +245,11 @@ public class AbstractGoTweenCollection : AbstractGoTween
 			}
 			else
 			{
-				for ( int i = _tweenFlows.Count - 1; i >= 0; --i )
+				for( int i = _tweenFlows.Count - 1; i >= 0; --i )
 				{
 					flowItem = _tweenFlows[i];
 
-					if ( flowItem.tween == null )
+					if( flowItem.tween == null )
 						continue;
 
 					var cacheAllow = flowItem.tween.allowEvents;
@@ -261,28 +261,28 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		}
 		else
 		{
-			if ( ( isReversed && !_isLoopingBackOnPingPong ) || ( !isReversed && _isLoopingBackOnPingPong ) )
+			if( ( isReversed && !_isLoopingBackOnPingPong ) || ( !isReversed && _isLoopingBackOnPingPong ) )
 			{
 				// if we are moving the tween in reverse, we should be iterating over the flowItems in reverse
 				// to help properties behave a bit better.
-				for ( var i = _tweenFlows.Count - 1; i >= 0; --i )
+				for( var i = _tweenFlows.Count - 1; i >= 0; --i )
 				{
 					flowItem = _tweenFlows[i];
 
-					if ( flowItem.tween == null )
+					if( flowItem.tween == null )
 						continue;
 
 					// if there's been an iteration this frame and we're not done yet, we want to make sure
 					// this tween is set to play in the right direction, and isn't set to complete/paused.
-					if ( _didIterateLastFrame && state != GoTweenState.Complete )
+					if( _didIterateLastFrame && state != GoTweenState.Complete )
 					{
-						if ( !flowItem.tween.isReversed )
+						if( !flowItem.tween.isReversed )
 							flowItem.tween.reverse();
 
 						flowItem.tween.play();
 					}
 
-					if ( flowItem.tween.state == GoTweenState.Running && flowItem.endTime >= convertedElapsedTime )
+					if( flowItem.tween.state == GoTweenState.Running && flowItem.endTime >= convertedElapsedTime )
 					{
 						var convertedDeltaTime = Mathf.Abs( convertedElapsedTime - flowItem.startTime - flowItem.tween.totalElapsedTime );
 						flowItem.tween.update( convertedDeltaTime );
@@ -291,24 +291,24 @@ public class AbstractGoTweenCollection : AbstractGoTween
 			}
 			else
 			{
-				for ( int i = 0; i < _tweenFlows.Count; ++i )
+				for( int i = 0; i < _tweenFlows.Count; ++i )
 				{
 					flowItem = _tweenFlows[i];
 
-					if ( flowItem.tween == null )
+					if( flowItem.tween == null )
 						continue;
 
 					// if there's been an iteration this frame and we're not done yet, we want to make sure
 					// this tween is set to play in the right direction, and isn't set to complete/paused.
-					if ( _didIterateLastFrame && state != GoTweenState.Complete )
+					if( _didIterateLastFrame && state != GoTweenState.Complete )
 					{
-						if ( flowItem.tween.isReversed )
+						if( flowItem.tween.isReversed )
 							flowItem.tween.reverse();
 
 						flowItem.tween.play();
 					}
 
-					if ( flowItem.tween.state == GoTweenState.Running && flowItem.startTime <= convertedElapsedTime )
+					if( flowItem.tween.state == GoTweenState.Running && flowItem.startTime <= convertedElapsedTime )
 					{
 						var convertedDeltaTime = convertedElapsedTime - flowItem.startTime - flowItem.tween.totalElapsedTime;
 						flowItem.tween.update( convertedDeltaTime );
@@ -319,10 +319,10 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
 		onUpdate();
 
-		if ( _fireIterationEnd )
+		if( _fireIterationEnd )
 			onIterationEnd();
 
-		if ( state == GoTweenState.Complete )
+		if( state == GoTweenState.Complete )
 		{
 			onComplete();
 
@@ -345,24 +345,24 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		{
 			TweenFlowItem flowItem = _tweenFlows[k];
 
-			if ( flowItem.tween == null )
+			if( flowItem.tween == null )
 				continue;
 
-			if ( isReversed != flowItem.tween.isReversed )
+			if( isReversed != flowItem.tween.isReversed )
 				flowItem.tween.reverse();
 
 			flowItem.tween.pause();
 
 			// we selectively mark tweens for play if they will be played immediately or in the future.
 			// update() will filter out more tweens that should not be played yet.
-			if ( isReversed || _isLoopingBackOnPingPong )
+			if( isReversed || _isLoopingBackOnPingPong )
 			{
-				if ( flowItem.startTime <= convertedElapsedTime )
+				if( flowItem.startTime <= convertedElapsedTime )
 					flowItem.tween.play();
 			}
 			else
 			{
-				if ( flowItem.endTime >= convertedElapsedTime )
+				if( flowItem.endTime >= convertedElapsedTime )
 					flowItem.tween.play();
 			}
 		}
@@ -377,7 +377,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		time = Mathf.Clamp( time, 0f, totalDuration );
 
 		// provide an early out for calling goTo on the same time multiple times.
-		if ( time == _totalElapsedTime )
+		if( time == _totalElapsedTime )
 			return;
 
 		// we don't simply call base.goTo because that would force an update within AbstractGoTweenCollection,
@@ -390,7 +390,7 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		// we only allow the onIterationStart event callback to fire at the start of the timeline,
 		// as doing a goTo(x) where x % duration == 0 will trigger the onIterationEnd before we
 		// go to the start.
-		if ( ( isReversed && time == totalDuration ) || ( !isReversed && time == 0f ) )
+		if( ( isReversed && time == totalDuration ) || ( !isReversed && time == 0f ) )
 		{
 			_didBegin = false;
 			_fireIterationStart = true;
@@ -420,31 +420,31 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		// we always want to process items in the future of this tween from last to first.
 		// and items that have already occured from first to last.
 		TweenFlowItem flowItem = null;
-		if ( isReversed || _isLoopingBackOnPingPong )
+		if( isReversed || _isLoopingBackOnPingPong )
 		{
 			// flowItems in the future of the timeline
-			for ( int i = 0; i < _tweenFlows.Count; ++i )
+			for( int i = 0; i < _tweenFlows.Count; ++i )
 			{
 				flowItem = _tweenFlows[i];
 
-				if ( flowItem == null )
+				if( flowItem == null )
 					continue;
 
-				if ( flowItem.endTime >= convertedElapsedTime )
+				if( flowItem.endTime >= convertedElapsedTime )
 					break;
 
 				changeTimeForFlowItem( flowItem, convertedElapsedTime );
 			}
 
 			// flowItems in the past & current part of the timeline
-			for ( int i = _tweenFlows.Count - 1; i >= 0; --i )
+			for( int i = _tweenFlows.Count - 1; i >= 0; --i )
 			{
 				flowItem = _tweenFlows[i];
 
-				if ( flowItem == null )
+				if( flowItem == null )
 					continue;
 
-				if ( flowItem.endTime < convertedElapsedTime )
+				if( flowItem.endTime < convertedElapsedTime )
 					break;
 
 				changeTimeForFlowItem( flowItem, convertedElapsedTime );
@@ -453,28 +453,28 @@ public class AbstractGoTweenCollection : AbstractGoTween
 		else
 		{
 			// flowItems in the future of the timeline
-			for ( int i = _tweenFlows.Count - 1; i >= 0; --i )
+			for( int i = _tweenFlows.Count - 1; i >= 0; --i )
 			{
 				flowItem = _tweenFlows[i];
 
-				if ( flowItem == null )
+				if( flowItem == null )
 					continue;
 
-				if ( flowItem.startTime <= convertedElapsedTime )
+				if( flowItem.startTime <= convertedElapsedTime )
 					break;
 
 				changeTimeForFlowItem( flowItem, convertedElapsedTime );
 			}
 
 			// flowItems in the past & current part of the timeline
-			for ( int i = 0; i < _tweenFlows.Count; ++i )
+			for( int i = 0; i < _tweenFlows.Count; ++i )
 			{
 				flowItem = _tweenFlows[i];
 
-				if ( flowItem == null )
+				if( flowItem == null )
 					continue;
 
-				if ( flowItem.startTime > convertedElapsedTime )
+				if( flowItem.startTime > convertedElapsedTime )
 					break;
 
 				changeTimeForFlowItem( flowItem, convertedElapsedTime );
@@ -484,15 +484,15 @@ public class AbstractGoTweenCollection : AbstractGoTween
 
 	private void changeTimeForFlowItem( TweenFlowItem flowItem, float time )
 	{
-		if ( flowItem == null || flowItem.tween == null )
+		if( flowItem == null || flowItem.tween == null )
 			return;
 
-		if ( flowItem.tween.isReversed != ( isReversed || _isLoopingBackOnPingPong ) )
+		if( flowItem.tween.isReversed != ( isReversed || _isLoopingBackOnPingPong ) )
 			flowItem.tween.reverse();
 
 		var convertedTime = Mathf.Clamp( time - flowItem.startTime, 0f, flowItem.endTime );
 
-		if ( flowItem.startTime <= time && flowItem.endTime >= time )
+		if( flowItem.startTime <= time && flowItem.endTime >= time )
 		{
 			flowItem.tween.goToAndPlay( convertedTime );
 		}
@@ -504,5 +504,5 @@ public class AbstractGoTweenCollection : AbstractGoTween
 	}
 
 	#endregion
-	
+
 }
