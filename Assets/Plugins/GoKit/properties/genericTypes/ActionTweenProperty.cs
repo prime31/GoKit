@@ -14,11 +14,11 @@ public class ActionTweenProperty : AbstractTweenProperty
 	float _endValue;
 
 
-	public ActionTweenProperty( System.Action<float> action, float startValue = 0, float endValue = 1 )
+	public ActionTweenProperty( float startValue, float endValue, System.Action<float> action )
 	{
-		_action = action;
 		_startValue = startValue;
 		_endValue = endValue;
+		_action = action;
 	}
 
 
@@ -28,7 +28,8 @@ public class ActionTweenProperty : AbstractTweenProperty
 
 	public override void tick( float totalElapsedTime )
 	{
-		var easedValue = _easeFunction( totalElapsedTime, _startValue, _endValue, _ownerTween.duration );
+		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
+		var easedValue = Mathf.Lerp( _startValue, _endValue, easedTime );
 		_action( easedValue );
 	}
 }
