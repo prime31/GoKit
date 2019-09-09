@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611075db7fcf51b4aae863a25c625d8c, type: 3}
+  m_Name: demoRoute
+  m_EditorClassIdentifier: 
+  Nodes:
+  - {x: 0, y: 0, z: 0}
+  - {x: 17.960938, y: 5.196289, z: 81.65039}
+  - {x: 21.238115, y: -0.4303379, z: 13.544083}
+  - {x: -9.650879, y: -2.8705444, z: 34.13965}
+  - {x: -17.042969, y: -2.4255981, z: 4.4904785}
