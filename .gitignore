@@ -8,7 +8,7 @@ Products
 Xcode/
 Temp/*
 Library
-
+Logs/
 
 Assembly-CSharp-*
 *.suo
@@ -18,3 +18,4 @@ Assembly-CSharp.csproj
 *.pidb
 .vscode
 obj
+*.vs
